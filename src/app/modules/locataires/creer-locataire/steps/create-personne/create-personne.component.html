@@ -1,0 +1,53 @@
+<ng-container *ngIf="typePersonne === 'personal'">
+  <form [formGroup]="personnePhysiqueForm">
+    <div class="row g-3">
+      <div class="col">
+        <label for="civilite" class="form-label">Civilité</label>
+        <select id="civilite" formControlName="civilite" class="form-control">
+          <option *ngFor="let civilite of civilites" [value]="civilite.id">{{ civilite.libelle }}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="genre" class="form-label">Genres</label>
+        <select id="genre" formControlName="genre" class="form-control">
+          <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.libelle }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col">
+        <label for="nom" class="form-label">Nom</label>
+        <input id="nom" type="text" formControlName="nom" class="form-control" placeholder="Nom" aria-label="Nom">
+      </div>
+      <div class="col">
+        <label for="prenoms">Prénoms</label>
+        <input id="prenoms" type="text" formControlName="prenoms" class="form-control" placeholder="Prénoms" aria-label="Prénoms">
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col" >
+        <label for="nomJeuneFille" class="form-label">Nom de Jeune Fille</label>
+        <input id="nomJeuneFille" type="text" formControlName="nomJeuneFille" class="form-control" placeholder="" aria-label="">
+      </div>
+      <div class="col">
+        <label for="situation_matrimoniale" class="form-label">Situation Matrimoniale</label>
+        <select id="situation_matrimoniale" formControlName="situationMatrimoniale" class="form-control">
+          <option *ngFor="let situationMatrimoniale of situationMatrimoniales" [value]="situationMatrimoniale.id">{{ situationMatrimoniale.libelle }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col">
+        <label for="dateNaissance" class="form-label">Date de Naissance</label>
+        <input id="dateNaissance" type="date" formControlName="dateNaissance" class="form-control" placeholder="" aria-label="">
+      </div>
+      <div class="col">
+        <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
+        <input id="lieu_naissance" type="text" formControlName="lieuNaissance" class="form-control" placeholder="Prénoms" aria-label="Prénoms">
+      </div>
+    </div>
+  </form>
+</ng-container>
+<ng-container *ngIf="typePersonne === 'corporate'">
+  <p>Personne morale</p>
+</ng-container>

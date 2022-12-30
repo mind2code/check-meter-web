@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/sass/style.scss";
+// Replace above style with this css file to enable RTL styles
+@import './assets/sass/plugins.scss';
+// @import "./assets/css/style.rtl.css";
+@import "./assets/sass/style.angular.scss";
+
+// regular style toast
+@import 'ngx-toastr/toastr';
+
+// boostrap 5
+//@import 'ngx-toastr/toastr-bs5-alert';
+
