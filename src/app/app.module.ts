@@ -13,6 +13,7 @@ import { AuthService } from './modules/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {ToastrModule} from "ngx-toastr";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -54,6 +55,8 @@ function appInitializer(authService: AuthService) {
     AppRoutingModule,
     InlineSVGModule.forRoot(),
     ToastrModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
   ],
   providers: [

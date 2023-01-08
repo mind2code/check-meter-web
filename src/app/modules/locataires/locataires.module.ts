@@ -6,7 +6,7 @@ import { LocatairesComponent } from './locataires.component';
 import {InlineSVGModule} from "ng-inline-svg-2";
 import { ContratsComponent } from './contrats/contrats.component';
 import {NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Step5Component} from "./contrats/steps/step5/step5.component";
 import {Step4Component} from "./contrats/steps/step4/step4.component";
 import {Step3Component} from "./contrats/steps/step3/step3.component";
@@ -21,6 +21,9 @@ import {LocataireStepComponent} from "./creer-locataire/steps/step1/locataire-st
 import { LocataireRecapComponent } from './creer-locataire/steps/locataire-recap/locataire-recap.component';
 import { OverviewsComponent } from './locataire-details/overviews/overviews.component';
 import { AvisEcheanceComponent } from './locataire-details/avis-echeance/avis-echeance.component';
+import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
+import { AvisEncaisserComponent } from './locataire-details/avis-echeance/avis-encaisser/avis-encaisser.component';
+import {BrowserModule} from "@angular/platform-browser";
 
 
 @NgModule({
@@ -41,17 +44,23 @@ import { AvisEcheanceComponent } from './locataire-details/avis-echeance/avis-ec
         LocataireRecapComponent,
         OverviewsComponent,
         AvisEcheanceComponent,
+        AvisEncaisserComponent,
     ],
   exports: [
     PersonneMoraleComponent,
     PersonnePhysiqueComponent
   ],
     imports: [
-        CommonModule,
-        LocatairesRoutingModule,
-        InlineSVGModule,
-        ReactiveFormsModule,
-        NgbTooltipModule,
-    ]
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
+      LocatairesRoutingModule,
+      InlineSVGModule,
+      NgbTooltipModule,
+        //ModalModule.forRoot()
+    ],
+  providers: [
+    BsModalService
+  ]
 })
 export class LocatairesModule { }

@@ -5607,10 +5607,10 @@ ng-inline-svg-2@14.0.2:
   resolved "https://registry.npmjs.org/ng-inline-svg-2/-/ng-inline-svg-2-14.0.2.tgz"
   integrity sha512-WOWNDt15K2h0txm8Mcqx/k0AlKyTcqoiPmKNETIe01IDdg/kv6VsWSWy8sU1iWOY9b1JxbH0xwQBiAOxWHKdSA==
 
-ngx-bootstrap@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.npmjs.org/ngx-bootstrap/-/ngx-bootstrap-10.2.0.tgz"
-  integrity sha512-bn5wdvH6QQ2JGu4TgUbozdULBFMxZNPNTgO7dRiosx9FRrFvKcgxkGSgU/xoj+4kP1vgh8zwzaiDfvH/Bfb+Aw==
+ngx-bootstrap@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-9.0.0.tgz#8524958cdd479aefcc9549788694fe08789f2f52"
+  integrity sha512-wVwKs1jIASzJrKSPUhOcHY8f39MKyG31SruJdVQ3S/v/PdBVmVuFUJL86Awc8F60di2xD9C4DzzGObkvsHbirw==
   dependencies:
     tslib "^2.3.0"
 
