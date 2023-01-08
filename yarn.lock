@@ -1508,12 +1508,12 @@
 
 "@ngrx/schematics@^12.5.1":
   version "12.5.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-12.5.1.tgz#4e7a883b5ba35d4de36d2272a5a35e2e9b981650"
+  resolved "https://registry.npmjs.org/@ngrx/schematics/-/schematics-12.5.1.tgz"
   integrity sha512-kXCMOAQrPU09ZrAtUtX4U6IE2B1jgx4qc1OjQUuJzmO2j2/wFfc8ec9IR8OpAEX4utE8/CFRWWAdI/VEkzBtYQ==
 
 "@ngrx/store-devtools@^12.5.1":
   version "12.5.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-12.5.1.tgz#75f8ef9a4bf4a40d5343ff437651f0f3092914b5"
+  resolved "https://registry.npmjs.org/@ngrx/store-devtools/-/store-devtools-12.5.1.tgz"
   integrity sha512-SXMxVO3KzQUfB9G20gdNT5t/RcbtbaUySXLuH+b69z/eb34wH9AOYifdSdcEi8oqPjDrWYBq6a8Uh+yDHf9IfA==
   dependencies:
     tslib "^2.0.0"
@@ -2860,9 +2860,9 @@ camelcase@^5.3.1:
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
 caniuse-lite@^1.0.30001332:
-  version "1.0.30001439"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001439.tgz#ab7371faeb4adff4b74dad1718a6fd122e45d9cb"
-  integrity sha512-1MgUzEkoMO6gKfXflStpYgZDlFM7M/ck/bgfVCACO5vnAf0fXoNVHdWtqGU+MYca+4bL9Z5bpOVmR33cWW9G2A==
+  version "1.0.30001442"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001442.tgz#40337f1cf3be7c637b061e2f78582dc1daec0614"
+  integrity sha512-239m03Pqy0hwxYPYR5JwOIxRJfLTWtle9FV8zosfV5pHg+/51uD4nxcUlM8+mWWGfwKtt8lJNHnD3cWw9VZ6ow==
 
 caniuse-lite@^1.0.30001400:
   version "1.0.30001434"
@@ -5607,6 +5607,13 @@ ng-inline-svg-2@14.0.2:
   resolved "https://registry.npmjs.org/ng-inline-svg-2/-/ng-inline-svg-2-14.0.2.tgz"
   integrity sha512-WOWNDt15K2h0txm8Mcqx/k0AlKyTcqoiPmKNETIe01IDdg/kv6VsWSWy8sU1iWOY9b1JxbH0xwQBiAOxWHKdSA==
 
+ngx-bootstrap@^10.2.0:
+  version "10.2.0"
+  resolved "https://registry.npmjs.org/ngx-bootstrap/-/ngx-bootstrap-10.2.0.tgz"
+  integrity sha512-bn5wdvH6QQ2JGu4TgUbozdULBFMxZNPNTgO7dRiosx9FRrFvKcgxkGSgU/xoj+4kP1vgh8zwzaiDfvH/Bfb+Aw==
+  dependencies:
+    tslib "^2.3.0"
+
 ngx-clipboard@15.1.0:
   version "15.1.0"
   resolved "https://registry.npmjs.org/ngx-clipboard/-/ngx-clipboard-15.1.0.tgz"
@@ -5617,7 +5624,7 @@ ngx-clipboard@15.1.0:
 
 ngx-pagination@^6.0.3:
   version "6.0.3"
-  resolved "https://registry.yarnpkg.com/ngx-pagination/-/ngx-pagination-6.0.3.tgz#083f77a5c9c3ebf5800fb57a280da71aacc10a18"
+  resolved "https://registry.npmjs.org/ngx-pagination/-/ngx-pagination-6.0.3.tgz"
   integrity sha512-lONjTQ7hFPh1SyhwDrRd5ZwM4NMGQ7bNR6vLrs6mrU0Z8Q1zCcWbf/pvyp4DOlGyd9uyZxRy2wUsSZLeIPjbAw==
   dependencies:
     tslib "^2.3.0"
@@ -5655,9 +5662,9 @@ node-forge@^1:
   integrity sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==
 
 node-gyp-build@^4.2.2:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.5.0.tgz#7a64eefa0b21112f89f58379da128ac177f20e40"
-  integrity sha512-2iGbaQBV+ITgCz76ZEjmhUKAKVf7xfY1sRl4UiKQspfZMH2h06SyhNsnSVy50cwkFQDGLyif6m/6uFXHkOZ6rg==
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.6.0.tgz#0c52e4cbf54bbd28b709820ef7b6a3c2d6209055"
+  integrity sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==
 
 node-gyp-build@^4.3.0:
   version "4.4.0"

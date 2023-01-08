@@ -1,0 +1,89 @@
+<div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+  <div class="card-header cursor-pointer">
+    <div class="card-title m-0">
+      <h3 class="fw-bolder m-0">Contrats de bail</h3>
+    </div>
+
+    <a
+      routerLink="/crafted/account/settings"
+      class="btn btn-primary align-self-center"
+    >
+      Nouveau contrat
+    </a>
+  </div>
+
+  <div class="card-body p-9">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>NUMERO CONTRAT</th>
+          <th>HABITAT</th>
+          <th>LOYER</th>
+          <th>DATE</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>CONTR202223325s</td>
+          <td>Magasin</td>
+          <td>20000</td>
+          <td>20.10.2020</td>
+          <td><a class="btn btn-sm btn-primary">Détails</a> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div
+      class="
+        notice
+        d-flex
+        bg-light-warning
+        rounded
+        border-warning border border-dashed
+        p-6
+      "
+    >
+      <span
+        [inlineSVG]="'./assets/media/icons/duotune/general/gen044.svg'"
+        class="svg-icon svg-icon-2tx svg-icon-warning me-4"
+      ></span>
+      <div class="d-flex flex-stack flex-grow-1">
+        <div class="fw-bold">
+          <h4 class="text-gray-800 fw-bolder">We need your attention!</h4>
+          <div class="fs-6 text-gray-600">
+            Your payment was declined. To start using tools, please
+            <a class="fw-bolder" routerLink="/crafted/account/settings">
+              {{ " " }}
+              Add Payment Method
+            </a>
+            .
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row gy-10 gx-xl-10">
+  <div class="col-xl-6">
+
+  </div>
+
+  <div class="col-xl-6">
+
+  </div>
+</div>
+
+<div class="row gy-10 gx-xl-10">
+  <div class="col-xl-6">
+
+  </div>
+
+  <div class="col-xl-6">
+
+  </div>
+</div>

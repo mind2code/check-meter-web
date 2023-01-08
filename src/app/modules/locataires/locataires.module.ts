@@ -19,6 +19,8 @@ import { PersonneMoraleComponent } from './creer-locataire/steps/personne-morale
 import { CreatePersonneComponent } from './creer-locataire/steps/create-personne/create-personne.component';
 import {LocataireStepComponent} from "./creer-locataire/steps/step1/locataire-step.component";
 import { LocataireRecapComponent } from './creer-locataire/steps/locataire-recap/locataire-recap.component';
+import { OverviewsComponent } from './locataire-details/overviews/overviews.component';
+import { AvisEcheanceComponent } from './locataire-details/avis-echeance/avis-echeance.component';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { LocataireRecapComponent } from './creer-locataire/steps/locataire-recap
         PersonneMoraleComponent,
         CreatePersonneComponent,
         LocataireRecapComponent,
+        OverviewsComponent,
+        AvisEcheanceComponent,
     ],
   exports: [
     PersonneMoraleComponent,
