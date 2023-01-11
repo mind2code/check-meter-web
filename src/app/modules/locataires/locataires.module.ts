@@ -24,7 +24,7 @@ import { AvisEcheanceComponent } from './locataire-details/avis-echeance/avis-ec
 import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
 import { AvisEncaisserComponent } from './locataire-details/avis-echeance/avis-encaisser/avis-encaisser.component';
 import {BrowserModule} from "@angular/platform-browser";
-
+import { StatutPipe } from '../parametrage/statuts/pipes/statut.pipe';
 
 @NgModule({
     declarations: [
@@ -45,6 +45,7 @@ import {BrowserModule} from "@angular/platform-browser";
         OverviewsComponent,
         AvisEcheanceComponent,
         AvisEncaisserComponent,
+        StatutPipe,
     ],
   exports: [
     PersonneMoraleComponent,

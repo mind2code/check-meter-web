@@ -16,29 +16,40 @@
 
     <table class="table table-striped">
       <thead>
-      <tr>
-        <th>ID</th>
+      <tr class="fw-bolder text-muted bg-light">
+        <th>#</th>
         <th>NUMERO AVIS</th>
         <th>DATE EMISSION</th>
         <th>HABITATION</th>
         <th>LOYER</th>
         <th>LOYER RESTANT</th>
         <th>STATUT</th>
-        <th></th>
+        <th class="text-end rounded-end"></th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>1</td>
-        <td>CONTR202223325s</td>
-        <td>20.10.2020</td>
-        <td>Hangar</td>
-        <td>20000</td>
-        <td>20000</td>
-        <td>Encaissement partiel</td>
-        <td>
-          <a class="btn btn-sm btn-primary" (click)="encaisser()">Encaisser</a> &nbsp;
-          <a class="btn btn-sm btn-primary">Editer</a>
+        <tr *ngFor="let avisEcheance of avisEcheances$; let i=index; trackBy: trackByAvisEcheances">
+        <td>{{ i+1 }}</td>
+        <td>{{ avisEcheance.identifiant }}</td>
+        <td>{{ avisEcheance.dateEmission|date }}</td>
+        <td>{{ avisEcheance.locataire.personne.nomComplet }}</td>
+        <td>{{ avisEcheance.loyer|currency }}</td>
+        <td>{{ avisEcheance.loyerRestant|currency }}</td>
+        <td [innerHTML]="avisEcheance.statut|statut"></td>
+        <td class="text-end">
+          <button
+            type="button"
+            class="btn btn-bg-light btn-color-success btn-active-color-warning btn-sm px-2 py-1 me-2"
+            title="Encaisser"
+            (click)="encaisser()">
+            <i class="bi bi-cash" style="font-size: 2em;"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-2 py-1"
+            title="Imprimer">
+            <i class="bi bi-printer" style="font-size: 2em;"></i>
+          </button>
         </td>
       </tr>
       </tbody>
