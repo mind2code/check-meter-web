@@ -8,14 +8,14 @@
     <form class="form" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
         <div class="form-group mb-3">
           <label for="montant" class="form-label">Montant encaissé</label>
-          <input id="montant" type="text" class="form-control" formControlName="montant">
+          <input id="montant" type="number" class="form-control" formControlName="montant">
         </div>
         <div class="form-group mb-3">
           <label for="observation" class="form-label">Observation</label>
           <textarea id="observation" rows="3" class="form-control" formControlName="observation"></textarea>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-sm btn-secondary me-md-2" data-dismiss="modal" (click)="onClose()">Annuler</button>
+          <button class="btn btn-sm btn-secondary me-md-2" data-dismiss="modal" type="button" (click)="onClose()">Annuler</button>
           <button [disabled]="!paymentForm.valid" type="submit" class="btn btn-sm btn-primary">Encaisser</button>
         </div>
     </form>

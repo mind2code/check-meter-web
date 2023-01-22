@@ -9,7 +9,7 @@ export class Locataire implements Deserializable{
   envoiEmail: string;
   solde: number;
   typePersonne: string;
-  personne: Personne;
+  personne?: Personne;
 
   deserialize(input: any): this {
     Object.assign(this, input);

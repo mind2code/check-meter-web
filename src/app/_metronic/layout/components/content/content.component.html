@@ -1,6 +1,6 @@
 <ng-container *ngIf="appContentContiner">
-  <!--begin::Content container-->
-  <div id="kt_app_content_container" class="app-container d-flex align-items-stretch justify-content-between"
+  <!--begin::Content container class:"d-flex align-items-stretch justify-content-between" -->
+  <div id="kt_app_content_container" class="app-container"
     [ngClass]="appContentContainerClass + ' ' + contentContainerCSSClass"
     [ngClass]="{'container-xxl': appContentContiner === 'fixed', 'container-fluid': appContentContiner === 'fluid'}">
     <router-outlet></router-outlet>

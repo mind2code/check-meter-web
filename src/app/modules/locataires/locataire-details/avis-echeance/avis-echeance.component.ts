@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {AvisEncaisserComponent} from "./avis-encaisser/avis-encaisser.component";
 import { AvisEcheance } from '../../models/avis-echeance.model';
-import { AvisEcheanceService } from './services/avis-echeance.service';
+import { AvisEcheanceService } from '../../services/avis-echeance.service';
+import { Store } from '@ngrx/store';
+import { AvisEcheancesActions } from 'src/app/store/avis-echeances/avis-echeances.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-avis-echeance',
@@ -22,7 +25,13 @@ export class AvisEcheanceComponent implements OnInit {
   pageSizes = [3, 6, 9];
 
   bsModalRef: BsModalRef;
-  constructor(private bsModalService: BsModalService, private service: AvisEcheanceService) { }
+  test$: Observable<AvisEcheance|undefined>;
+  constructor(
+    private bsModalService: BsModalService,
+    private service: AvisEcheanceService,
+    private store: Store
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadAll()
@@ -63,7 +72,6 @@ export class AvisEcheanceComponent implements OnInit {
 
     this.service.getAll(params).subscribe({
       next: (response) => {
-        console.log('[avis-echeance][getAll][success][response]', response);
         if (response) {
           const { data, recordsTotal } = response;
           this.avisEcheances$ = data;
@@ -76,13 +84,15 @@ export class AvisEcheanceComponent implements OnInit {
     });
   }
 
-  encaisser() {
-      this.bsModalRef = this.bsModalService.show(AvisEncaisserComponent);
-      this.bsModalRef.content.event.subscribe((res: string) => {
-        if(res === 'OK') {
-          console.log('Encaissement effectué')
-        }
-      })
+  encaisser(id: string) {
+    const selected = this.avisEcheances$.find((a) => a.id === id);
+    // TODO: Store
+    this.store.dispatch(AvisEcheancesActions.setSelected({ selected }));
+    this.bsModalRef = this.bsModalService.show(AvisEncaisserComponent);
+    this.bsModalRef.content.event.subscribe((res: string) => {
+      if(res === 'OK') {
+      }
+    });
   }
 
 }

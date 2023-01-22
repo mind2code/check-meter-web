@@ -1,25 +1,17 @@
 import {Deserializable} from "../../../shared/models/deserializable.model";
-import { Locataire } from './locataire.model';
-import { Statut } from '../../parametrage/statuts/models/statut.model';
+import { AvisEcheance } from './avis-echeance.model';
 
-export class AvisEcheance implements Deserializable{
+export class QuittanceLoyer implements Deserializable{
   id: string;
   identifiant: string;
   avisEcheance: AvisEcheance;
-  loyer: number;
-  loyerRestant: number;
-  chargeMensuelleContractuelles: number;
-  periodeConcernee: string;
-  sommeDue: number;
-  dateExigibilite: Date;
+  dateReglement: Date;
+  montantRegle: number;
   observation: string;
-  statut: Statut;
-  locataire: Locataire;
 
   deserialize(input: any): this {
     Object.assign(this, input);
-    this.avisEcheance = new AvisEcheance().deserialize(input.statut);
-    this.locataire = new Locataire().deserialize(input.locataire);
+    this.avisEcheance = new AvisEcheance().deserialize(input.avisEcheance);
     return this;
   }
 }

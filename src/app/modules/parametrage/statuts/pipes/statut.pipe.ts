@@ -8,9 +8,9 @@ export class StatutPipe implements PipeTransform {
   transform(value: Statut, ...args: any[]) {
     switch (String(value.identifiant).toUpperCase()) {
       case 'EAT':
-        return `<span class="badge badge-light-primary">${value.libelle}</span>`;
+        return `<span class="badge fw-bolder badge-light-primary">${value.libelle}</span>`;
       default:
-        return `<span class="badge badge-light-info">${value.libelle}</span>`;
+        return `<span class="badge fw-bolder badge-light-info">${value.libelle}</span>`;
     }
   }
 

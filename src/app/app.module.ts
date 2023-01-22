@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {ToastrModule} from "ngx-toastr";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { StoreModule } from '@ngrx/store';
+import { avisEcheancesReducer } from './store/avis-echeances/avis-echeances.reducer';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -60,6 +62,7 @@ function appInitializer(authService: AuthService) {
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    StoreModule.forRoot({ avisEcheances: avisEcheancesReducer })
   ],
   providers: [
     {
