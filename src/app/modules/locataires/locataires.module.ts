@@ -25,6 +25,8 @@ import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
 import { AvisEncaisserComponent } from './locataire-details/avis-echeance/avis-encaisser/avis-encaisser.component';
 import {BrowserModule} from "@angular/platform-browser";
 import { StatutPipe } from '../parametrage/statuts/pipes/statut.pipe';
+import { StoreModule } from '@ngrx/store';
+import { avisEcheancesFeature } from './store/reducers/avis-echeances.reducer';
 
 @NgModule({
     declarations: [
@@ -58,6 +60,7 @@ import { StatutPipe } from '../parametrage/statuts/pipes/statut.pipe';
       LocatairesRoutingModule,
       InlineSVGModule,
       NgbTooltipModule,
+      StoreModule.forFeature(avisEcheancesFeature)
         //ModalModule.forRoot()
     ],
   providers: [

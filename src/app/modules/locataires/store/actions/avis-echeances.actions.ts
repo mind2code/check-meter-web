@@ -1,5 +1,5 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { AvisEcheance } from '../../modules/locataires/models/avis-echeance.model';
+import { createActionGroup, props } from '@ngrx/store';
+import { AvisEcheance } from '../../models/avis-echeance.model';
 
 export const AvisEcheancesActions = createActionGroup({
   source: 'AvisEcheances',
