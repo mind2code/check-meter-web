@@ -13,55 +13,48 @@
   </div>
 
   <div class="card-body p-9">
-
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>NUMERO AVIS</th>
-        <th>DATE EMISSION</th>
-        <th>HABITATION</th>
-        <th>LOYER</th>
-        <th>LOYER RESTANT</th>
-        <th>STATUT</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>1</td>
-        <td>CONTR202223325s</td>
-        <td>20.10.2020</td>
-        <td>Hangar</td>
-        <td>20000</td>
-        <td>20000</td>
-        <td>Encaissement partiel</td>
-        <td>
-          <a class="btn btn-sm btn-primary" (click)="encaisser()">Encaisser</a> &nbsp;
-          <a class="btn btn-sm btn-primary">Editer</a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr class="fw-bolder text-muted bg-light">
+          <th>#</th>
+          <th>NUMERO AVIS</th>
+          <th>DATE EMISSION</th>
+          <th>HABITATION</th>
+          <th>LOYER</th>
+          <th>LOYER RESTANT</th>
+          <th>STATUT</th>
+          <th class="text-end rounded-end"></th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr *ngFor="let avisEcheance of avisEcheances$; let i=index; trackBy: trackByAvisEcheances">
+          <td>{{ i+1 }}</td>
+          <td>{{ avisEcheance.identifiant }}</td>
+          <td>{{ avisEcheance.dateEmission|date }}</td>
+          <td>{{ avisEcheance.contrat?.habitation?.description || '' }}</td>
+          <td>{{ avisEcheance.loyer|currency }}</td>
+          <td>{{ avisEcheance.loyerRestant|currency }}</td>
+          <td [innerHTML]="avisEcheance.statut|statut"></td>
+          <td class="text-end">
+            <button
+              type="button"
+              class="btn btn-bg-light btn-color-success btn-active-color-warning btn-sm px-2 py-1 me-1"
+              title="Encaisser"
+              (click)="encaisser(avisEcheance.id)">
+              <i class="bi bi-cash" style="font-size: 1.7em;"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-2 py-1"
+              title="Imprimer">
+              <i class="bi bi-printer" style="font-size: 1.7em;"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
-<div class="row gy-10 gx-xl-10">
-  <div class="col-xl-6">
-
-  </div>
-
-  <div class="col-xl-6">
-
-  </div>
-</div>
-
-<div class="row gy-10 gx-xl-10">
-  <div class="col-xl-6">
-
-  </div>
-
-  <div class="col-xl-6">
-
-  </div>
-</div>

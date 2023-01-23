@@ -17,7 +17,6 @@ import {LocatairesModule} from "../../locataires/locataires.module";
     CivilitesRoutingModule,
     NgxPaginationModule,
     InlineSVGModule,
-    LocatairesModule
   ]
 })
 export class CivilitesModule { }

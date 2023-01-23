@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, DEFAULT_CURRENCY_CODE, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {ToastrModule} from "ngx-toastr";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { StoreModule } from '@ngrx/store';
+import { avisEcheancesReducer } from './store/avis-echeances/avis-echeances.reducer';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -43,12 +45,14 @@ function appInitializer(authService: AuthService) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      defaultLanguage: 'fr'
+    }),
     HttpClientModule,
     ClipboardModule,
     KeycloakAngularModule,
@@ -58,6 +62,7 @@ function appInitializer(authService: AuthService) {
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
+    StoreModule.forRoot({ avisEcheances: avisEcheancesReducer })
   ],
   providers: [
     {
@@ -66,6 +71,8 @@ function appInitializer(authService: AuthService) {
       multi: true,
       deps: [KeycloakService],
     },
+    {provide: LOCALE_ID, useValue: 'fr' },
+    {provide: DEFAULT_CURRENCY_CODE, useValue: 'XOF'}
   ],
   bootstrap: [AppComponent],
 })
