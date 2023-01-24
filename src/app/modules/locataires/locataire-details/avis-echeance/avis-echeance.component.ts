@@ -4,8 +4,8 @@ import {AvisEncaisserComponent} from "./avis-encaisser/avis-encaisser.component"
 import { AvisEcheance } from '../../models/avis-echeance.model';
 import { AvisEcheanceService } from '../../services/avis-echeance.service';
 import { Store } from '@ngrx/store';
-import { AvisEcheancesActions } from 'src/app/store/avis-echeances/avis-echeances.actions';
 import { Observable } from 'rxjs';
+import { AvisEcheancesActions } from '../../store/actions/avis-echeances.actions';
 
 @Component({
   selector: 'app-avis-echeance',
@@ -86,7 +86,6 @@ export class AvisEcheanceComponent implements OnInit {
 
   encaisser(id: string) {
     const selected = this.avisEcheances$.find((a) => a.id === id);
-    // TODO: Store
     this.store.dispatch(AvisEcheancesActions.setSelected({ selected }));
     this.bsModalRef = this.bsModalService.show(AvisEncaisserComponent);
     this.bsModalRef.content.event.subscribe((res: string) => {

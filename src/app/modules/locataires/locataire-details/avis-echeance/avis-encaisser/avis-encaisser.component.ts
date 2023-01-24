@@ -4,8 +4,7 @@ import {BsModalRef} from "ngx-bootstrap/modal";
 import { QuittanceLoyerService } from '../../../services/quittance-loyer.service';
 import { Store } from '@ngrx/store';
 import { AvisEcheance } from '../../../models/avis-echeance.model';
-import { Observable, lastValueFrom, take } from 'rxjs';
-import { selectedAvisEcheance } from 'src/app/store/avis-echeances/avis-echeances.selectors';
+import { avisEcheancesFeature } from '../../../store/reducers/avis-echeances.reducer';
 
 @Component({
   selector: 'app-avis-encaisser',
@@ -16,18 +15,14 @@ export class AvisEncaisserComponent implements OnInit {
 
   event: EventEmitter<any> = new EventEmitter();
   paymentForm: FormGroup;
-  avisEcheance$: Observable<AvisEcheance|undefined>;
-  test$: Observable<AvisEcheance|undefined>;
+  avisEcheance: AvisEcheance | undefined;
   constructor(
     private fb: FormBuilder,
     private bsModalRef: BsModalRef,
     private quittanceLoyerService: QuittanceLoyerService,
-    private store: Store,
+    private readonly store: Store,
   ) {
-    // TODO: Store
-    console.log('*****', this.avisEcheance$, this.store);
-    this.avisEcheance$ = this.store.select(selectedAvisEcheance);
-    console.log('*****', this.avisEcheance$);
+    this.store.select(avisEcheancesFeature.selectSelected).subscribe((selected) => this.avisEcheance = selected)
   }
 
   ngOnInit(): void {
@@ -42,6 +37,7 @@ export class AvisEncaisserComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('**** avisEcheance', this.avisEcheance);
     if(this.paymentForm.valid) {
       this.quittanceLoyerService.create(this.f).subscribe({
         next: (value) => {
