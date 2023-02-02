@@ -2,13 +2,13 @@
   <div class="card-body pt-9 pb-0">
     <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
       <div class="me-7 mb-4">
-        <div
+        <!--<div
           class="
             symbol symbol-100px symbol-lg-160px symbol-fixed
             position-relative
           "
         >
-          <img src="./assets/media/avatars/300-1.jpg" alt="Metronic" />
+           <img src="./assets/media/avatars/300-1.jpg" alt="Metronic" />
           <div
             class="
               position-absolute
@@ -23,7 +23,7 @@
               w-20px
             "
           ></div>
-        </div>
+        </div> -->
       </div>
 
       <div class="flex-grow-1">
@@ -36,9 +36,9 @@
             mb-2
           "
         >
-          <div class="d-flex flex-column">
+          <div *ngIf="locataire" class="d-flex flex-column">
             <div class="d-flex align-items-center mb-2">
-              <a
+              <a (click)="openModal(template)"
                 class="
                   text-gray-800 text-hover-primary
                   fs-2
@@ -47,7 +47,7 @@
                   cursor-pointer
                 "
               >
-                ETIEN Ghislain Romuald
+                {{ locataire.nomComplet }}
               </a>
               <a class="cursor-pointer">
                 <span
@@ -70,7 +70,7 @@
                 data-bs-toggle="modal"
                 data-bs-target="#kt_modal_upgrade_plan"
               >
-                Prepayé
+                {{ locataire.typePersonne.libelle }}
               </a>
             </div>
 
@@ -272,7 +272,7 @@
         <li class="nav-item">
           <a
             class="nav-link text-active-primary me-6"
-            routerLink="/locataires/details/overview"
+            routerLink="overview"
             routerLinkActive="active"
           >
             Vue d'ensemble
@@ -281,7 +281,7 @@
         <li class="nav-item">
           <a
             class="nav-link text-active-primary me-6"
-            routerLink="/locataires/details/avis-echeance"
+            routerLink="avis-echeance"
             routerLinkActive="active"
           >
             Avis d'échéance
@@ -290,34 +290,70 @@
         <li class="nav-item">
           <a
             class="nav-link text-active-primary me-6"
-            routerLink="/crafted/pages/profile/campaigns"
-            routerLinkActive="active"
-          >
-            Demandes
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary me-6"
-            routerLink="/crafted/pages/profile/documents"
-            routerLinkActive="active"
           >
             Documents
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary me-6"
-            routerLink="/crafted/pages/profile/connections"
-            routerLinkActive="active"
-          >
-            Connections
           </a>
         </li>
       </ul>
     </div>
   </div>
 </div>
-
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Information du locataire</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="detailPersonneForm" class="row g-3">
+      <div class="col-md-6">
+        <label for="inputNom" class="form-label">Nom</label>
+        <div class="input-group mb-3">
+          <input type="text" readonly class="form-control" formControlName="nom" id="inputNom" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-pen"></i></button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="inputPrenoms" class="form-label">Prénoms</label>
+        <input type="text" class="form-control-plaintext" formControlName="prenoms" id="inputPrenoms">
+      </div>
+      <div class="col-12">
+        <label for="inputAddress" class="form-label">Address</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+      </div>
+      <div class="col-12">
+        <label for="inputAddress2" class="form-label">Address 2</label>
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+      </div>
+      <div class="col-md-6">
+        <label for="inputCity" class="form-label">City</label>
+        <input type="text" class="form-control" id="inputCity">
+      </div>
+      <div class="col-md-4">
+        <label for="inputState" class="form-label">State</label>
+        <select id="inputState" class="form-select">
+          <option selected>Choose...</option>
+          <option>...</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="inputZip" class="form-label">Zip</label>
+        <input type="text" class="form-control" id="inputZip">
+      </div>
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label" for="gridCheck">
+            Check me out
+          </label>
+        </div>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
 
 <router-outlet></router-outlet>

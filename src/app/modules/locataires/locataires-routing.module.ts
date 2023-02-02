@@ -11,11 +11,13 @@ const routes: Routes = [
   { path: '', component: LocatairesComponent },
   { path: 'contrats', component: ContratsComponent },
   { path: 'creer-locataire', component: CreerLocataireComponent },
-  { path: 'details',
+  { path: 'details/:id',
     component: LocataireDetailsComponent,
     children: [
       { path: 'overview', component: OverviewsComponent },
       { path: 'avis-echeance', component: AvisEcheanceComponent },
+      //{ path: '', redirectTo: 'overview', pathMatch: 'full' },
+      //{ path: '**', redirectTo: 'overview', pathMatch: 'full' },
     ] },
 ];
 

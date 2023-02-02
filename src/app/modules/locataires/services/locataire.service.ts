@@ -24,6 +24,10 @@ export class LocataireService {
     return this.http.post(environment.apiUrl + this.basePathPersonne, personneRequest);
   }
 
+  getById(id: string): Observable<any> {
+    return this.http.get<any>(this.basePath + `/${id}`);
+  }
+
   /* search(request: any): Observable<any>{
 
   } */
