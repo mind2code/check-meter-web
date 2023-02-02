@@ -33,7 +33,7 @@
           <td>{{ avisEcheance.identifiant }}</td>
           <td>{{ avisEcheance.dateEmission|date }}</td>
           <td>{{ avisEcheance.contrat?.habitation?.description || '' }}</td>
-          <td>{{ avisEcheance.loyer|currency }}</td>
+          <td>{{ avisEcheance.sommeDue|currency }}</td>
           <td>{{ avisEcheance.loyerRestant|currency }}</td>
           <td [innerHTML]="avisEcheance.statut|statut"></td>
           <td class="text-end">

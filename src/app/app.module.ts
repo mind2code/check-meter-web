@@ -16,6 +16,7 @@ import {ToastrModule} from "ngx-toastr";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
 import { metaReducers } from './store/meta-reducers';
+import { ToastsContainerComponent } from './shared/toast/toasts-container.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -23,7 +24,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       config: {
         url: 'https://auth.mind2codes.com/auth',
         realm: 'monloyer',
-        clientId: 'web'
+        clientId: 'dev'
       },
       initOptions: {
         onLoad: 'check-sso',
@@ -58,11 +59,16 @@ function appInitializer(authService: AuthService) {
     KeycloakAngularModule,
     AppRoutingModule,
     InlineSVGModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      enableHtml: true,
+      progressBar: true,
+      newestOnTop: true
+    }),
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    StoreModule.forRoot({}, { metaReducers })
+    StoreModule.forRoot({}, { metaReducers }),
+    ToastsContainerComponent,
   ],
   providers: [
     {
@@ -71,8 +77,8 @@ function appInitializer(authService: AuthService) {
       multi: true,
       deps: [KeycloakService],
     },
-    {provide: LOCALE_ID, useValue: 'fr' },
-    {provide: DEFAULT_CURRENCY_CODE, useValue: 'XOF'}
+    { provide: LOCALE_ID, useValue: 'fr' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'XOF' }
   ],
   bootstrap: [AppComponent],
 })
