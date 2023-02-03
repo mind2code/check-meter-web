@@ -72,7 +72,9 @@ export class LocatairesComponent implements OnInit {
         //console.log(this.locataires);
       }, error => {
         console.log('echec transaction', error.message);
-        this.toastr.error(error.message, 'Echec' );
+        this.toastr.error(error.message, 'Echec' , {
+          positionClass: 'toast-bottom-right'
+        });
       }
     )
   }

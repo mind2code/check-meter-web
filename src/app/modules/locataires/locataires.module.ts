@@ -27,6 +27,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import { StatutPipe } from '../parametrage/statuts/pipes/statut.pipe';
 import { StoreModule } from '@ngrx/store';
 import { avisEcheancesFeature } from './store/reducers/avis-echeances.reducer';
+import {PersonneDetailsComponent} from "./locataire-details/personne-details/personne-details.component";
+import {AppModule} from "../../app.module";
 
 @NgModule({
     declarations: [
@@ -48,21 +50,22 @@ import { avisEcheancesFeature } from './store/reducers/avis-echeances.reducer';
         AvisEcheanceComponent,
         AvisEncaisserComponent,
         StatutPipe,
+        PersonneDetailsComponent,
     ],
   exports: [
     PersonneMoraleComponent,
     PersonnePhysiqueComponent
   ],
-    imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      LocatairesRoutingModule,
-      InlineSVGModule,
-      NgbTooltipModule,
-      StoreModule.forFeature(avisEcheancesFeature)
-        //ModalModule.forRoot()
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    LocatairesRoutingModule,
+    InlineSVGModule,
+    NgbTooltipModule,
+    StoreModule.forFeature(avisEcheancesFeature),
+    //ModalModule.forRoot()
+  ],
   providers: [
     BsModalService
   ]

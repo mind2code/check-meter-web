@@ -10,6 +10,10 @@ export class OverviewsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    /* this.route.parent.params.subscribe(params => {
+      this.parentRouteId = +params["id"];
+      console.log(this.parentRouteId);
+    }); */
   }
 
 }

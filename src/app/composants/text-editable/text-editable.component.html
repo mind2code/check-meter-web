@@ -1,0 +1,9 @@
+<span>{{text}}
+  <input [(ngModel)]="editText" *ngIf="editmode" type="text">
+</span>
+{{editmode}}
+<div class="button-group">
+  <button *ngIf="!editmode" (click)="edit()">edit</button>
+  <button *ngIf="editmode" (click)="save()">save</button>
+  <button *ngIf="editmode" (click)="cancel()">cancel</button>
+</div>
