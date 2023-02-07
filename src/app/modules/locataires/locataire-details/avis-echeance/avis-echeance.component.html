@@ -13,48 +13,61 @@
   </div>
 
   <div class="card-body p-9">
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-        <tr class="fw-bolder text-muted bg-light">
-          <th>#</th>
-          <th>NUMERO AVIS</th>
-          <th>DATE EMISSION</th>
-          <th>HABITATION</th>
-          <th>LOYER</th>
-          <th>LOYER RESTANT</th>
-          <th>STATUT</th>
-          <th class="text-end rounded-end"></th>
-        </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr *ngFor="let avisEcheance of avisEcheances$; let i=index; trackBy: trackByAvisEcheances">
-          <td>{{ i+1 }}</td>
-          <td>{{ avisEcheance.identifiant }}</td>
-          <td>{{ avisEcheance.dateEmission|date }}</td>
-          <td>{{ avisEcheance.contrat?.habitation?.description || '' }}</td>
-          <td>{{ avisEcheance.sommeDue|currency }}</td>
-          <td>{{ avisEcheance.loyerRestant|currency }}</td>
-          <td [innerHTML]="avisEcheance.statut|statut"></td>
-          <td class="text-end">
-            <button
-              type="button"
-              class="btn btn-bg-light btn-color-success btn-active-color-warning btn-sm px-2 py-1 me-1"
-              title="Encaisser"
-              (click)="encaisser(avisEcheance.id)">
-              <i class="bi bi-cash" style="font-size: 1.7em;"></i>
-            </button>
-            <button
-              type="button"
-              class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-2 py-1"
-              title="Imprimer">
-              <i class="bi bi-printer" style="font-size: 1.7em;"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <ng-container *ngrxLet="expiryNotices$ as expiryNotices">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr class="fw-bolder text-muted bg-light">
+            <th>#</th>
+            <th>NUMERO AVIS</th>
+            <th>DATE EMISSION</th>
+            <th>HABITATION</th>
+            <th>LOYER</th>
+            <th>LOYER RESTANT</th>
+            <th>STATUT</th>
+            <th class="text-end rounded-end"></th>
+          </tr>
+          </thead>
+          <tbody class="table-group-divider">
+          <tr *ngFor="let expiryNotice of expiryNotices; let i=index; trackBy: trackById">
+            <td>{{ i+1 }}</td>
+            <td>{{ expiryNotice.identifiant }}</td>
+            <td>{{ expiryNotice.dateEmission|date }}</td>
+            <td>{{ expiryNotice.contrat?.habitation?.description || '' }}</td>
+            <td>{{ expiryNotice.sommeDue|currency }}</td>
+            <td>{{ expiryNotice.loyerRestant|currency }}</td>
+            <td [innerHTML]="expiryNotice.statut?.libelle"></td>
+            <td class="text-end">
+              <button
+                type="button"
+                class="btn btn-bg-light btn-color-success btn-active-color-warning btn-sm px-2 py-1 me-1"
+                title="Encaisser"
+                (click)="encaisser(expiryNotice.id)">
+                <i class="bi bi-cash" style="font-size: 1.7em;"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-2 py-1"
+                title="Imprimer">
+                <i class="bi bi-printer" style="font-size: 1.7em;"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between">
+        <ngb-pagination
+          [collectionSize]="expiryNotices.length"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [rotate]="true"
+          [ellipses]="false"
+          [boundaryLinks]="true"
+        >
+        </ngb-pagination>
+      </div>
+    </ng-container>
   </div>
 </div>
 

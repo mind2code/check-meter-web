@@ -1,41 +1,27 @@
-<div class="bg-body">
-  <div class="card w-100 rounded-0">
-    <div class="card-header">
-        <div class="card-title">
-          <div class="fw-bolder lh-1 text-gray-900">Encaissement Loyer</div>
-        </div>
-        <div class="card-toolbar">
-          <button type="button" class="btn-sm btn-close btn-active-light-primary" aria-label="Close" (click)="onClose()">
-          </button>
-        </div>
-    </div>
+<app-offfcanvas>
+  <ng-container title>Encaissement Loyer</ng-container>
 
-    <div class="card-body p-9">
-      <form class="form" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
-          <div class="form-group mb-3">
-            <label for="montant" class="form-label">Montant encaissé</label>
-            <input id="montant" type="number" class="form-control" formControlName="montant" [max]="''+avisEcheance?.loyerRestant" min="0">
-            <div
-              class="fv-plugins-message-container invalid-feedback"
-              *ngIf="paymentForm.get('montant')?.invalid && (paymentForm.get('montant')?.dirty || paymentForm.get('montant')?.touched)"
-            >
-            {{ paymentForm.get('montant')?.errors?.montant }}
-            </div>
-          </div>
-          <div class="form-group mb-3">
-            <label for="observation" class="form-label">Observation</label>
-            <textarea id="observation" rows="3" class="form-control" formControlName="observation"></textarea>
-          </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-sm btn-secondary me-md-2" type="button" [disabled]="creating" (click)="onClose()">
-              Annuler
-            </button>
-            <button [disabled]="!paymentForm.valid || creating" type="submit" class="btn btn-sm btn-primary">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="creating"></span>
-              Encaisser
-            </button>
-          </div>
-      </form>
+  <form class="form" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+      <label for="montant" class="form-label">Montant encaissé</label>
+      <input
+        id="montant" type="number" class="form-control" formControlName="montant"
+        [max]="''+expiryNotice?.loyerRestant" min="0" appFormPathFallback />
+      <app-display-form-path-error [pathControl]="paymentForm.get('montant')"></app-display-form-path-error>
     </div>
-  </div>
-</div>
+    <div class="form-group mb-3">
+      <label for="observation" class="form-label">Observation</label>
+      <textarea id="observation" rows="3" class="form-control" formControlName="observation"></textarea>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button class="btn btn-sm btn-secondary me-md-2" type="button" [disabled]="creating" (click)="onClose()">
+        Annuler
+      </button>
+      <button [disabled]="!paymentForm.valid || creating" type="submit" class="btn btn-sm btn-primary">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="creating"></span>
+
+        Encaisser
+      </button>
+    </div>
+  </form>
+</app-offfcanvas>
