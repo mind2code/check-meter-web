@@ -2,6 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+export const extModules = [];
+
+export const pagination = {
+  perPage: 2,
+};
+
 export const environment = {
   production: true,
   appVersion: 'v8.1.5',

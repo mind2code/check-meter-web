@@ -4,9 +4,6 @@ import {LocataireService} from "../services/locataire.service";
 import {Personne} from "../models/personne.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
-import {AvisEncaisserComponent} from "./avis-echeance/avis-encaisser/avis-encaisser.component";
-import {PersonneDetailsComponent} from "./personne-details/personne-details.component";
-import {Locataire} from "../models/locataire.model";
 
 @Component({
   selector: 'app-locataire-details',
@@ -30,14 +27,11 @@ export class LocataireDetailsComponent implements OnInit {
 
     this.route.params.subscribe(
       (params: Params) => {
-        // console.log(params['id']);
         this.locataireId = params.id;
-        //localStorage.setItem('employeId',this.locataireId)
         this.locataireService.getById(this.locataireId).subscribe(res => {
           const { data, recordsTotal } = res;
           this.locataire = data.personne;
           this.loadDetailsPersonne(this.locataire);
-          console.log(this.locataire);
         })
       }
     );

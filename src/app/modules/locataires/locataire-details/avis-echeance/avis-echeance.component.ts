@@ -1,105 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {AvisEncaisserComponent} from "./avis-encaisser/avis-encaisser.component";
-import { AvisEcheance } from '../../models/avis-echeance.model';
-import { AvisEcheanceService } from '../../services/avis-echeance.service';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { AvisEcheancesActions } from '../../store/actions/avis-echeances.actions';
+import { Observable, Subscription } from 'rxjs';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
+import { ExpiryNoticePageActions } from 'src/app/store/expiry-notice/expiry-notice.actions';
+import * as expiryNoticeSelector from 'src/app/store/expiry-notice/expiry-notice.selectors';
+import { ExpiryNotice } from 'src/app/shared/models/expiry-notice.model';
+import { pagination } from 'src/environments/environment';
+import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 
 @Component({
   selector: 'app-avis-echeance',
   templateUrl: './avis-echeance.component.html',
   styleUrls: ['./avis-echeance.component.scss']
 })
-export class AvisEcheanceComponent implements OnInit {
+export class AvisEcheanceComponent implements OnInit, OnDestroy {
 
-  avisEcheances$: AvisEcheance[];
+  expiryNotices$: Observable<ExpiryNotice[]>;
   currentAvisEcheance = null;
   currentIndex = -1;
   title = '';
 
-  page = 1;
-  count = 0;
-  pageSize = 3;
-  pageSizes = [3, 6, 9];
+  page = 0;
+  totalRecords: Observable<number>;
+  pageSize: number = pagination.perPage ?? 25;
+  paginationQuery: PaginationQuery = {};
 
   bsOffcanvasRef: NgbOffcanvasRef;
-  test$: Observable<AvisEcheance|undefined>;
+
+  subscriptions: Array<Subscription> = [];
+
   constructor(
     private bsOffcanvasService: NgbOffcanvas,
-    private service: AvisEcheanceService,
-    private store: Store
-  ) {
-  }
+    private store: Store,
+  ) {}
 
   ngOnInit(): void {
-    this.loadAll()
+    this.expiryNotices$ = this.store.select(expiryNoticeSelector.selectAll);
+    this.totalRecords = this.store.select(expiryNoticeSelector.selectTotalRecords);
+    this.store.dispatch(ExpiryNoticePageActions.loadAll({ ...this.paginationQuery }));
   }
 
-  trackByAvisEcheances(index: number, item: AvisEcheance): string {
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  trackById(index: number, item: ExpiryNotice): string {
     return item.id;
   }
 
-  getRequestParams(searchTitle?: string, page?: number, pageSize?: number): any {
-    // tslint:disable-next-line:prefer-const
-    let params = {} as any;
-
-    if (searchTitle) {
-      // @ts-ignore
-      params[`title`] = searchTitle;
-    }
-
-    if (page) {
-      // @ts-ignore
-      params[`page`] = page - 1;
-    } else {
-      params[`page`] = 0
-    }
-
-    if (pageSize) {
-      // @ts-ignore
-      params[`size`] = pageSize;
-    } else {
-      params[`size`] = 25
-    }
-
-    return params;
-  }
-
-  loadAll(): void {
-    const params = this.getRequestParams();
-
-    this.service.getAll(params).subscribe({
-      next: (response) => {
-        if (response) {
-          const { data, recordsTotal } = response;
-          this.avisEcheances$ = data;
-          this.count = recordsTotal;
-        }
-      },
-      error: (error) => {
-        console.error('[avis-echeance][getAll]', error);
-      }
-    });
-  }
-
   encaisser(id: string) {
-    const selected = this.avisEcheances$.find((a) => a.id === id);
-    this.store.dispatch(AvisEcheancesActions.setSelected({ selected }));
+    this.store.dispatch(ExpiryNoticePageActions.selectOne({ id: id }));
     this.bsOffcanvasRef = this.bsOffcanvasService.open(AvisEncaisserComponent, {
       backdrop: 'static',
       position: 'end',
     });
     this.bsOffcanvasRef.result.then((reason) => {
-      console.log('*** Offcanvas close reason ->', reason); // TODO: Remove
       if (reason === 'success') {
-        console.log('*** Offcanvas "success" reason. avis-echeanche loading ...'); // TODO: Remove
-        this.loadAll();
+        this.store.dispatch(ExpiryNoticePageActions.loadAll({...this.paginationQuery}));
       }
     }).catch((reason) => {
-      console.log('*** Offcanvas dismiss reason', reason); // TODO: Remove
-    });
+
+    }).finally(() => this.store.dispatch(ExpiryNoticePageActions.selectOne({ id: null })));
   }
 
 }

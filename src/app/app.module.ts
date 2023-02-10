@@ -2,7 +2,6 @@ import { NgModule, APP_INITIALIZER, DEFAULT_CURRENCY_CODE, LOCALE_ID } from '@an
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg-2';
@@ -10,13 +9,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './modules/auth/services/auth.service';
-import { environment } from 'src/environments/environment';
-import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
-import {ToastrModule} from "ngx-toastr";
+import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
+import { ToastrModule } from "ngx-toastr";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
-import { metaReducers } from './store/meta-reducers';
 import { ToastsContainerComponent } from './shared/toast/toasts-container.component';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { EffectsModule } from '@ngrx/effects';
+import { extModules } from '../environments/environment';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -62,13 +62,19 @@ function appInitializer(authService: AuthService) {
     ToastrModule.forRoot({
       enableHtml: true,
       progressBar: true,
-      newestOnTop: true
+      newestOnTop: true,
+      timeOut: 10000,
     }),
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    StoreModule.forRoot({}, { metaReducers }),
+    StoreModule.forRoot({
+      router: routerReducer,
+    }),
     ToastsContainerComponent,
+    StoreRouterConnectingModule.forRoot(),
+    EffectsModule.forRoot([]),
+    extModules,
   ],
   providers: [
     {

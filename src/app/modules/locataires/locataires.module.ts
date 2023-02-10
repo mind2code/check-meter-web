@@ -5,7 +5,7 @@ import { LocatairesRoutingModule } from './locataires-routing.module';
 import { LocatairesComponent } from './locataires.component';
 import {InlineSVGModule} from "ng-inline-svg-2";
 import { ContratsComponent } from './contrats/contrats.component';
-import {NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Step5Component} from "./contrats/steps/step5/step5.component";
 import {Step4Component} from "./contrats/steps/step4/step4.component";
@@ -23,12 +23,11 @@ import { OverviewsComponent } from './locataire-details/overviews/overviews.comp
 import { AvisEcheanceComponent } from './locataire-details/avis-echeance/avis-echeance.component';
 import {BsModalService, ModalModule} from "ngx-bootstrap/modal";
 import { AvisEncaisserComponent } from './locataire-details/avis-echeance/avis-encaisser/avis-encaisser.component';
-import {BrowserModule} from "@angular/platform-browser";
 import { StatutPipe } from '../parametrage/statuts/pipes/statut.pipe';
-import { StoreModule } from '@ngrx/store';
-import { avisEcheancesFeature } from './store/reducers/avis-echeances.reducer';
 import {PersonneDetailsComponent} from "./locataire-details/personne-details/personne-details.component";
-import {AppModule} from "../../app.module";
+import { SharedModule } from 'src/app/shared/shared.module';
+import { effectsFeatureModules, storeFeatureModules } from './feature.store';
+import { LetModule, PushModule } from '@ngrx/component';
 
 @NgModule({
     declarations: [
@@ -62,8 +61,11 @@ import {AppModule} from "../../app.module";
     ReactiveFormsModule,
     LocatairesRoutingModule,
     InlineSVGModule,
-    NgbTooltipModule,
-    StoreModule.forFeature(avisEcheancesFeature),
+    NgbModule,
+    storeFeatureModules,
+    effectsFeatureModules,
+    SharedModule,
+    LetModule,
     //ModalModule.forRoot()
   ],
   providers: [

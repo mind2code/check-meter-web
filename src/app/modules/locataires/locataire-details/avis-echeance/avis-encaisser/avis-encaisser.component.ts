@@ -1,25 +1,29 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import  {FormBuilder, FormGroup } from "@angular/forms";
+import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import  {FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { QuittanceLoyerService } from '../../../services/quittance-loyer.service';
 import { Store } from '@ngrx/store';
-import { AvisEcheance } from '../../../models/avis-echeance.model';
-import { avisEcheancesFeature } from '../../../store/reducers/avis-echeances.reducer';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { joiValidatorFromSchema } from 'src/app/shared/validator/joi.validator';
 import Joi from "joi";
+import { ExpiryNotice } from 'src/app/shared/models/expiry-notice.model';
+import * as ExpiryNoticeSelector from 'src/app/store/expiry-notice/expiry-notice.selectors';
+import { Actions, ofType } from '@ngrx/effects';
+import { RentReceiptApiActions, RentReceiptPageActions } from 'src/app/store/rent-recipt/rent-receipt.actions';
+import { CreateRentReceiptDto } from 'src/app/shared/dto/rent-receipt.dto';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-avis-encaisser',
   templateUrl: './avis-encaisser.component.html',
   styleUrls: ['./avis-encaisser.component.scss']
 })
-export class AvisEncaisserComponent implements OnInit {
-
-  event: EventEmitter<any> = new EventEmitter();
+export class AvisEncaisserComponent implements OnInit, OnDestroy {
   paymentForm: FormGroup;
-  avisEcheance: AvisEcheance | undefined;
+  expiryNotice?: ExpiryNotice | null;
   creating: boolean = false;
+
+  subscriptions: Record<string, Subscription> = {};
 
   constructor(
     private fb: FormBuilder,
@@ -27,20 +31,41 @@ export class AvisEncaisserComponent implements OnInit {
     private readonly store: Store,
     private toastrService: ToastrService,
     public bsActiveOffcanvas: NgbActiveOffcanvas,
-  ) {
-    this.store.select(avisEcheancesFeature.selectSelected)
-      .subscribe((selected) => this.avisEcheance = selected);
-  }
+    private actions$: Actions,
+  ) {}
 
   ngOnInit(): void {
+    this.store.select(ExpiryNoticeSelector.selectCurrent).subscribe((expiryNotice) => {
+        this.expiryNotice = expiryNotice;
+    });
+
+    this.subscriptions['createSuccess'] = this.actions$.pipe(
+      ofType(RentReceiptApiActions.createSuccess)
+    ).subscribe((value) => {
+      this.creating = false
+      this.onClose('success');
+    });
+
+    this.subscriptions['createFailed'] = this.actions$.pipe(
+      ofType(RentReceiptApiActions.createFailed)
+    ).subscribe((value) => {
+      this.creating = false
+    });
+
     this.paymentForm = this.fb.group({
-      montant: [''],
+      montant: [new FormControl({ value: '', disabled: (this.expiryNotice?.loyerRestant || 0) <= 0 })],
       observation: ['']
     }, {
       validators: joiValidatorFromSchema(Joi.object({
-        montant: Joi.number().positive().max(this.avisEcheance?.loyerRestant ?? 0),
+        montant: Joi.number().positive().max(this.expiryNotice?.loyerRestant ?? 0),
       }))
     });
+  }
+
+  ngOnDestroy(): void {
+    for (const subscription of Object.values(this.subscriptions)) {
+      subscription.unsubscribe();
+    }
   }
 
   get f() {
@@ -49,29 +74,16 @@ export class AvisEncaisserComponent implements OnInit {
 
   onSubmit() {
     if(this.paymentForm.valid) {
-      const createQuittanceLoyersDto = {
+      this.creating = true;
+      const dto = {
         montantRegle: this.f.montant,
         observation: this.f.observation,
         avisEcheance: {
-          id: this.avisEcheance?.id
+          id: this.expiryNotice?.id
         },
-        // dateReglement: new Date().toISOString().split('T')[0],
-      }
-      this.creating = true;
-      this.quittanceLoyerService.create(createQuittanceLoyersDto).subscribe({
-        next: () => {
-          this.toastrService.success('Encaissement effectué');
-          // this.event.emit('OK');
-          this.onClose('success');
-        },
-        error: (err) => {
-          console.error('[creating quittance-loyers]', err);
-          this.toastrService.error('Une erreur est servune');
-        },
-        complete: () => {
-          this.creating = false
-        }
-      })
+      } as CreateRentReceiptDto;
+
+      this.store.dispatch(RentReceiptPageActions.create({ dto }));
     }
   }
 
