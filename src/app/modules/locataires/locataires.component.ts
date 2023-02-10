@@ -10,6 +10,7 @@ import {PersonnePhysique} from "./models/personne-physique.model";
 import {Genre} from "../parametrage/genres/models/genre.model";
 import {Civilite} from "../parametrage/civilites/models/civilite.model";
 import {SituationMatrimoniale} from "../parametrage/situation-matrimoniale/models/situation-matrimoniale.model";
+import {PageInfoService, PageLink} from "../../_metronic/layout";
 
 @Component({
   selector: 'app-locataires',
@@ -28,8 +29,22 @@ export class LocatairesComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private locataireService: LocataireService, private toastr: ToastrService) {
+  links: Array<PageLink> = [{
+    title: 'Tableau de bord',
+    path: '/',
+    isActive: false,
+  }, {
+    title: 'Locataires',
+    path: '/',
+    isActive: false,
+  }];
 
+  constructor(
+    private locataireService: LocataireService,
+    private toastr: ToastrService,
+    private pageInfo: PageInfoService) {
+    pageInfo.updateTitle('GESTION DES LOCATAIRES');
+    pageInfo.updateBreadcrumbs(this.links);
   }
 
   ngOnInit(): void {
