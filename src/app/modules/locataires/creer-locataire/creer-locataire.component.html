@@ -1,17 +1,17 @@
-<div class="card mb-10">
-  <div class="card-body d-flex align-items-center py-8">
+<!-- <div class="card mb-10">
+  <div class="card-body d-flex align-items-center py-8"> -->
     <!-- begin::Icon -->
-    <div class="d-flex h-80px w-80px flex-shrink-0 flex-center position-relative">
+    <!-- <div class="d-flex h-80px w-80px flex-shrink-0 flex-center position-relative">
       <span class="svg-icon svg-icon-primary position-absolute opacity-15"
             [inlineSVG]="'./assets/media/icons/duotune/abstract/abs051.svg'"
             [setSVGAttributes]="{ class: 'h-80px w-80px' }"></span>
       <span [inlineSVG]="'./assets/media/icons/duotune/coding/cod009.svg'"
             class="svg-icon svg-icon-3x svg-icon-primary position-absolute"></span>
-    </div>
+    </div> -->
     <!-- end::Icon  -->
 
     <!-- begin::Description  -->
-    <div class="ms-6">
+    <!-- <div class="ms-6">
       <p class="list-unstyled text-gray-600 fw-bold fs-6 p-0 m-0">
         The layout builder is to assist your set and configure your preferred
         project layout specifications and preview it in real-time and export the
@@ -20,10 +20,10 @@
         main purpose is to help to generate the final HTML code without hassle.
         Layout builder changes don't affect pages with layout wrappers.
       </p>
-    </div>
+    </div> -->
     <!-- end::Description  -->
-  </div>
-</div>
+  <!-- </div>
+</div> -->
 
 <!--begin::Card-->
 <div class="card">
@@ -34,135 +34,102 @@
 
     </div>
     <!--begin::Card title-->
-    <!--begin::Card toolbar-->
-    <div class="card-toolbar">
-      <!--begin::Toolbar-->
-      <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-        <!--begin::Add customer-->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">Add Customer</button>
-        <!--end::Add customer-->
-      </div>
-      <!--end::Toolbar-->
-      <!--begin::Group actions-->
-      <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
-        <div class="fw-bold me-5">
-          <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected</div>
-        <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">Delete Selected</button>
-      </div>
-      <!--end::Group actions-->
-    </div>
-    <!--end::Card toolbar-->
   </div>
   <!--end::Card header-->
   <!--begin::Card body-->
   <div class="card-body pt-0">
-    <div
-      class="stepper stepper-links d-flex flex-column pt-15"
-      id="kt_create_account_stepper"
-    >
-      <div class="stepper-nav mb-5">
-        <div
-          class="stepper-item"
-          [ngClass]="{
-            current: currentStep$.value === 1,
-            completed: currentStep$.value > 1
-          }"
-        >
-          <h3 class="stepper-title">Type de locataire</h3>
-        </div>
-
-        <div
-          class="stepper-item"
-          [ngClass]="{
-            current: currentStep$.value === 2,
-            completed: currentStep$.value > 2
-          }"
-        >
-          <h3 class="stepper-title">Information du locataire</h3>
-        </div>
-
-        <div
-          class="stepper-item"
-          [ngClass]="{ current: currentStep$.value === 3 }"
-        >
-          <h3 class="stepper-title">Completed</h3>
+    <form class="form">
+      <div class="row">
+        <div class="col-md">
+          <input class="form-control form-control-solid" type="text" placeholder="Nom complet" readonly>
         </div>
       </div>
+      <div class="row mt-3">
+        <div class="col-md-3 form-floating mb-3">
+          <select id="inputCivilite" aria-label="Select example" class="form-select">
+            <option>Monsieur</option>
+          </select>
+          <label for="inputCivilite" class="required">Civilité</label>
+        </div>
+        <div class="col-md-3 form-floating mb-3">
+          <input id="inputNom" type="text" class="form-control" placeholder="Nom">
+          <label for="inputNom" class="required">Nom du locataire</label>
+        </div>
+        <div class="col-md form-floating mb-3">
+          <input id="inputPrenoms" type="text" class="form-control form-control-sm" placeholder="Prénoms">
+          <label for="inputPrenoms" class="required">Prénoms du locataire</label>
 
-      <form
-        class="mx-auto mw-600px w-100 pt-15 pb-10"
-        noValidate
-        id="kt_create_account_form"
-      >
-        <div class="current">
-          <ng-container *ngIf="currentStep$.value === 1">
-            <app-locataire-step class="w-100"
-                                [updateParentModel]="updateAccount"
-                                [defaultValues]="account$.value"
-            ></app-locataire-step>
-          </ng-container>
-
-          <ng-container *ngIf="currentStep$.value === 2">
-            <app-create-personne
-              class="w-100"
-              [updateParentModel]="updateAccount"
-              [defaultValues]="account$.value">
-
-            </app-create-personne>
-          </ng-container>
-
-
-
-          <ng-container *ngIf="currentStep$.value === 3">
-            <app-locataire-recap [defaultValues]="account$.value" class="w-100"></app-locataire-recap>
-          </ng-container>
         </div>
 
-        <div class="d-flex flex-stack pt-15">
-          <div class="mr-2">
-            <ng-container *ngIf="currentStep$.value !== 1">
-              <button
-                type="button"
-                class="btn btn-lg btn-light-primary me-3"
-                (click)="prevStep()"
-              >
-                <span
-                  [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'"
-                  class="svg-icon svg-icon-4 me-1"
-                ></span>
-                Précédent
-              </button>
-            </ng-container>
-          </div>
-
-          <ng-container *ngIf="currentStep$.value !== formsCount">
-            <div>
-              <button
-                type="button"
-                class="btn btn-lg btn-primary me-3"
-                [disabled]="!isCurrentFormValid$.value"
-                (click)="nextStep()"
-              >
-                <span class="indicator-label">
-                  <ng-container *ngIf="currentStep$.value < formsCount - 1">
-                    Continue {{ " " }}
-                    <span
-                      [inlineSVG]="
-                        './assets/media/icons/duotune/arrows/arr064.svg'
-                      "
-                      class="svg-icon svg-icon-3 ms-2 me-0"
-                    ></span>
-                  </ng-container>
-                  <ng-container *ngIf="currentStep$.value === formsCount - 1">
-                    Enregistrer
-                  </ng-container>
-                </span>
-              </button>
-            </div>
-          </ng-container>
+      </div>
+      <div class="row">
+        <div class="col-md form-floating mb-3">
+          <input id="inputNomJeuneFille" type="text" class="form-control form-control-sm" placeholder="Nom de Jeune Fille">
+          <label for="inputNomJeuneFille">Nom de Jeune Fille</label>
         </div>
-      </form>
-    </div>
+        <div class="col-md form-floating mb-3">
+          <select id="inputGenre" aria-label="Select example" class="form-select">
+            <option>choisir le genre</option>
+          </select>
+          <label for="inputGenre" class="required">Genre</label>
+        </div>
+        <div class="col-md form-floating mb-3">
+          <select id="inputSituationMatrimoniale" aria-label="Select example" class="form-select">
+            <option>choisir le genre</option>
+          </select>
+          <label for="inputSituationMatrimoniale" class="required">Situation Matrimoniale</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-floating mb-3">
+          <input id="dtDateNaissance"
+                 type="date"
+                 class="form-control form-control-sm"
+                 placeholder="Date de naissance">
+          <label for="dtDateNaissance">Date de naissance</label>
+
+        </div>
+        <div class="col-md-6 form-floating">
+          <input type="text" class="form-control form-control-sm" id="iLieuNaissance">
+          <label for="iLieuNaissance">Lieu de naissance</label>
+        </div>
+      </div>
+      <div class="separator my-10"></div>
+      <div class="row mb-3">
+        <div class="col-md-4 form-floating">
+          <input type="text" class="form-control form-control-sm" id="iVille" placeholder="Ville">
+          <label for="iVille">Ville</label>
+        </div>
+        <div class="col-md-4 form-floating">
+          <input type="text" class="form-control form-control-sm" id="iQuartier" placeholder="Quartier">
+          <label for="iQuartier">Quartier</label>
+        </div>
+        <div class="col-md-4 form-floating">
+          <input type="text" class="form-control form-control-sm" id="iAdressePostale" placeholder="Adresse Postale">
+          <label for="iAdressePostale">Adresse Postale</label>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md form-floating">
+          <input type="text" class="form-control form-control-sm" id="iSituationGeo" placeholder="Situation Géographique">
+          <label for="iSituationGeo">Situation Géographique</label>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-4 form-floating">
+          <input type="text" class="form-control form-control-sm" id="iEmail" placeholder="Email">
+          <label for="iEmail">Email</label>
+        </div>
+        <div class="col-md-4 form-floating">
+          <input type="text" class="form-control form-control-sm" id="iMobile" placeholder="Mobile">
+          <label for="iMobile">Mobile</label>
+        </div>
+        <div class="col-md-4 form-floating">
+          <input type="text" class="form-control form-control-sm" id="iMobile2" placeholder="Mobile 2">
+          <label for="iMobile2">Mobile 2</label>
+        </div>
+      </div>
+    </form>
   </div>
   <!--end::Card body-->
 </div>

@@ -29,7 +29,7 @@ export class CreerLocataireComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
 
   constructor(private pageInfo: PageInfoService) {
-    pageInfo.updateTitle('Nouveau Contrat');
+    pageInfo.updateTitle('Nouveau Locataire');
     pageInfo.updateBreadcrumbs(this.links);
   }
 
