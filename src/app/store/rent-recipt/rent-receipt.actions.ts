@@ -7,9 +7,9 @@ export const RentReceiptPageActions = createActionGroup({
   source: 'RentReceipts Page',
   events: {
     'Create': props<{ dto: CreateRentReceiptDto }>(),
-    'Load All': (params?: PaginationQuery) => ({ ...params }),
-    'Pagination Change': (params?: PaginationQuery) => ({ ...params }),
-    'Query Change': (params?: PaginationQuery) => ({ ...params }),
+    'Load All': props<{ params?: PaginationQuery }>(),
+    'Pagination Change': props<{ params?: PaginationQuery }>(),
+    'Query Change': props<{ params?: PaginationQuery }>(),
     'Select One': props<{ id: string | null }>(),
   }
 });

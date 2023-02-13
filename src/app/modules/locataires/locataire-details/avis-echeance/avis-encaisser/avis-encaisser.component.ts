@@ -42,14 +42,14 @@ export class AvisEncaisserComponent implements OnInit, OnDestroy {
     this.subscriptions['createSuccess'] = this.actions$.pipe(
       ofType(RentReceiptApiActions.createSuccess)
     ).subscribe((value) => {
-      this.creating = false
+      this.creating = false;
       this.onClose('success');
     });
 
     this.subscriptions['createFailed'] = this.actions$.pipe(
       ofType(RentReceiptApiActions.createFailed)
     ).subscribe((value) => {
-      this.creating = false
+      this.creating = false;
     });
 
     this.paymentForm = this.fb.group({

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExpiryNoticePageActions } from 'src/app/store/expiry-notice/expiry-notice.actions';
-import * as expiryNoticeSelector from 'src/app/store/expiry-notice/expiry-notice.selectors';
+import * as ExpiryNoticeSelector from 'src/app/store/expiry-notice/expiry-notice.selectors';
 import { ExpiryNotice } from 'src/app/shared/models/expiry-notice.model';
 import { pagination } from 'src/environments/environment';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
@@ -17,9 +17,6 @@ import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 export class AvisEcheanceComponent implements OnInit, OnDestroy {
 
   expiryNotices$: Observable<ExpiryNotice[]>;
-  currentAvisEcheance = null;
-  currentIndex = -1;
-  title = '';
 
   page = 0;
   totalRecords: Observable<number>;
@@ -36,9 +33,9 @@ export class AvisEcheanceComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.expiryNotices$ = this.store.select(expiryNoticeSelector.selectAll);
-    this.totalRecords = this.store.select(expiryNoticeSelector.selectTotalRecords);
-    this.store.dispatch(ExpiryNoticePageActions.loadAll({ ...this.paginationQuery }));
+    this.expiryNotices$ = this.store.select(ExpiryNoticeSelector.selectAll);
+    this.totalRecords = this.store.select(ExpiryNoticeSelector.selectTotalRecords);
+    this.refreshList();
   }
 
   ngOnDestroy(): void {
@@ -49,19 +46,31 @@ export class AvisEcheanceComponent implements OnInit, OnDestroy {
     return item.id;
   }
 
-  encaisser(id: string) {
+  refreshList() {
+    this.paginationQuery.page = this.page - 1;
+    if (this.paginationQuery.page < 0) this.paginationQuery.page = 0;
+    this.paginationQuery.size = this.pageSize;
+    this.store.dispatch(ExpiryNoticePageActions.loadAll({ params: this.paginationQuery }));
+  }
+
+  selectOneById(id: string|null) {
     this.store.dispatch(ExpiryNoticePageActions.selectOne({ id: id }));
+  }
+
+  encaisser(id: string) {
+    this.selectOneById(id);
     this.bsOffcanvasRef = this.bsOffcanvasService.open(AvisEncaisserComponent, {
       backdrop: 'static',
       position: 'end',
     });
     this.bsOffcanvasRef.result.then((reason) => {
       if (reason === 'success') {
-        this.store.dispatch(ExpiryNoticePageActions.loadAll({...this.paginationQuery}));
+        console.log('******** operation result reason', reason);
+        this.refreshList();
       }
     }).catch((reason) => {
 
-    }).finally(() => this.store.dispatch(ExpiryNoticePageActions.selectOne({ id: null })));
+    }).finally(() => this.selectOneById(null));
   }
 
 }

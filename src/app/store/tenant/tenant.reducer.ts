@@ -1,17 +1,17 @@
 import { EntityState, EntityAdapter, createEntityAdapter, Dictionary } from '@ngrx/entity';
-import { RentReceipt } from '../../shared/models/rent-receipt.model';
+import { Tenant } from '../../shared/models/tenant.model';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { RentReceiptApiActions, RentReceiptPageActions } from './rent-receipt.actions';
+import { TenantApiActions, TenantPageActions } from './tenant.actions';
 
-export const featureName = 'rentReceipts';
+export const featureName = 'tenants';
 
-export interface State extends EntityState<RentReceipt> {
+export interface State extends EntityState<Tenant> {
   selectedId: string | null,
   currentPage: number,
   totalRecords: number,
 }
 
-export const adapter: EntityAdapter<RentReceipt> = createEntityAdapter<RentReceipt>();
+export const adapter: EntityAdapter<Tenant> = createEntityAdapter<Tenant>();
 
 export const initialState: State = adapter.getInitialState({
   selectedId: null,
@@ -19,12 +19,12 @@ export const initialState: State = adapter.getInitialState({
   totalRecords: 0,
 });
 
-export const rentReceiptsFeature = createFeature({
+export const tenantsFeature = createFeature({
   name: featureName,
   reducer: createReducer(
     initialState,
-    on(RentReceiptPageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
-    on(RentReceiptApiActions.loadAllSuccess, (state, { items, page, total }) => {
+    on(TenantPageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
+    on(TenantApiActions.loadAllSuccess, (state, { items, page, total }) => {
       return adapter.setAll(
         items ?? [],
         {

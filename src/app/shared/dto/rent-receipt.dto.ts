@@ -4,6 +4,9 @@ export type CreateRentReceiptDto = Pick<RentReceipt, 'montantRegle' | 'observati
   avisEcheance: {
     id: string
   }
+  settlementType: {
+    id: string
+  }
 }
 
 

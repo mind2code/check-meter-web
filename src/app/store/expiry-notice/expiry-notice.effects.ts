@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ExpiryNoticeService } from '../../shared/services/expiry-notice.service';
 import { ExpiryNoticeApiActions, ExpiryNoticePageActions } from './expiry-notice.actions';
-import { EMPTY, catchError, exhaustMap, map, mergeMap } from 'rxjs';
+import { EMPTY, catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 
 @Injectable()
 export class ExpiryNoticeEffects {
@@ -17,12 +17,16 @@ export class ExpiryNoticeEffects {
       ExpiryNoticePageActions.paginationChange,
       ExpiryNoticePageActions.queryChange
     ),
-    mergeMap(({ page, size, query }) => this.service.getAll({ page, size, query })
+    mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
           return ExpiryNoticeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
         }),
-        catchError(() => EMPTY),
+        catchError((error) =>
+          of(error).pipe(
+            tap(() => console.error('**** loadAllFailed', error)),
+          ),
+        ),
       )
     )
   ));

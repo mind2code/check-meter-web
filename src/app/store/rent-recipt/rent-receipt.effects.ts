@@ -20,8 +20,8 @@ export class RentReceiptEffects {
       RentReceiptPageActions.paginationChange,
       RentReceiptPageActions.queryChange,
     ),
-    mergeMap(({ page, size, query }) =>
-      this.service.getAll({ page, size, query }).pipe(
+    mergeMap(({ params }) =>
+      this.service.getAll(params).pipe(
         map(({ data, currentPage, recordsTotal }) => {
           return RentReceiptApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
         }),
@@ -41,7 +41,10 @@ export class RentReceiptEffects {
         }),
         catchError((error) =>
           of(RentReceiptApiActions.createFailed({ error })).pipe(
-            tap((err: any) => this.toastrService.error(`Une erreur est suvernue. (${err.message})`)),
+            tap((err: any) => {
+              console.error(`*** [RentReceipt createFailed]`, err);
+              this.toastrService.error(`Une erreur est suvernue. (${err.message})`);
+            }),
           ),
           ),
         )

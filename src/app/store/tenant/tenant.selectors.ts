@@ -1,11 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   selectEntities as SelectAllEntities,
-  rentReceiptsFeature,
+  tenantsFeature,
   featureName,
   State,
   selectAll as SelectAllItems
-} from './rent-receipt.reducer';
+} from './tenant.reducer';
 
 const selectState = createFeatureSelector<State>(featureName);
 
@@ -20,7 +20,7 @@ export const selectEntities = createSelector(
 );
 
 export const selectCurrentId = createSelector(
-  rentReceiptsFeature.selectSelectedId,
+  tenantsFeature.selectSelectedId,
   (selectedId) => selectedId,
 );
 
@@ -33,10 +33,10 @@ export const selectCurrent = createSelector(
 
 export const selectCurrentPage = createSelector(
   selectState,
-  rentReceiptsFeature.selectCurrentPage,
+  tenantsFeature.selectCurrentPage,
 );
 
 export const selectTotalRecords = createSelector(
   selectState,
-  rentReceiptsFeature.selectTotalRecords,
+  tenantsFeature.selectTotalRecords,
 );

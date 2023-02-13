@@ -25,6 +25,16 @@ export class RentReceiptService {
     });
   }
 
+  getByExpiryNoticeId(expiryNoticeId: string, params?: PaginationQuery): Observable<Paginated<RentReceipt>> {
+    return this.http.get<Paginated<RentReceipt>>(this.basePath + '/avis-echeance/' + expiryNoticeId, {
+      params: {
+        page: params?.page ?? 0,
+        size: params?.size ?? pagination.perPage ?? 25,
+        ...(params?.query || {})
+      }
+    });
+  }
+
   create(data: CreateRentReceiptDto): Observable<RentReceipt> {
     return this.http.post<RentReceipt>(this.basePath, data);
   }

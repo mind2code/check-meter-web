@@ -1,3 +1,5 @@
+import { Person } from './person.model';
+
 /**
  * fr => Carnet d'adresse
  */
@@ -11,4 +13,5 @@ export interface AddressBook {
   telephoneMobile: string;
   telephoneMobile2: string;
   adresseEmail: string;
+  person?: Person;
 }
