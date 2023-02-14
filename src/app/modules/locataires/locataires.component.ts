@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {LocataireService} from "./services/locataire.service";
 import {Locataire} from "./models/locataire.model";
 import {Observable, Subscription} from "rxjs";
-import {ToastrService} from "ngx-toastr";
 import {PersonneRequest} from "./requests/PersonneRequest";
 import {TypePersonne} from "../parametrage/type-personne/model/type-personne.model";
 import {PersonnePhysique} from "./models/personne-physique.model";
@@ -25,11 +24,6 @@ export class LocatairesComponent implements OnInit, OnDestroy {
 
   tenants$: Observable<Tenant[]>;
 
-  locataires$: Locataire[];
-  currentLocataire = null;
-  currentIndex = -1;
-  title = '';
-
   page = 1;
   totalRecords$: Observable<number>;
   pageSize: number = pagination.perPage ?? 25;
@@ -39,7 +33,6 @@ export class LocatairesComponent implements OnInit, OnDestroy {
 
   constructor(
     private locataireService: LocataireService,
-    private toastr: ToastrService,
     private store: Store,
   ) {}
 
