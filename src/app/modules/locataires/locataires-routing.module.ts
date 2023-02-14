@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: LocatairesComponent },
   { path: 'contrats', component: ContratsComponent },
   { path: 'creer-locataire', component: CreerLocataireComponent },
-  { path: 'details/:id',
+  { path: 'details/:tenantId',
     component: LocataireDetailsComponent,
     children: [
       { path: 'overview', component: OverviewsComponent },

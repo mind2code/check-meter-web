@@ -1,17 +1,17 @@
 import { EntityState, EntityAdapter, createEntityAdapter, Dictionary } from '@ngrx/entity';
-import { ExpiryNotice } from '../../shared/models/expiry-notice.model';
+import { RentReceipt } from '../../shared/models/rent-receipt.model';
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { ExpiryNoticeApiActions, ExpiryNoticePageActions } from './rent-receipt.actions';
+import { RentReceiptApiActions, RentReceiptPageActions } from './rent-receipt.actions';
 
-export const featureName = 'expiryNotices';
+export const featureName = 'rentReceipts';
 
-export interface State extends EntityState<ExpiryNotice> {
+export interface State extends EntityState<RentReceipt> {
   selectedId: string | null,
   currentPage: number,
   totalRecords: number,
 }
 
-export const adapter: EntityAdapter<ExpiryNotice> = createEntityAdapter<ExpiryNotice>();
+export const adapter: EntityAdapter<RentReceipt> = createEntityAdapter<RentReceipt>();
 
 export const initialState: State = adapter.getInitialState({
   selectedId: null,
@@ -19,12 +19,12 @@ export const initialState: State = adapter.getInitialState({
   totalRecords: 0,
 });
 
-export const expiryNoticesFeature = createFeature({
+export const rentReceiptsFeature = createFeature({
   name: featureName,
   reducer: createReducer(
     initialState,
-    on(ExpiryNoticePageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
-    on(ExpiryNoticeApiActions.loadAllSuccess, (state, { items, page, total }) => {
+    on(RentReceiptPageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
+    on(RentReceiptApiActions.loadAllSuccess, (state, { items, page, total }) => {
       return adapter.setAll(
         items ?? [],
         {
@@ -35,14 +35,17 @@ export const expiryNoticesFeature = createFeature({
         }
       );
     }),
+    on(RentReceiptPageActions.clear, (state) => ({
+      ...state,
+      currentPage: 0,
+      totalRecords: 0,
+      selectedId: null,
+      entities: {},
+      ids: [],
+    })),
   ),
 });
 
 // get the selectors
-export const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal,
-} = adapter.getSelectors();
+export const getEntitySelectors = adapter.getSelectors;
 

@@ -1,8 +1,6 @@
-import {Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import  {FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { QuittanceLoyerService } from '../../../services/quittance-loyer.service';
 import { Store } from '@ngrx/store';
-import { ToastrService } from 'ngx-toastr';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { joiValidatorFromSchema } from 'src/app/shared/validator/joi.validator';
 import Joi from "joi";
@@ -27,29 +25,27 @@ export class AvisEncaisserComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private quittanceLoyerService: QuittanceLoyerService,
     private readonly store: Store,
-    private toastrService: ToastrService,
     public bsActiveOffcanvas: NgbActiveOffcanvas,
     private actions$: Actions,
   ) {}
 
   ngOnInit(): void {
-    this.store.select(ExpiryNoticeSelector.selectCurrent).subscribe((expiryNotice) => {
+    this.subscriptions['selectCurrentExpiryNotice'] = this.store.select(ExpiryNoticeSelector.selectCurrent).subscribe((expiryNotice) => {
         this.expiryNotice = expiryNotice;
     });
 
     this.subscriptions['createSuccess'] = this.actions$.pipe(
       ofType(RentReceiptApiActions.createSuccess)
     ).subscribe((value) => {
-      this.creating = false
+      this.creating = false;
       this.onClose('success');
     });
 
     this.subscriptions['createFailed'] = this.actions$.pipe(
       ofType(RentReceiptApiActions.createFailed)
     ).subscribe((value) => {
-      this.creating = false
+      this.creating = false;
     });
 
     this.paymentForm = this.fb.group({

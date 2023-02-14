@@ -1,40 +1,49 @@
-import {Component, EventEmitter, OnInit, TemplateRef} from '@angular/core';
-import {ActivatedRoute, Params, Routes} from "@angular/router";
-import {LocataireService} from "../services/locataire.service";
+import { Component, EventEmitter, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import {Personne} from "../models/personne.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import { Tenant } from 'src/app/shared/models/tenant.model';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Actions, ofType } from '@ngrx/effects';
+import * as TenantSelectors from 'src/app/store/tenant/tenant.selectors';
+import * as PersonSelectors from 'src/app/store/person/person.selectors';
+import { TenantPageActions } from 'src/app/store/tenant/tenant.actions';
+import { Person } from 'src/app/shared/models/person.model';
+import { PersonApiActions, PersonPageActions } from 'src/app/store/person/person.actions';
 
 @Component({
   selector: 'app-locataire-details',
   templateUrl: './locataire-details.component.html',
   styleUrls: ['./locataire-details.component.scss'],
 })
-export class LocataireDetailsComponent implements OnInit {
+export class LocataireDetailsComponent implements OnInit, OnDestroy {
+  private readonly routerIdParam = 'tenantId';
 
-  locataireId: string;
-  locataire: Personne;
-  demo: string = 'Hello world';
+  person$: Observable<Person|undefined|null>
+
   detailPersonneForm: FormGroup;
   event: EventEmitter<any> = new EventEmitter();
   modalRef?: BsModalRef;
-  constructor(private route: ActivatedRoute,
-              private fb: FormBuilder,
-              private bsModalService: BsModalService,
-              private locataireService: LocataireService) { }
+
+  subscriptions: Record<string, Subscription> = {};
+
+  constructor(
+    private fb: FormBuilder,
+    private bsModalService: BsModalService,
+    private store: Store,
+    private actions$: Actions,
+  ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(TenantPageActions.loadOneFromRouter({ paramName: this.routerIdParam }));
+    this.person$ = this.store.select(PersonSelectors.selectCurrent);
 
-    this.route.params.subscribe(
-      (params: Params) => {
-        this.locataireId = params.id;
-        this.locataireService.getById(this.locataireId).subscribe(res => {
-          const { data, recordsTotal } = res;
-          this.locataire = data.personne;
-          this.loadDetailsPersonne(this.locataire);
-        })
-      }
-    );
+    this.subscriptions['loadOneSuccessPerson'] = this.actions$.pipe(
+      ofType(PersonApiActions.loadOneSuccess),
+    ).subscribe(({ item }) => {
+      this.store.dispatch(PersonPageActions.selectOne({ id: item.id }));
+    });
 
     this.detailPersonneForm = this.fb.group({
       nom: [''],
@@ -44,6 +53,12 @@ export class LocataireDetailsComponent implements OnInit {
       lieuNaissance: [],
       observation: ['']
     });
+  }
+
+  ngOnDestroy(): void {
+    for (const subscription of Object.values(this.subscriptions)) {
+      subscription.unsubscribe();
+    }
   }
 
   get f() {

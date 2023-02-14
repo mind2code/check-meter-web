@@ -10,7 +10,7 @@ export class RentReceiptEffects {
   constructor(
     private actions$: Actions,
     private service: RentReceiptService,
-    private toastrService: ToastrService,
+    private toastr: ToastrService,
   ) {}
 
   // Load paginated list
@@ -20,8 +20,8 @@ export class RentReceiptEffects {
       RentReceiptPageActions.paginationChange,
       RentReceiptPageActions.queryChange,
     ),
-    mergeMap(({ page, size, query }) =>
-      this.service.getAll({ page, size, query }).pipe(
+    mergeMap(({ params }) =>
+      this.service.getAll(params).pipe(
         map(({ data, currentPage, recordsTotal }) => {
           return RentReceiptApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
         }),
@@ -35,13 +35,16 @@ export class RentReceiptEffects {
     this.actions$.pipe(
       ofType(RentReceiptPageActions.create),
       exhaustMap(({ dto }) => this.service.create(dto).pipe(
-        tap((item) => this.toastrService.success(`Encaissement effectué avec succès. #${item.identifiant}`)),
+        tap((item) => this.toastr.success(`Encaissement effectué avec succès. #${item.identifiant}`)),
         map((item) => {
           return RentReceiptApiActions.createSuccess({ item })
         }),
         catchError((error) =>
           of(RentReceiptApiActions.createFailed({ error })).pipe(
-            tap((err: any) => this.toastrService.error(`Une erreur est suvernue. (${err.message})`)),
+            tap((err: any) => {
+              console.error(`*** [RentReceipt createFailed]`, err);
+              this.toastr.error(`Une erreur est suvernue.`);
+            }),
           ),
           ),
         )
