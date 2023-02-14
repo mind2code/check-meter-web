@@ -1,4 +1,4 @@
-import { createActionGroup, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 import { CreateRentReceiptDto } from 'src/app/shared/dto/rent-receipt.dto';
 import { RentReceipt } from 'src/app/shared/models/rent-receipt.model';
@@ -11,6 +11,7 @@ export const RentReceiptPageActions = createActionGroup({
     'Pagination Change': props<{ params?: PaginationQuery }>(),
     'Query Change': props<{ params?: PaginationQuery }>(),
     'Select One': props<{ id: string | null }>(),
+    'clear': emptyProps(),
   }
 });
 

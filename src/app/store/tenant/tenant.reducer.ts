@@ -31,18 +31,24 @@ export const tenantsFeature = createFeature({
           ...state,
           selectedId: null,
           currentPage: page ?? 0,
-          totalRecords: ((Number.isSafeInteger(total)) ? total : state.totalRecords),
+          totalRecords: ((!isNaN(total)) ? total : state.totalRecords),
         }
       );
     }),
+    on(TenantApiActions.loadOneSuccess, (state, { item }) => {
+      return adapter.setOne(item, state);
+    }),
+    on(TenantPageActions.clear, (state) => ({
+      ...state,
+      currentPage: 0,
+      totalRecords: 0,
+      selectedId: null,
+      entities: {},
+      ids: [],
+    })),
   ),
 });
 
 // get the selectors
-export const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal,
-} = adapter.getSelectors();
+export const getEntitySelectors = adapter.getSelectors;
 

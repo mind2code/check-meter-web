@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { CreateRentReceiptDto } from '../dto/rent-receipt.dto';
 import { RentReceipt } from '../models/rent-receipt.model';
 import { PaginationQuery } from '../requests/pagination.query';
-import { Paginated } from '../models/paginated.interface';
 import { pagination } from 'src/environments/environment';
+import { ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class RentReceiptService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(params?: PaginationQuery): Observable<Paginated<RentReceipt>> {
-    return this.http.get<Paginated<RentReceipt>>(this.basePath, {
+  getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<RentReceipt>> {
+    return this.http.get<any>(this.basePath, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,
@@ -25,8 +25,8 @@ export class RentReceiptService {
     });
   }
 
-  getByExpiryNoticeId(expiryNoticeId: string, params?: PaginationQuery): Observable<Paginated<RentReceipt>> {
-    return this.http.get<Paginated<RentReceipt>>(this.basePath + '/avis-echeance/' + expiryNoticeId, {
+  getAllByExpiryNoticeId(expiryNoticeId: string, params?: PaginationQuery): Observable<ApiPaginatedResponse<RentReceipt>> {
+    return this.http.get<any>(this.basePath + '/avis-echeance/' + expiryNoticeId, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,

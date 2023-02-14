@@ -35,14 +35,17 @@ export const rentReceiptsFeature = createFeature({
         }
       );
     }),
+    on(RentReceiptPageActions.clear, (state) => ({
+      ...state,
+      currentPage: 0,
+      totalRecords: 0,
+      selectedId: null,
+      entities: {},
+      ids: [],
+    })),
   ),
 });
 
 // get the selectors
-export const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal,
-} = adapter.getSelectors();
+export const getEntitySelectors = adapter.getSelectors;
 

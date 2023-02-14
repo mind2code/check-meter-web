@@ -203,12 +203,13 @@
       </div>
       <div class="d-flex justify-content-between">
         <ngb-pagination
-          [collectionSize]="tenants.length"
+          [collectionSize]="(totalRecords$|ngrxPush)||0"
           [(page)]="page"
           [pageSize]="pageSize"
           [rotate]="true"
           [ellipses]="false"
           [boundaryLinks]="true"
+          (pageChange)="refreshList()"
         >
         </ngb-pagination>
       </div>

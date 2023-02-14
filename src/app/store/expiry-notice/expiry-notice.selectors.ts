@@ -1,22 +1,21 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
-  selectEntities as SelectAllEntities,
+  getEntitySelectors,
   expiryNoticesFeature,
   featureName,
   State,
-  selectAll as SelectAllItems
 } from './expiry-notice.reducer';
 
 const selectState = createFeatureSelector<State>(featureName);
 
 export const selectAll = createSelector(
   selectState,
-  SelectAllItems,
+  getEntitySelectors().selectAll,
 );
 
 export const selectEntities = createSelector(
   selectState,
-  SelectAllEntities,
+  getEntitySelectors().selectEntities,
 );
 
 export const selectCurrentId = createSelector(
@@ -32,11 +31,11 @@ export const selectCurrent = createSelector(
 
 
 export const selectCurrentPage = createSelector(
-  selectState,
   expiryNoticesFeature.selectCurrentPage,
+  (currentPage) => currentPage,
 );
 
 export const selectTotalRecords = createSelector(
-  selectState,
   expiryNoticesFeature.selectTotalRecords,
+  (totalRecords) => totalRecords,
 );

@@ -66,6 +66,7 @@ import { LetModule, PushModule } from '@ngrx/component';
     effectsFeatureModules,
     SharedModule,
     LetModule,
+    PushModule,
     //ModalModule.forRoot()
   ],
   providers: [

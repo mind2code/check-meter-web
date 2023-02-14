@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { PaginationQuery } from '../requests/pagination.query';
-import { Paginated } from '../models/paginated.interface';
 import { ExpiryNotice } from '../models/expiry-notice.model';
 import { pagination } from 'src/environments/environment';
+import { ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class ExpiryNoticeService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(params?: PaginationQuery): Observable<Paginated<ExpiryNotice>> {
-    return this.http.get<Paginated<ExpiryNotice>>(this.basePath, {
+  getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<ExpiryNotice>> {
+    return this.http.get<ApiPaginatedResponse<ExpiryNotice>>(this.basePath, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,
@@ -36,8 +36,8 @@ export class ExpiryNoticeService {
     );
   }
 
-  getByTenantId(tenantId: string, params?: PaginationQuery): Observable<Paginated<ExpiryNotice>> {
-    return this.http.get<Paginated<ExpiryNotice>>(this.basePath + '/locataire/' + tenantId, {
+  getAllByTenantId(tenantId: string, params?: PaginationQuery): Observable<ApiPaginatedResponse<ExpiryNotice>> {
+    return this.http.get<any>(this.basePath + '/locataire/' + tenantId, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,
@@ -46,8 +46,8 @@ export class ExpiryNoticeService {
     });
   }
 
-  getByContractId(contractId: string, params?: PaginationQuery): Observable<Paginated<ExpiryNotice>> {
-    return this.http.get<Paginated<ExpiryNotice>>(this.basePath + '/contrat/' + contractId, {
+  getAllByContractId(contractId: string, params?: PaginationQuery): Observable<ApiPaginatedResponse<ExpiryNotice>> {
+    return this.http.get<any>(this.basePath + '/contrat/' + contractId, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,

@@ -1,22 +1,22 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
-  selectEntities as SelectAllEntities,
+  getEntitySelectors,
   tenantsFeature,
   featureName,
   State,
-  selectAll as SelectAllItems
 } from './tenant.reducer';
+import {  getRouterSelectors} from '../router.selectors';
 
 const selectState = createFeatureSelector<State>(featureName);
 
 export const selectAll = createSelector(
   selectState,
-  SelectAllItems,
+  getEntitySelectors().selectAll,
 );
 
 export const selectEntities = createSelector(
   selectState,
-  SelectAllEntities,
+  getEntitySelectors().selectEntities,
 );
 
 export const selectCurrentId = createSelector(
@@ -30,13 +30,21 @@ export const selectCurrent = createSelector(
   (entities, id) => (id) ? entities[id] : null,
 );
 
+export const selectCurrentFromRouter = (paramName: string) => createSelector(
+  selectEntities,
+  getRouterSelectors().selectRouteParam(paramName),
+  (entities, paramValue) => {
+    return (paramValue) ? entities[paramValue] : null;
+  },
+);
+
 
 export const selectCurrentPage = createSelector(
-  selectState,
   tenantsFeature.selectCurrentPage,
+  (currentPage) => currentPage,
 );
 
 export const selectTotalRecords = createSelector(
-  selectState,
   tenantsFeature.selectTotalRecords,
+  (totalRecords) => totalRecords,
 );

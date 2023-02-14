@@ -3,7 +3,6 @@ import {LocataireService} from "./services/locataire.service";
 import {Locataire} from "./models/locataire.model";
 import {Observable, Subscription} from "rxjs";
 import {ToastrService} from "ngx-toastr";
-import {Personne} from "./models/personne.model";
 import {PersonneRequest} from "./requests/PersonneRequest";
 import {TypePersonne} from "../parametrage/type-personne/model/type-personne.model";
 import {PersonnePhysique} from "./models/personne-physique.model";
@@ -15,7 +14,7 @@ import { pagination } from 'src/environments/environment';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 import { Tenant } from 'src/app/shared/models/tenant.model';
 import { TenantPageActions } from 'src/app/store/tenant/tenant.actions';
-import * as TenantSelector from 'src/app/store/tenant/tenant.selectors';
+import * as TenantSelectors from 'src/app/store/tenant/tenant.selectors';
 
 @Component({
   selector: 'app-locataires',
@@ -31,8 +30,8 @@ export class LocatairesComponent implements OnInit, OnDestroy {
   currentIndex = -1;
   title = '';
 
-  page = 0;
-  totalRecords: Observable<number>;
+  page = 1;
+  totalRecords$: Observable<number>;
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
@@ -45,10 +44,9 @@ export class LocatairesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.tenants$ = this.store.select(TenantSelector.selectAll);
-    this.totalRecords = this.store.select(TenantSelector.selectTotalRecords);
+    this.tenants$ = this.store.select(TenantSelectors.selectAll);
+    this.totalRecords$ = this.store.select(TenantSelectors.selectTotalRecords);
     this.refreshList();
-    // this.retrieveLocatires();
   }
 
   ngOnDestroy(): void {
@@ -60,28 +58,12 @@ export class LocatairesComponent implements OnInit, OnDestroy {
   }
 
   refreshList() {
-    this.paginationQuery.page = this.page - 1;
-    if (this.paginationQuery.page < 0) this.paginationQuery.page = 0;
-    this.paginationQuery.size = this.pageSize;
+    let currentPage = this.page - 1;
+    if (currentPage < 0) {
+      currentPage = 0;
+    }
+    this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
     this.store.dispatch(TenantPageActions.loadAll({ params: this.paginationQuery }));
-  }
-
-  retrieveLocatires(): void {
-    const params = {};
-
-    this.locataireService.getAll(params).subscribe(
-      res => {
-        const { data, recordsTotal } = res;
-        //this.locataires = data;
-        this.locataires$ = data;
-        //console.log(this.locataires);
-      }, error => {
-        console.log('echec transaction', error.message);
-        this.toastr.error(error.message, 'Echec' , {
-          positionClass: 'toast-bottom-right'
-        });
-      }
-    )
   }
 
   create(): void {
@@ -108,17 +90,4 @@ export class LocatairesComponent implements OnInit, OnDestroy {
       console.log(JSON.stringify(res));
     });
   }
-
-  handlePageChange(event: any): void {
-    this.page = event;
-    this.retrieveLocatires();
-  }
-
-  handlePageSizeChange(event: any): void {
-    this.pageSize = event.target.value;
-    this.page = 1;
-    this.retrieveLocatires();
-  }
-
-
 }

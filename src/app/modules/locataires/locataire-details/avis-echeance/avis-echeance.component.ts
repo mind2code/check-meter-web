@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExpiryNoticePageActions } from 'src/app/store/expiry-notice/expiry-notice.actions';
-import * as ExpiryNoticeSelector from 'src/app/store/expiry-notice/expiry-notice.selectors';
+import * as ExpiryNoticeSelectors from 'src/app/store/expiry-notice/expiry-notice.selectors';
 import { ExpiryNotice } from 'src/app/shared/models/expiry-notice.model';
 import { pagination } from 'src/environments/environment';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
@@ -19,13 +19,13 @@ export class AvisEcheanceComponent implements OnInit, OnDestroy {
   expiryNotices$: Observable<ExpiryNotice[]>;
 
   page = 0;
-  totalRecords: Observable<number>;
+  totalRecords$: Observable<number>;
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
   bsOffcanvasRef: NgbOffcanvasRef;
 
-  subscriptions: Array<Subscription> = [];
+  subscriptions: Record<string, Subscription> = {};
 
   constructor(
     private bsOffcanvasService: NgbOffcanvas,
@@ -33,13 +33,15 @@ export class AvisEcheanceComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.expiryNotices$ = this.store.select(ExpiryNoticeSelector.selectAll);
-    this.totalRecords = this.store.select(ExpiryNoticeSelector.selectTotalRecords);
+    this.expiryNotices$ = this.store.select(ExpiryNoticeSelectors.selectAll);
+    this.totalRecords$ = this.store.select(ExpiryNoticeSelectors.selectTotalRecords);
     this.refreshList();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    for (const subscription of Object.values(this.subscriptions)) {
+      subscription.unsubscribe();
+    }
   }
 
   trackById(index: number, item: ExpiryNotice): string {
@@ -47,9 +49,11 @@ export class AvisEcheanceComponent implements OnInit, OnDestroy {
   }
 
   refreshList() {
-    this.paginationQuery.page = this.page - 1;
-    if (this.paginationQuery.page < 0) this.paginationQuery.page = 0;
-    this.paginationQuery.size = this.pageSize;
+    let currentPage = this.page - 1;
+    if (currentPage < 0) {
+      currentPage = 0;
+    }
+    this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
     this.store.dispatch(ExpiryNoticePageActions.loadAll({ params: this.paginationQuery }));
   }
 

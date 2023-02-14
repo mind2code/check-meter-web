@@ -10,7 +10,7 @@ export class RentReceiptEffects {
   constructor(
     private actions$: Actions,
     private service: RentReceiptService,
-    private toastrService: ToastrService,
+    private toastr: ToastrService,
   ) {}
 
   // Load paginated list
@@ -35,7 +35,7 @@ export class RentReceiptEffects {
     this.actions$.pipe(
       ofType(RentReceiptPageActions.create),
       exhaustMap(({ dto }) => this.service.create(dto).pipe(
-        tap((item) => this.toastrService.success(`Encaissement effectué avec succès. #${item.identifiant}`)),
+        tap((item) => this.toastr.success(`Encaissement effectué avec succès. #${item.identifiant}`)),
         map((item) => {
           return RentReceiptApiActions.createSuccess({ item })
         }),
@@ -43,7 +43,7 @@ export class RentReceiptEffects {
           of(RentReceiptApiActions.createFailed({ error })).pipe(
             tap((err: any) => {
               console.error(`*** [RentReceipt createFailed]`, err);
-              this.toastrService.error(`Une erreur est suvernue. (${err.message})`);
+              this.toastr.error(`Une erreur est suvernue.`);
             }),
           ),
           ),

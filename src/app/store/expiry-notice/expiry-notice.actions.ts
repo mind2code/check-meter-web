@@ -1,4 +1,4 @@
-import { createActionGroup, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { ExpiryNotice } from '../../shared/models/expiry-notice.model';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 
@@ -9,6 +9,7 @@ export const ExpiryNoticePageActions = createActionGroup({
     'Pagination Change': props<{ params?: PaginationQuery }>(),
     'Query Change': props<{ params?: PaginationQuery }>(),
     'Select One': props<{ id: string | null }>(),
+    'clear': emptyProps(),
   }
 });
 
