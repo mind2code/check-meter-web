@@ -14,6 +14,7 @@ import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 import { Tenant } from 'src/app/shared/models/tenant.model';
 import { TenantPageActions } from 'src/app/store/tenant/tenant.actions';
 import * as TenantSelectors from 'src/app/store/tenant/tenant.selectors';
+import {PageInfoService, PageLink} from "../../_metronic/layout";
 
 @Component({
   selector: 'app-locataires',
@@ -30,17 +31,42 @@ export class LocatairesComponent implements OnInit, OnDestroy {
   paginationQuery: PaginationQuery = {};
 
   subscriptions: Array<Subscription> = [];
+  links: Array<PageLink> = [{
+    title: 'Tableau de bord',
+    path: '/',
+    isActive: false,
+  }, {
+    title: 'Locataires',
+    path: '/',
+    isActive: false,
+  }];
 
   constructor(
     private locataireService: LocataireService,
     private store: Store,
   ) {}
+  constructor(
+    private locataireService: LocataireService,
+    private toastr: ToastrService,
+    private pageInfo: PageInfoService) {
+    pageInfo.updateTitle('GESTION DES LOCATAIRES');
+    pageInfo.updateBreadcrumbs(this.links);
+  }
 
   ngOnInit(): void {
     this.tenants$ = this.store.select(TenantSelectors.selectAll);
     this.totalRecords$ = this.store.select(TenantSelectors.selectTotalRecords);
     this.refreshList();
   }
+
+  getRequestParams(searchTitle: string, page: number, pageSize: number): any {
+    // tslint:disable-next-line:prefer-const
+    let params = {};
+
+    if (searchTitle) {
+      // @ts-ignore
+      params[`title`] = searchTitle;
+    }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
