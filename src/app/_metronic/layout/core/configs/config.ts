@@ -85,7 +85,7 @@ export interface ISidebar extends ILayoutComponent {
 export interface IToolbar extends ILayoutComponent {
   componentName: 'toolbar';
   display?: boolean;
-  layout?: 'classic' | 'accounting' | 'extended' | 'reports' | 'saas';
+  layout?: 'classic' | 'accounting' | 'extended' | 'reports' | 'saas' | 'none';
   class?: string;
   container?: 'fixed' | 'fluid';
   containerClass?: string;

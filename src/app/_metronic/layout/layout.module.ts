@@ -40,6 +40,7 @@ import { ClassicComponent } from './components/toolbar/classic/classic.component
 import { ExtendedComponent } from './components/toolbar/extended/extended.component';
 import { ReportsComponent } from './components/toolbar/reports/reports.component';
 import { SaasComponent } from './components/toolbar/saas/saas.component';
+import { LetModule, PushModule } from '@ngrx/component';
 
 const routes: Routes = [
   {
@@ -88,7 +89,9 @@ const routes: Routes = [
     DropdownMenusModule,
     NgbTooltipModule,
     TranslateModule,
-    ThemeModeModule
+    ThemeModeModule,
+    PushModule,
+    LetModule,
   ],
   exports: [RouterModule],
 })

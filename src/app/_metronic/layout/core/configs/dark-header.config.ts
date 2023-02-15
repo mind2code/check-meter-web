@@ -61,7 +61,7 @@ export const DarkHeaderConfig: ILayout = {
         },
         minimize: {
           desktop: {
-            enabled: true,
+            enabled: false,
             default: false,
             hoverable: true,
           },
@@ -74,7 +74,7 @@ export const DarkHeaderConfig: ILayout = {
     toolbar: {
       componentName: 'toolbar',
       display: true,
-      layout: 'classic',
+      layout: 'none',
       class: 'py-3 py-lg-6',
       container: 'fixed',
       containerClass: 'd-flex flex-stack',

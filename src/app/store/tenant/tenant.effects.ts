@@ -32,7 +32,7 @@ export class TenantEffects {
           of(error).pipe(
             tap((err) => {
               console.error('*** [Tenant loadAllFailed]', err);
-              this.toastr.error(`Une erreur est suvernue.`);
+              this.toastr.error(`Une erreur est suvernue lors du changement des locataires.`);
             }),
           ),
         ),

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+import { Observable, from } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +17,14 @@ export class NavbarComponent implements OnInit {
   userAvatarClass: string = 'symbol-35px symbol-md-40px';
   btnIconClass: string = 'svg-icon-1';
 
-  constructor() {}
+  isAuthenticated$: Observable<boolean>;
 
-  ngOnInit(): void {}
+
+  constructor(
+    private readonly keycloak: KeycloakService,
+  ) {}
+
+  ngOnInit(): void {
+    this.isAuthenticated$ = from(this.keycloak.isLoggedIn());
+  }
 }

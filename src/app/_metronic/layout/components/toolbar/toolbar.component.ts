@@ -18,7 +18,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     | 'accounting'
     | 'extended'
     | 'reports'
-    | 'saas';
+    | 'saas'
+    | 'none';
 
   // toolbar
   appToolbarDisplay: boolean;
@@ -116,7 +117,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   showPageTitle() {
-    const viewsWithPageTitles = ['classic', 'reports', 'saas'];
+    const viewsWithPageTitles = ['classic', 'reports', 'saas', 'none'];
     return (
       this.appPageTitleDisplay &&
       viewsWithPageTitles.some((t) => t === this.appToolbarLayout)

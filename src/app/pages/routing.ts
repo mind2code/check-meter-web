@@ -11,9 +11,15 @@ const Routing: Routes = [
     redirectTo: '/dashboard',
     pathMatch: 'full',
   },
+  {
+    path: 'tenants',
+    loadChildren: () => import('../modules/tenants/tenants.module').then(m => m.TenantsModule),
+    data: {
+      'app.toolbar.layout': 'classic',
+    },
+  },
   { path: 'habitations', loadChildren: () => import('../modules/habitations/habitations.module').then(m => m.HabitationsModule) },
   { path: 'contrats', loadChildren: () => import('../modules/contrats/contrats.module').then(m => m.ContratsModule) },
-  { path: 'locataires', loadChildren: () => import('../modules/locataires/locataires.module').then(m => m.LocatairesModule) },
   { path: 'parametrage', loadChildren: () => import('../modules/parametrage/parametrage.module').then(m => m.ParametrageModule) },
   { path: 'civilites', loadChildren: () => import('../modules/parametrage/civilites/civilites.module').then(m => m.CivilitesModule) },
 

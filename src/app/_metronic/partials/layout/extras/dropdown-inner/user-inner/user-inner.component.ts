@@ -1,8 +1,8 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, from } from 'rxjs';
 import { TranslationService } from '../../../../../../modules/i18n';
-import { AuthService, UserType } from '../../../../../../modules/auth';
 import {KeycloakService} from "keycloak-angular";
+import { KeycloakProfile } from 'keycloak-js';
 
 @Component({
   selector: 'app-user-inner',
@@ -14,25 +14,27 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-kt-menu') dataKtMenu = 'true';
 
   language: LanguageFlag;
-  user$: Observable<UserType>;
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
+  authUser$: Observable<KeycloakProfile>;
+  isAuthenticated$: Observable<boolean>;
+
   constructor(
-    private auth: AuthService,
-    private keycloakService: KeycloakService,
+    private keycloak: KeycloakService,
     private translationService: TranslationService
   ) {}
 
   ngOnInit(): void {
-    //this.user$ = this.auth.currentUserSubject.asObservable();
+    this.authUser$ = from(this.keycloak.loadUserProfile());
+    this.isAuthenticated$ = from(this.keycloak.isLoggedIn());
     this.setLanguage(this.translationService.getSelectedLanguage());
   }
 
   logout() {
-    //this.auth.logout();
-    this.keycloakService.logout();
-    document.location.reload();
+    this.keycloak.logout().then(() => {
+      document.location.reload();
+    });
   }
 
   selectLanguage(lang: string) {
@@ -65,7 +67,7 @@ interface LanguageFlag {
 }
 
 const languages = [
-  {
+  /* {
     lang: 'en',
     name: 'English',
     flag: './assets/media/flags/united-states.svg',
@@ -89,10 +91,10 @@ const languages = [
     lang: 'de',
     name: 'German',
     flag: './assets/media/flags/germany.svg',
-  },
+  }, */
   {
     lang: 'fr',
-    name: 'French',
+    name: 'Français',
     flag: './assets/media/flags/france.svg',
   },
 ];

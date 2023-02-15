@@ -8,7 +8,6 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthService } from './modules/auth/services/auth.service';
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { ToastrModule } from "ngx-toastr";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -17,6 +16,7 @@ import { ToastsContainerComponent } from './shared/toast/toasts-container.compon
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { extModules } from '../environments/environment';
+import { LetModule, PushModule } from '@ngrx/component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -26,6 +26,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         realm: 'monloyer',
         clientId: 'dev'
       },
+      // loadUserProfileAtStartUp: true,
       initOptions: {
         onLoad: 'check-sso',
         checkLoginIframe:false,
@@ -35,14 +36,14 @@ function initializeKeycloak(keycloak: KeycloakService) {
     });
 }
 
-function appInitializer(authService: AuthService) {
+/* function appInitializer(authService: AuthService) {
   return () => {
     return new Promise((resolve) => {
       //@ts-ignore
       authService.getUserByToken().subscribe().add(resolve);
     });
   };
-}
+} */
 
 @NgModule({
   declarations: [
@@ -75,6 +76,8 @@ function appInitializer(authService: AuthService) {
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([]),
     extModules,
+    PushModule,
+    LetModule,
   ],
   providers: [
     {

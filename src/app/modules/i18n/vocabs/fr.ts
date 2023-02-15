@@ -2,6 +2,20 @@
 export const locale = {
   lang: 'fr',
   data: {
+    LABEL: {
+      LANGUAGE: 'Langue',
+      CREATE: 'Créer',
+      NEW: 'Nouveau',
+      ADD: 'Ajouter',
+      EDIT: 'Modifier',
+      DELETE: 'Supprimer',
+      VIEW: 'Voir',
+      ACTIONS: 'Actions',
+      SEARCH: 'Rechercher'
+    },
+    APP: {
+      NAME: 'MonLoyer'
+    },
     TRANSLATOR: {
       SELECT: 'choisissez votre langue',
     },
@@ -11,10 +25,19 @@ export const locale = {
       CREATE_POST: 'Créer un nouveau Post',
       PAGES: 'Pages',
       FEATURES: 'Fonctionnalités',
+      ADMIN: 'Administration',
+      ADMIN_DATA: 'Données',
+      SETTINGS: 'Paramètres',
       APPS: 'Applications',
       DASHBOARD: 'Tableau de Bord',
+      TENANTS: 'Gestion des locataires',
+      HOUSINGS: 'Gestion des habitations',
+      CONTRACTS: 'Gestion des contracts',
     },
     AUTH: {
+      USER: {
+        PROFILE: 'Mon profil',
+      },
       GENERAL: {
         OR: 'Ou',
         SUBMIT_BUTTON: 'Soumettre',
@@ -27,8 +50,12 @@ export const locale = {
         CONTACT: 'Contact',
       },
       LOGIN: {
-        TITLE: 'Créer un compte',
-        BUTTON: 'Sign In',
+        TITLE: 'Se connecter',
+        BUTTON: 'Connexion',
+      },
+      LOGOUT: {
+        TITLE: 'Se déconnecter',
+        BUTTON: 'Déconnexion',
       },
       FORGOT: {
         TITLE: 'Forgotten Password?',
@@ -36,7 +63,7 @@ export const locale = {
         SUCCESS: 'Your account has been successfully reset.'
       },
       REGISTER: {
-        TITLE: 'Sign Up',
+        TITLE: 'Créer un compte',
         DESC: 'Enter your details to create your account',
         SUCCESS: 'Your account has been successfuly registered.'
       },
@@ -100,6 +127,24 @@ export const locale = {
           ADD_MESSAGE: 'Le client a été créé'
         }
       }
-    }
+    },
+    TENANT: {
+      LABEL: {
+        SINGLE: 'Locataire',
+        PLURAL: 'Locataires',
+      },
+      FIELD: {
+
+      }
+    },
+    PERSON: {
+      LABEL: {
+        SINGLE: 'Personne',
+        PLURAL: 'Personnes',
+      },
+      FIELD: {
+
+      }
+    },
   }
 };

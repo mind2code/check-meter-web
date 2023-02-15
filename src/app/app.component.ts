@@ -25,10 +25,10 @@ export class AppComponent implements OnInit {
     // register translations
     this.translationService.loadTranslations(
       enLang,
-      chLang,
-      esLang,
-      jpLang,
-      deLang,
+      // chLang,
+      // esLang,
+      // jpLang,
+      // deLang,
       frLang
     );
   }

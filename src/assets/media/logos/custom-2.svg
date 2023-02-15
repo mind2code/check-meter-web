@@ -1,24 +1,76 @@
-<svg width="56" height="40" viewBox="0 0 56 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M43.6528 1.98347L54.516 35.8074C55.1083 37.6516 53.7327 39.5382 51.7958 39.5382H43.8076C42.5628 39.5382 41.4612 38.7322 41.0845 37.5458L30.3448 3.7218C29.7598 1.87944 31.1349 0 33.0679 0H40.9325C42.1739 0 43.2733 0.801564 43.6528 1.98347Z" fill="#EF305E"/>
-<g filter="url(#filter0_i_8605_3258)">
-<path d="M33.249 27L25.5888 2.46371C25.1313 0.998064 23.7741 0 22.2387 0C20.3698 0 18.8288 1.46454 18.7336 3.33101L17.7991 21.6709C17.766 22.3222 17.8446 22.9745 18.0315 23.5994L22.1898 37.4999C22.5516 38.7096 23.6645 39.5382 24.9271 39.5382H28.7924C30.036 39.5382 31.1368 38.7339 31.5146 37.549L33.2334 32.1581C33.7681 30.4811 33.7735 28.6802 33.249 27Z" fill="white"/>
-<path d="M33.249 27L25.5888 2.46371C25.1313 0.998064 23.7741 0 22.2387 0C20.3698 0 18.8288 1.46454 18.7336 3.33101L17.7991 21.6709C17.766 22.3222 17.8446 22.9745 18.0315 23.5994L22.1898 37.4999C22.5516 38.7096 23.6645 39.5382 24.9271 39.5382H28.7924C30.036 39.5382 31.1368 38.7339 31.5146 37.549L33.2334 32.1581C33.7681 30.4811 33.7735 28.6802 33.249 27Z" fill="url(#paint0_linear_8605_3258)"/>
-</g>
-<path d="M14.512 0H22.3796C24.3062 0 25.6806 1.86778 25.1074 3.70711L14.4781 37.8196C14.1061 39.0136 13.0009 39.8269 11.7503 39.8269H3.88281C1.95625 39.8269 0.581894 37.9591 1.15502 36.1197L11.7843 2.00718C12.1563 0.813257 13.2615 0 14.512 0Z" fill="#EF305E"/>
-<defs>
-<filter id="filter0_i_8605_3258" x="13.7917" y="0" width="19.8467" height="42.5381" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="-4" dy="3"/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.904167 0 0 0 0 0.892865 0 0 0 0 0.892865 0 0 0 0.4 0"/>
-<feBlend mode="normal" in2="shape" result="effect1_innerShadow_8605_3258"/>
-</filter>
-<linearGradient id="paint0_linear_8605_3258" x1="20.7143" y1="17.5" x2="28.9286" y2="19.6429" gradientUnits="userSpaceOnUse">
-<stop stop-opacity="0.25"/>
-<stop offset="0.911458" stop-color="white" stop-opacity="0"/>
-</linearGradient>
-</defs>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="179.03999pt"
+   height="173.03999pt"
+   viewBox="0 0 179.03999 173.03999"
+   version="1.1"
+   id="svg22"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8">
+    <clipPath
+       id="clip-0">
+      <path
+         clip-rule="nonzero"
+         d="M 0 0 L 179 0 L 179 170.761719 L 0 170.761719 Z M 0 0 "
+         id="path2" />
+    </clipPath>
+    <clipPath
+       id="clip-1">
+      <path
+         clip-rule="nonzero"
+         d="M 0 0 L 179 0 L 179 113 L 0 113 Z M 0 0 "
+         id="path5" />
+    </clipPath>
+  </defs>
+  <path
+     fill-rule="nonzero"
+     fill="rgb(98.039246%, 85.099792%, 83.529663%)"
+     fill-opacity="1"
+     d="M 12.457031 168.328125 L 12.457031 70.191406 L 89.125 11.308594 L 165.804688 70.191406 L 165.804688 168.328125 L 111.03125 168.328125 L 111.03125 119.261719 L 67.21875 119.261719 L 67.21875 168.328125 Z M 12.457031 168.328125 "
+     id="path10" />
+  <g
+     clip-path="url(#clip-0)"
+     id="g14">
+    <path
+       fill="none"
+       stroke-width="4"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       stroke="#ae4132"
+       stroke-opacity="1"
+       stroke-miterlimit="10"
+       d="M 16.632573,224.75097 V 93.719258 L 118.99931,15.099185 221.38169,93.719258 V 224.75097 H 148.24844 V 159.23772 H 89.75018 v 65.51325 z m 0,0"
+       transform="scale(0.748954)"
+       id="path12" />
+  </g>
+  <path
+     fill-rule="nonzero"
+     fill="rgb(98.039246%, 85.099792%, 83.529663%)"
+     fill-opacity="1"
+     stroke-width="4"
+     stroke-linecap="butt"
+     stroke-linejoin="miter"
+     stroke="rgb(68.238831%, 25.489807%, 19.60907%)"
+     stroke-opacity="1"
+     stroke-miterlimit="10"
+     d="M 42.950531 62.269142 L 42.950531 28.211223 L 60.501051 28.211223 L 60.501051 49.167535 "
+     transform="matrix(0.748954, 0, 0, 0.748954, 0, 0)"
+     id="path16" />
+  <g
+     clip-path="url(#clip-1)"
+     id="g20">
+    <path
+       fill="none"
+       stroke-width="4"
+       stroke-linecap="butt"
+       stroke-linejoin="miter"
+       stroke="#ae4132"
+       stroke-opacity="1"
+       stroke-miterlimit="10"
+       d="M 1.997578,93.719258 118.99931,1.997578 236.00104,93.719258"
+       transform="scale(0.748954)"
+       id="path18" />
+  </g>
 </svg>
