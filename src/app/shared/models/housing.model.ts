@@ -18,5 +18,5 @@ export interface Housing {
   superficie: number;
   longitude: string;
   latitude: string;
-  typeHabitation: HousingType;
+  typeHabitation?: HousingType;
 }

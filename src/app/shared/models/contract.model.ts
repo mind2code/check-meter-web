@@ -1,5 +1,5 @@
 import { Housing } from './housing.model';
-import { Tenant } from './tenant.model';
+import { Person } from './person.model';
 
 export interface Contract {
   id: string;
@@ -12,6 +12,9 @@ export interface Contract {
   montantCaution: number;
   montantAvance: number;
   observation: string;
-  locataire?: Tenant;
+  solde: number;
+  envoiSms: boolean;
+  envoiEmail: boolean;
+  personne?: Person;
   habitation?: Housing;
 }

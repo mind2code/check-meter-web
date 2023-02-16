@@ -3,21 +3,18 @@ import {Observable, Subscription} from "rxjs";
 import { Store } from '@ngrx/store';
 import { pagination } from 'src/environments/environment';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
-import { Tenant } from 'src/app/shared/models/tenant.model';
-import { TenantPageActions } from 'src/app/store/tenant/tenant.actions';
-import * as TenantSelectors from 'src/app/store/tenant/tenant.selectors';
-import * as PersonSelectors from 'src/app/store/person/person.selectors';
-import { Person } from 'src/app/shared/models/person.model';
-import { PersonPageActions } from 'src/app/store/person/person.actions';
+import { Housing } from 'src/app/shared/models/housing.model';
+import { HousingPageActions } from 'src/app/store/housing/housing.actions';
+import * as HousingSelectors from 'src/app/store/housing/housing.selectors';
 
 @Component({
-  selector: 'app-tenants',
-  templateUrl: './tenants.component.html',
-  styleUrls: ['./tenants.component.scss'],
+  selector: 'app-housings',
+  templateUrl: './housings.component.html',
+  styleUrls: ['./housings.component.scss'],
 })
-export class TenantsComponent implements OnInit, OnDestroy {
+export class HousingsComponent implements OnInit, OnDestroy {
 
-  tenants$: Observable<Person[]>;
+  housings$: Observable<Housing[]>;
 
   page = 1;
   totalRecords$: Observable<number>;
@@ -31,8 +28,8 @@ export class TenantsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.tenants$ = this.store.select(PersonSelectors.selectAll);
-    this.totalRecords$ = this.store.select(PersonSelectors.selectTotalRecords);
+    this.housings$ = this.store.select(HousingSelectors.selectAll);
+    this.totalRecords$ = this.store.select(HousingSelectors.selectTotalRecords);
     this.refreshList();
 
   }
@@ -43,7 +40,7 @@ export class TenantsComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackById(index: number, item: Person): string {
+  trackById(index: number, item: Housing): string {
     return item.id;
   }
 
@@ -53,6 +50,6 @@ export class TenantsComponent implements OnInit, OnDestroy {
       currentPage = 0;
     }
     this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
-    this.store.dispatch(PersonPageActions.loadAll({ params: this.paginationQuery }));
+    this.store.dispatch(HousingPageActions.loadAll({ params: this.paginationQuery }));
   }
 }

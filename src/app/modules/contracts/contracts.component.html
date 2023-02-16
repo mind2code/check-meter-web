@@ -23,7 +23,7 @@
       <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
 
         <!--begin::Add customer-->
-        <a class="btn btn-sm btn-primary" routerLink="/tenants/create">
+        <a class="btn btn-sm btn-primary" routerLink="/contracts/create">
           <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr013.svg'" class="svg-icon svg-icon-2"></span>
           {{ 'LABEL.NEW'|translate }}
         </a>
@@ -36,7 +36,7 @@
   <!--end::Card header-->
   <!--begin::Card body-->
   <div class="card-body pt-0">
-    <ng-container *ngrxLet="tenants$ as tenants">
+    <ng-container *ngrxLet="contracts$ as contracts">
       <div class="table-responsive">
         <!--begin::Table-->
         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
@@ -44,10 +44,13 @@
           <thead>
           <!--begin::Table row-->
           <tr class="text-start bg-light text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-            <th class="min-w-125px">{{ 'PERSON.FIELD.identifiant'|translate }}</th>
-            <th class="min-w-125px">{{ 'PERSON.FIELD.nomComplet'|translate }}</th>
-            <th class="min-w-125px">{{ 'TENANT.FIELD.solde'|translate }}</th>
-            <th class="min-w-125px">{{ 'PERSON.RELATIONSHIP.typePersonne'|translate }}</th>
+            <th class="min-w-125px">{{ 'CONTRACT.FIELD.identifiant'|translate }}</th>
+            <th class="min-w-125px">{{ 'CONTRACT.FIELD.numeroExterneBail'|translate }}</th>
+            <th class="min-w-125px">{{ 'CONTRACT.FIELD.solde'|translate }}</th>
+            <th class="min-w-125px">{{ 'CONTRACT.FIELD.dateDebutContrat'|translate }}</th>
+            <th class="min-w-125px">{{ 'CONTRACT.FIELD.dateFinContrat'|translate }}</th>
+            <th class="min-w-125px">{{ 'CONTRACT.RELATIONSHIP.personne'|translate }}</th>
+            <th class="min-w-125px">{{ 'CONTRACT.RELATIONSHIP.habitation'|translate }}</th>
             <th class="text-end min-w-70px">{{ 'LABEL.ACTIONS'|translate }}</th>
           </tr>
           <!--end::Table row-->
@@ -55,16 +58,28 @@
           <!--end::Table head-->
           <!--begin::Table body-->
           <tbody class="fw-semibold text-gray-600" >
-            <tr *ngFor="let tenant of tenants; let i=index; trackBy: trackById">
-            <td>{{ tenant.identifiant}}</td>
-            <td>{{ tenant.nomComplet }}</td>
-            <td><!-- {{ tenant.solde|currency }} --></td>
-            <td>{{ tenant.typePersonne?.libelle }}</td>
+            <tr *ngFor="let contract of contracts; let i=index; trackBy: trackById">
+            <td>{{ contract.identifiant}}</td>
+            <td>
+              <span class="badge badge-light-primary">{{ contract.numeroExterneBail }}</span>
+            </td>
+            <td>{{ contract.solde|currency }}</td>
+            <td>{{ contract.dateDebutContrat|date }}</td>
+            <td>{{ contract.dateFinContrat|date }}</td>
+            <td>{{ contract.personne?.nomComplet }}</td>
+            <td>
+              <ng-container *ngIf="contract.habitation">
+                <span [ngbTooltip]="contract.habitation.description + ' [' + contract.habitation.localisation + ']'">
+                  <span class="badge badge-info">{{ contract.habitation.typeHabitation?.libelle }}</span>
+                  {{ contract.habitation.identifiant }}
+                </span>
+              </ng-container>
+            </td>
             <!--begin::Action=-->
             <td class="text-end">
               <a
                 class="btn btn-icon btn-light-primary btn-sm me-1"
-                routerLink="/tenants/{{ tenant.id }}/view"
+                routerLink="/contracts/{{ contract.id }}/view"
                 ngbTooltip="{{ 'LABEL.DETAILS'|translate }}"
               >
                 <span
@@ -74,7 +89,7 @@
               </a>
               <a
                 class="btn btn-icon btn-light-success btn-sm me-1"
-                routerLink="/tenants/{{ tenant.id }}/edit"
+                routerLink="/contracts/{{ contract.id }}/edit"
                 ngbTooltip="{{ 'LABEL.EDIT'|translate }}"
               >
                 <span

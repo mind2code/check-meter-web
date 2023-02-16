@@ -10,8 +10,10 @@ export const locale = {
       EDIT: 'Modifier',
       DELETE: 'Supprimer',
       VIEW: 'Voir',
+      DETAILS: 'Détails',
       ACTIONS: 'Actions',
-      SEARCH: 'Rechercher'
+      SEARCH: 'Rechercher',
+      OVERVIEW: "Vue d'ensemble",
     },
     APP: {
       NAME: 'MonLoyer'
@@ -134,8 +136,10 @@ export const locale = {
         PLURAL: 'Locataires',
       },
       FIELD: {
-
-      }
+        solde: 'Solde',
+      },
+      RELATIONSHIP: {
+      },
     },
     PERSON: {
       LABEL: {
@@ -143,8 +147,233 @@ export const locale = {
         PLURAL: 'Personnes',
       },
       FIELD: {
-
+        identifiant: 'Identifiant',
+        nomComplet: 'Nom complet',
+        nom: 'Nom',
+        prenoms: 'Prénoms',
+        nomJeuneFille: 'Nom de jeune fille',
+        dateNaissance: 'Date de naissance',
+        lieuNaissance: 'Lieu de naissance',
+        estActif: 'Compte actif',
+      },
+      RELATIONSHIP: {
+        civilite: 'Civilité',
+        genre: 'Genre',
+        situationMatrimoniale: 'Situation matrimoniale',
+        typePersonne: 'Type',
+        carnetAdresse: "Carnet d'adresse",
+      },
+    },
+    CONTRACT: {
+      LABEL: {
+        SINGLE: 'Contrat',
+        PLURAL: 'Contrats',
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        numeroExterneBail: 'Numéro de bail',
+        dateSignatureContrat: 'Date de signature',
+        dateDebutContrat: 'Date de début',
+        dateFinContrat: 'Date de fin',
+        montantPasDePorte: 'Montant pas de porte',
+        montantCaution: 'Caution',
+        montantAvance: 'Avance',
+        envoiSms: 'Nofification par SMS',
+        envoiEmail: 'Nofification par email',
+        solde: 'Solde',
+        observation: 'Observation',
+      },
+      RELATIONSHIP: {
+        habitation: 'Habitation',
+        personne: 'Personne',
       }
+    },
+    HOUSING: {
+      LABEL: {
+        SINGLE: 'Habitation',
+        PLURAL: 'Habitations',
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        description: 'Description',
+        localisation: 'Localisation',
+        superficie: 'Superficie',
+        longitude: 'Longitude',
+        latitude: 'Latitude',
+      },
+      RELATIONSHIP: {
+        typeHabitation: 'Type',
+      }
+    },
+    EXPIRY_NOTICE: {
+      LABEL: {
+        SINGLE: "Avis d'échéance",
+        PLURAL: "Avis d'échéance",
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        dateEmission: "Date d'émission",
+        loyer: 'Loyer',
+        loyerRestant: 'Loyer restant',
+        chargeMensuelleContractuelles: 'Charges mensuelles contractuelles',
+        periodeConcernee: 'Période concernée',
+        sommeDue: 'Somme due',
+        dateExigibilite: "Date d'éligibilité",
+        observation: 'Observation',
+      },
+      RELATIONSHIP: {
+        statut: 'Statut',
+        contrat: 'Contrat',
+      }
+    },
+    RENT_RECEIPT: {
+      LABEL: {
+        SINGLE: 'Quittance de loyer',
+        PLURAL: 'Quittances de loyer',
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        referenceQuittance: 'Référence',
+        estAnnule: 'Paiement annulé',
+        dateReglement: 'Date de règlement',
+        montantRegle: 'Montant reglé',
+        observation: 'Observation',
+      },
+      RELATIONSHIP: {
+        avisEcheance: "Avis d'échéance",
+        settlementType: 'Type de règlement',
+      }
+    },
+    IDENTITY_DOCUMENT: {
+      LABEL: {
+        SINGLE: "Pièce d'identité",
+        PLURAL: "Pièce d'identité",
+      },
+      FIELD: {
+        numeroIdentite: 'Numéro de la pièce',
+        numeroNNI: 'Numéro NNI',
+        delivrePar: 'Délivré par',
+        dateDelivrance: 'Date de délivrance',
+        dateExpiration: `Date d'expiration`,
+        estActif: 'Document actif',
+      },
+      RELATIONSHIP: {
+        person: `Personne`,
+        typePieceIdentite: `Type de pièce`,
+      }
+    },
+    ADDRESS_BOOK: {
+      LABEL: {
+        SINGLE: `Carnet d'adresse`,
+        PLURAL: `Carnets d'adresse`,
+      },
+      FIELD: {
+        ville: 'Ville',
+        quartier: 'Quartier',
+        adresseGeographique: 'Situation geographique',
+        adressePostale: 'Adresse postale',
+        telephoneFixe: `Fixe`,
+        telephoneMobile: 'Mobile',
+        telephoneMobile2: 'Mobile 2',
+        adresseEmail: 'Email',
+      },
+      RELATIONSHIP: {
+        person: `Personne`,
+      }
+    },
+    STATUS: {
+      LABEL: {
+        SINGLE: 'Statut',
+        PLURAL: 'Statuts',
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        libelle: 'Libellé',
+        description: 'Description',
+      },
+    },
+    HOUSING_TYPE: {
+      LABEL: {
+        SINGLE: "Type d'habitation",
+        PLURAL: "Types d'habitation",
+      },
+      FIELD: {
+        libelle: 'Libellé',
+        description: 'Description',
+      },
+    },
+    SETTLEMENT_TYPE: {
+      LABEL: {
+        SINGLE: 'Type de règlement',
+        PLURAL: 'Types de règlement',
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        libelle: 'Libellé',
+        description: 'Description',
+      },
+    },
+    IDENTITY_DOCUMENT_TYPE: {
+      LABEL: {
+        SINGLE: `Type de pièce d'identité`,
+        PLURAL: `Types de pièce d'identité`,
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        libelle: 'Libellé',
+        description: 'Description',
+        enabled: 'Actif',
+      },
+    },
+    PERSON_TYPE: {
+      LABEL: {
+        SINGLE: `Type de personne`,
+        PLURAL: `Type de personne`,
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        libelle: 'Libellé',
+        description: 'Description',
+        estActif: 'Actif',
+      },
+    },
+    CIVILITY: {
+      LABEL: {
+        SINGLE: `Civilité`,
+        PLURAL: `Civilités`,
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        libelle: 'Libellé',
+        description: 'Description',
+        estActif: 'Actif',
+      },
+    },
+    GENDER: {
+      LABEL: {
+        SINGLE: `Genre`,
+        PLURAL: `Genres`,
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        libelle: 'Libellé',
+        description: 'Description',
+        estActif: 'Actif',
+      },
+    },
+    MARITAL_SITUATION: {
+      LABEL: {
+        SINGLE: `Situation matrimoniale`,
+        PLURAL: `Situations matrimoniales`,
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        libelle: 'Libellé',
+        description: 'Description',
+      },
+    },
+    ADMIN: {
+
     },
   }
 };

@@ -1,5 +1,8 @@
 import { AddressBook } from './address-book.model';
 
+/**
+ * fr => Type de personne
+ */
 export interface PersonType {
   id: number;
   identifiant: string;
@@ -8,6 +11,9 @@ export interface PersonType {
   estActif: boolean;
 }
 
+/**
+ * fr => Civilité
+ */
 export interface Civility {
   id: number;
   identifiant: string;
@@ -16,6 +22,9 @@ export interface Civility {
   estActif: boolean;
 }
 
+/**
+ * fr => Genre
+ */
 export interface Gender {
   id: number;
   identifiant: string;
@@ -24,6 +33,9 @@ export interface Gender {
   estActif: boolean;
 }
 
+/**
+ * fr => Situation matrimoniale
+ */
 export interface MaritalSituation {
   id: number;
   identifiant: string;
@@ -31,6 +43,9 @@ export interface MaritalSituation {
   description: string;
 }
 
+/**
+ * fr => Personne
+ */
 export interface Person {
   id: string;
   identifiant: string;

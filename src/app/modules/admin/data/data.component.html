@@ -1,0 +1,46 @@
+
+<div class="card card-custom">
+  <!-- begin::Header -->
+  <div class="card-header card-header-stretch overflow-auto">
+    <ul class="
+        nav nav-stretch nav-line-tabs
+        fw-bold
+        border-transparent
+        flex-nowrap
+      " role="tablist">
+
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'overview' }"
+          (click)="setActiveTab('overview')" role="tab">
+          {{ 'LABEL.OVERVIEW'|translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'person' }"
+          (click)="setActiveTab('person')" role="tab">
+          {{ 'PERSON.LABEL.SINGLE'|translate }}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- end::Header -->
+  <!-- begin::Body -->
+  <div class="card-body">
+    <div class="tab-content pt-3">
+
+      <!-- begin::overview -->
+      <div class="tab-pane" [ngClass]="{ active: activeTab === 'overview' }">
+
+
+      </div>
+      <!-- end::overview -->
+
+      <!-- begin::person -->
+      <div class="tab-pane" [ngClass]="{ active: activeTab === 'person' }">
+
+      </div>
+      <!-- end::person -->
+    </div>
+  </div>
+    <!-- end::Body -->
+</div>
