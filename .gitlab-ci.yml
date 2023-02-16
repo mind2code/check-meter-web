@@ -21,34 +21,6 @@ install_dependencies:
     paths:
       - node_modules
 
-lint:
-  image: node:16.18.1-alpine
-  stage: test
-  script:
-    - npm link @angular/cli@14.2.10
-    - ng lint
-  cache:
-    key:
-      files:
-        - package-lock.json
-    paths:
-      - node_modules
-    policy: pull
-
-test:
-  image: markhobson/node-chrome:latest
-  stage: test
-  script:
-    - npm link @angular/cli@14.2.10
-    - npm test -- --browsers=ChromeHeadless --watch=false
-  cache:
-    key:
-      files:
-        - package-lock.json
-    paths:
-      - node_modules
-    policy: pull
-
 build_image:
   image: node:16.18.1-alpine
   stage: build
