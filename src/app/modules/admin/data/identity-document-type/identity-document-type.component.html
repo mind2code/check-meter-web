@@ -1,7 +1,7 @@
 <!-- begin::Header -->
 <div class="card-header border-0 pt-5">
   <h3 class="card-title align-items-start flex-column">
-    <span class="card-label fw-bolder fs-3 mb-1">{{ 'STATUS.LABEL.PLURAL'|translate }}</span>
+    <span class="card-label fw-bolder fs-3 mb-1">{{ 'IDENTITY_DOCUMENT_TYPE.LABEL.PLURAL'|translate }}</span>
     <span class="text-muted mt-1 fw-bold fs-7" *ngIf="totalRecords$|ngrxPush as totalRecords">
       {{ 'LABEL.ELEMENT_COUNT'|translate:{count: totalRecords} }}
     </span>
@@ -12,13 +12,14 @@
 <!-- begin::Body -->
 <div class="card-body py-3">
   <!-- begin::Table container -->
-  <ng-container *ngrxLet="statutes$ as statutes">
+  <ng-container *ngrxLet="identityDocumentTypes$ as identityDocumentTypes">
     <div class="table-responsive">
       <!-- begin::Table -->
       <table class="table table-hover align-middle gs-0 gy-3">
         <!-- begin::Table head -->
         <thead>
           <tr>
+            <th class="p-0 w-40px"></th>
             <th class="p-0 w-70px"></th>
             <th class="p-0 min-w-150px"></th>
           </tr>
@@ -26,16 +27,21 @@
         <!-- end::Table head -->
         <!-- begin::Table body -->
         <tbody>
-          <tr *ngFor="let status of statutes; let i=index; trackBy: trackById">
+          <tr *ngFor="let identityDocumentType of identityDocumentTypes; let i=index; trackBy: trackById">
+            <td>
+
+            </td>
             <td class="fw-bold fs-6">
-              <span [ngbTooltip]="'STATUS.FIELD.identifiant'|translate">
-                {{ status.identifiant }}
+              <span [ngbTooltip]="'IDENTITY_DOCUMENT_TYPE.FIELD.identifiant'|translate">
+                {{ identityDocumentType.identifiant }}
               </span>
             </td>
             <td>
-              <span [innerHTML]="status|status" [ngbTooltip]="'STATUS.FIELD.libelle'|translate" class="mb-1"></span>
-              <span class="text-muted fw-bold d-block fs-7" [ngbTooltip]="'STATUS.FIELD.description'|translate">
-                {{ status.description}}
+              <span class="text-dark fw-bolder text-hover-primary mb-1 fs-6" [ngbTooltip]="'IDENTITY_DOCUMENT_TYPE.FIELD.libelle'|translate">
+                {{ identityDocumentType.libelle }}
+              </span>
+              <span class="text-muted fw-bold d-block fs-7" [ngbTooltip]="'IDENTITY_DOCUMENT_TYPE.FIELD.description'|translate">
+                {{ identityDocumentType.description}}
               </span>
             </td>
           </tr>

@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from "rxjs";
-import { Status } from 'src/app/shared/models/commons.model';
+import { MaritalSituation } from 'src/app/shared/models/person.model';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
-import { StatusPageActions } from 'src/app/store/status/status.actions';
-import * as StatusSelectors from 'src/app/store/status/status.selectors';
+import { MaritalSituationPageActions } from 'src/app/store/marital-situation/marital-situation.actions';
+import * as MaritalSituationSelectors from 'src/app/store/marital-situation/marital-situation.selectors';
 
 @Component({
-  selector: 'app-data-status',
-  templateUrl: './status.component.html',
+  selector: 'app-data-marital-situation',
+  templateUrl: './marital-situation.component.html',
 })
-export class DataStatusComponent implements OnInit, OnDestroy {
-  statutes$: Observable<Status[]>;
+export class DataMaritalSituationComponent implements OnInit, OnDestroy {
+  maritalSituations$: Observable<MaritalSituation[]>;
 
   page = 1;
   totalRecords$: Observable<number>;
@@ -25,8 +25,8 @@ export class DataStatusComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.statutes$ = this.store.select(StatusSelectors.selectAll);
-    this.totalRecords$ = this.store.select(StatusSelectors.selectTotalRecords);
+    this.maritalSituations$ = this.store.select(MaritalSituationSelectors.selectAll);
+    this.totalRecords$ = this.store.select(MaritalSituationSelectors.selectTotalRecords);
     this.refreshList();
   }
 
@@ -36,7 +36,7 @@ export class DataStatusComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackById(index: number, item: Status): number {
+  trackById(index: number, item: MaritalSituation): number {
     return item.id;
   }
 
@@ -46,7 +46,7 @@ export class DataStatusComponent implements OnInit, OnDestroy {
       currentPage = 0;
     }
     this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
-    this.store.dispatch(StatusPageActions.loadAll({ params: this.paginationQuery }));
+    this.store.dispatch(MaritalSituationPageActions.loadAll({ params: this.paginationQuery }));
   }
 
 }

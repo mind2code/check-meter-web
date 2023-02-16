@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from "rxjs";
-import { Status } from 'src/app/shared/models/commons.model';
+import { HousingType } from 'src/app/shared/models/housing.model';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
-import { StatusPageActions } from 'src/app/store/status/status.actions';
-import * as StatusSelectors from 'src/app/store/status/status.selectors';
+import { HousingTypePageActions } from 'src/app/store/housing-type/housing-type.actions';
+import * as HousingTypeSelectors from 'src/app/store/housing-type/housing-type.selectors';
 
 @Component({
-  selector: 'app-data-status',
-  templateUrl: './status.component.html',
+  selector: 'app-data-housing-type',
+  templateUrl: './housing-type.component.html',
 })
-export class DataStatusComponent implements OnInit, OnDestroy {
-  statutes$: Observable<Status[]>;
+export class DataHousingTypeComponent implements OnInit, OnDestroy {
+  housingTypes$: Observable<HousingType[]>;
 
   page = 1;
   totalRecords$: Observable<number>;
@@ -25,8 +25,8 @@ export class DataStatusComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.statutes$ = this.store.select(StatusSelectors.selectAll);
-    this.totalRecords$ = this.store.select(StatusSelectors.selectTotalRecords);
+    this.housingTypes$ = this.store.select(HousingTypeSelectors.selectAll);
+    this.totalRecords$ = this.store.select(HousingTypeSelectors.selectTotalRecords);
     this.refreshList();
   }
 
@@ -36,7 +36,7 @@ export class DataStatusComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackById(index: number, item: Status): number {
+  trackById(index: number, item: HousingType): string {
     return item.id;
   }
 
@@ -46,7 +46,7 @@ export class DataStatusComponent implements OnInit, OnDestroy {
       currentPage = 0;
     }
     this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
-    this.store.dispatch(StatusPageActions.loadAll({ params: this.paginationQuery }));
+    this.store.dispatch(HousingTypePageActions.loadAll({ params: this.paginationQuery }));
   }
 
 }

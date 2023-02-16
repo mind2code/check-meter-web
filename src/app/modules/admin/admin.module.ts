@@ -12,12 +12,22 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminDataComponent } from './data/data.component';
 import { SettingsDataComponent } from './settings/settings.component';
 import { DataStatusComponent } from './data/status/status.component';
+import { DataHousingTypeComponent } from './data/housing-type/housing-type.component';
+import { DataSettlementTypeComponent } from './data/settlement-type/settlement-type.component';
+import { DataMaritalSituationComponent } from './data/marital-situation/marital-situation.component';
+import { DataIdentityDocumentTypeComponent } from './data/identity-document-type/identity-document-type.component';
+import { DataCivilityComponent } from './data/civility/civility.component';
 
 @NgModule({
   declarations: [
     AdminDataComponent,
     SettingsDataComponent,
     DataStatusComponent,
+    DataSettlementTypeComponent,
+    DataHousingTypeComponent,
+    DataMaritalSituationComponent,
+    DataIdentityDocumentTypeComponent,
+    DataCivilityComponent,
   ],
   imports: [
     CommonModule,

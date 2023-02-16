@@ -14,6 +14,8 @@ export const locale = {
       ACTIONS: 'Actions',
       SEARCH: 'Rechercher',
       OVERVIEW: "Vue d'ensemble",
+      ELEMENT_COUNT: '{{count}} éléments',
+      COMING_SOON: 'Bientôt disponible',
     },
     APP: {
       NAME: 'MonLoyer'

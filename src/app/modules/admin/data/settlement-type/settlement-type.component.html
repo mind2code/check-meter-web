@@ -1,7 +1,7 @@
 <!-- begin::Header -->
 <div class="card-header border-0 pt-5">
   <h3 class="card-title align-items-start flex-column">
-    <span class="card-label fw-bolder fs-3 mb-1">{{ 'STATUS.LABEL.PLURAL'|translate }}</span>
+    <span class="card-label fw-bolder fs-3 mb-1">{{ 'SETTLEMENT_TYPE.LABEL.PLURAL'|translate }}</span>
     <span class="text-muted mt-1 fw-bold fs-7" *ngIf="totalRecords$|ngrxPush as totalRecords">
       {{ 'LABEL.ELEMENT_COUNT'|translate:{count: totalRecords} }}
     </span>
@@ -12,7 +12,7 @@
 <!-- begin::Body -->
 <div class="card-body py-3">
   <!-- begin::Table container -->
-  <ng-container *ngrxLet="statutes$ as statutes">
+  <ng-container *ngrxLet="settlementTypes$ as settlementTypes">
     <div class="table-responsive">
       <!-- begin::Table -->
       <table class="table table-hover align-middle gs-0 gy-3">
@@ -26,16 +26,18 @@
         <!-- end::Table head -->
         <!-- begin::Table body -->
         <tbody>
-          <tr *ngFor="let status of statutes; let i=index; trackBy: trackById">
+          <tr *ngFor="let settlementType of settlementTypes; let i=index; trackBy: trackById">
             <td class="fw-bold fs-6">
-              <span [ngbTooltip]="'STATUS.FIELD.identifiant'|translate">
-                {{ status.identifiant }}
+              <span [ngbTooltip]="'SETTLEMENT_TYPE.FIELD.identifiant'|translate">
+                {{ settlementType.identifiant }}
               </span>
             </td>
             <td>
-              <span [innerHTML]="status|status" [ngbTooltip]="'STATUS.FIELD.libelle'|translate" class="mb-1"></span>
-              <span class="text-muted fw-bold d-block fs-7" [ngbTooltip]="'STATUS.FIELD.description'|translate">
-                {{ status.description}}
+              <span class="text-dark fw-bolder text-hover-primary mb-1 fs-6" [ngbTooltip]="'SETTLEMENT_TYPE.FIELD.libelle'|translate">
+                {{ settlementType.libelle }}
+              </span>
+              <span class="text-muted fw-bold d-block fs-7" [ngbTooltip]="'SETTLEMENT_TYPE.FIELD.description'|translate">
+                {{ settlementType.description}}
               </span>
             </td>
           </tr>

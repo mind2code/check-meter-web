@@ -1,34 +1,38 @@
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { expiryNoticesFeature } from 'src/app/store/expiry-notice/expiry-notice.reducer';
-import { ExpiryNoticeEffects } from 'src/app/store/expiry-notice/expiry-notice.effects';
-import { RentReceiptEffects } from 'src/app/store/rent-recipt/rent-receipt.effects';
-import { TenantEffects } from 'src/app/store/tenant/tenant.effects';
-import { tenantsFeature } from 'src/app/store/tenant/tenant.reducer';
-import { rentReceiptsFeature } from 'src/app/store/rent-recipt/rent-receipt.reducer';
-import { personsFeature } from 'src/app/store/person/person.reducer';
-import { PersonEffects } from 'src/app/store/person/person.effects';
-import { contractsFeature } from 'src/app/store/contract/contract.reducer';
-import { ContractEffects } from 'src/app/store/contract/contract.effects';
-import { housingsFeature } from 'src/app/store/housing/housing.reducer';
-import { HousingEffects } from 'src/app/store/housing/housing.effects';
+import { statutesFeature } from 'src/app/store/status/status.reducer';
+import { StatusEffects } from 'src/app/store/status/status.effects';
+import { settlementTypesFeature } from 'src/app/store/settlement-type/settlement-type.reducer';
+import { SettlementTypeEffects } from 'src/app/store/settlement-type/settlement-type.effects';
+import { housingTypesFeature } from 'src/app/store/housing-type/housing-type.reducer';
+import { HousingTypeEffects } from 'src/app/store/housing-type/housing-type.effects';
+import { maritalSituationsFeature } from 'src/app/store/marital-situation/marital-situation.reducer';
+import { MaritalSituationEffects } from 'src/app/store/marital-situation/marital-situation.effects';
+import { identityDocumentTypesFeature } from 'src/app/store/identity-document-type/identity-document-type.reducer';
+import { IdentityDocumentTypeEffects } from 'src/app/store/identity-document-type/identity-document-type.effects';
+import { civilitiesFeature } from 'src/app/store/civility/civility.reducer';
+import { gendersFeature } from 'src/app/store/gender/gender.reducer';
+import { CivilityEffects } from 'src/app/store/civility/civility.effects';
+import { GenderEffects } from 'src/app/store/gender/gender.effects';
 
 export const storeFeatureModules = [
-  StoreModule.forFeature(expiryNoticesFeature),
-  StoreModule.forFeature(rentReceiptsFeature),
-  StoreModule.forFeature(tenantsFeature),
-  StoreModule.forFeature(personsFeature),
-  StoreModule.forFeature(contractsFeature),
-  StoreModule.forFeature(housingsFeature),
+  StoreModule.forFeature(statutesFeature),
+  StoreModule.forFeature(settlementTypesFeature),
+  StoreModule.forFeature(housingTypesFeature),
+  StoreModule.forFeature(maritalSituationsFeature),
+  StoreModule.forFeature(identityDocumentTypesFeature),
+  StoreModule.forFeature(civilitiesFeature),
+  StoreModule.forFeature(gendersFeature),
 ];
 
 export const effectsFeatureModules = [
   EffectsModule.forFeature([
-    ExpiryNoticeEffects,
-    RentReceiptEffects,
-    TenantEffects,
-    PersonEffects,
-    ContractEffects,
-    HousingEffects,
+    StatusEffects,
+    SettlementTypeEffects,
+    HousingTypeEffects,
+    MaritalSituationEffects,
+    IdentityDocumentTypeEffects,
+    CivilityEffects,
+    GenderEffects,
   ]),
 ];

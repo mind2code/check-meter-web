@@ -14,7 +14,8 @@ export class AdminDataComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngOnDestroy(): void {
     for (const subscription of Object.values(this.subscriptions)) {
