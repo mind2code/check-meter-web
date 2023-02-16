@@ -24,7 +24,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       config: {
         url: 'https://auth.mind2codes.com/auth',
         realm: 'monloyer',
-        clientId: 'dev'
+        clientId: 'web'
       },
       // loadUserProfileAtStartUp: true,
       initOptions: {

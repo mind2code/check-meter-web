@@ -1,0 +1,80 @@
+services:
+  - docker:dind
+
+stages:
+  - dependencies
+  - test
+  - build
+  - publish
+
+install_dependencies:
+  image: node:16.18.1-alpine
+  stage: dependencies
+  script:
+    - npm install --legacy-peer-deps
+  only:
+    - master
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+
+lint:
+  image: node:16.18.1-alpine
+  stage: test
+  script:
+    - npm link @angular/cli@14.2.10
+    - ng lint
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+    policy: pull
+
+test:
+  image: markhobson/node-chrome:latest
+  stage: test
+  script:
+    - npm link @angular/cli@14.2.10
+    - npm test -- --browsers=ChromeHeadless --watch=false
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+    policy: pull
+
+build_image:
+  image: node:16.18.1-alpine
+  stage: build
+  script:
+    - npm link @angular/cli@14.2.10
+    - npm run build
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/dist
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+    policy: pull
+
+push-docker-registry:
+  image: docker:latest
+  stage: publish
+  only:
+    - master
+  script:
+    - chmod og= $ID_RSA
+    - apk update && apk add openssh-client
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker pull $TAG_COMMIT"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker container rm -f monloyer-portal || true"
+    - ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "docker run -d -p 5000:4200 --name monloyer-portal $TAG_COMMIT"
