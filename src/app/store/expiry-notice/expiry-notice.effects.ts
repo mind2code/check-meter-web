@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ExpiryNoticeService } from '../../shared/services/expiry-notice.service';
 import { ExpiryNoticeApiActions, ExpiryNoticePageActions } from './expiry-notice.actions';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class ExpiryNoticeEffects {
   constructor(
     private actions$: Actions,
-    private service: ExpiryNoticeService
+    private service: ExpiryNoticeService,
+    private toastr: ToastrService,
   ) {}
 
   loadAll$ = createEffect(() => this.actions$.pipe(
@@ -24,7 +26,10 @@ export class ExpiryNoticeEffects {
         }),
         catchError((error) =>
           of(error).pipe(
-            tap((err) => console.error('**** loadAllFailed', err)),
+            tap((err) => {
+              console.error('**** [ExpiryNotice loadAllFailed]', err);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des avis d'échéance.`);
+            }),
           ),
         ),
       )

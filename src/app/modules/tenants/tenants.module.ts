@@ -10,10 +10,14 @@ import { LetModule, PushModule } from '@ngrx/component';
 import { TenantsComponent } from './tenants.component';
 import { effectsFeatureModules, storeFeatureModules } from './feature.store';
 import { TranslateModule } from '@ngx-translate/core';
+import { TenantEditComponent } from './edit/edit.component';
+import { TenantCreateComponent } from './create/create.component';
 
 @NgModule({
   declarations: [
     TenantsComponent,
+    TenantEditComponent,
+    TenantCreateComponent,
   ],
   imports: [
     CommonModule,

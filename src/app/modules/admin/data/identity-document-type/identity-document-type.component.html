@@ -2,9 +2,11 @@
 <div class="card-header border-0 pt-5">
   <h3 class="card-title align-items-start flex-column">
     <span class="card-label fw-bolder fs-3 mb-1">{{ 'IDENTITY_DOCUMENT_TYPE.LABEL.PLURAL'|translate }}</span>
-    <span class="text-muted mt-1 fw-bold fs-7" *ngIf="totalRecords$|ngrxPush as totalRecords">
-      {{ 'LABEL.ELEMENT_COUNT'|translate:{count: totalRecords} }}
-    </span>
+    <ng-container *ngrxLet="totalRecords$ as totalRecords">
+      <span class="text-muted mt-1 fw-bold fs-7">
+        {{ 'LABEL.ELEMENT_COUNT'|translate:{count: totalRecords} }}
+      </span>
+    </ng-container>
   </h3>
   <div class="card-toolbar"></div>
 </div>
@@ -29,10 +31,21 @@
         <tbody>
           <tr *ngFor="let identityDocumentType of identityDocumentTypes; let i=index; trackBy: trackById">
             <td>
-
+              <span *ngIf="identityDocumentType.enabled; else elseBlockEstActif"
+                [inlineSVG]="'./assets/media/icons/duotune/general/gen048.svg'"
+                class="svg-icon svg-icon-2 text-success"
+                [ngbTooltip]="'LABEL.ACTIVE'|translate"
+              ></span>
+              <ng-template #elseBlockEstActif>
+                <span
+                  [inlineSVG]="'./assets/media/icons/duotune/general/gen050.svg'"
+                  class="svg-icon svg-icon-2 text-danger"
+                  [ngbTooltip]="'LABEL.INACTIVE'|translate"
+                ></span>
+              </ng-template>
             </td>
             <td class="fw-bold fs-6">
-              <span [ngbTooltip]="'IDENTITY_DOCUMENT_TYPE.FIELD.identifiant'|translate">
+              <span class="badge badge-secondary" [ngbTooltip]="'IDENTITY_DOCUMENT_TYPE.FIELD.identifiant'|translate">
                 {{ identityDocumentType.identifiant }}
               </span>
             </td>

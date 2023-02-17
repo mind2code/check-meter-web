@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { StatusService } from '../../shared/services/status.service';
 import { StatusApiActions, StatusPageActions } from './status.actions';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class StatusEffects {
   constructor(
     private actions$: Actions,
-    private service: StatusService
+    private service: StatusService,
+    private toastr: ToastrService,
   ) {}
 
   loadAll$ = createEffect(() => this.actions$.pipe(
@@ -24,7 +26,10 @@ export class StatusEffects {
         }),
         catchError((error) =>
           of(error).pipe(
-            tap((err) => console.error('**** loadAllFailed', err)),
+            tap((err) => {
+              console.error('**** [Status loadAllFailed]', err);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des statuts.`);
+            }),
           ),
         ),
       )

@@ -28,7 +28,7 @@ export class PersonEffects {
           of(error).pipe(
             tap((err) => {
               console.error('*** [Person loadAllFailed]', err);
-              this.toastr.error(`Une erreur est suvernue.`);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des personnes.`);
             }),
           ),
         ),

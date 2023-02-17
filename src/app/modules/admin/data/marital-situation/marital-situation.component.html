@@ -2,9 +2,11 @@
 <div class="card-header border-0 pt-5">
   <h3 class="card-title align-items-start flex-column">
     <span class="card-label fw-bolder fs-3 mb-1">{{ 'MARITAL_SITUATION.LABEL.PLURAL'|translate }}</span>
-    <span class="text-muted mt-1 fw-bold fs-7" *ngIf="totalRecords$|ngrxPush as totalRecords">
-      {{ 'LABEL.ELEMENT_COUNT'|translate:{count: totalRecords} }}
-    </span>
+    <ng-container *ngrxLet="totalRecords$ as totalRecords">
+      <span class="text-muted mt-1 fw-bold fs-7">
+        {{ 'LABEL.ELEMENT_COUNT'|translate:{count: totalRecords} }}
+      </span>
+    </ng-container>
   </h3>
   <div class="card-toolbar"></div>
 </div>
@@ -28,7 +30,7 @@
         <tbody>
           <tr *ngFor="let maritalSituation of maritalSituations; let i=index; trackBy: trackById">
             <td class="fw-bold fs-6">
-              <span [ngbTooltip]="'MARITAL_SITUATION.FIELD.identifiant'|translate">
+              <span class="badge badge-secondary" [ngbTooltip]="'MARITAL_SITUATION.FIELD.identifiant'|translate">
                 {{ maritalSituation.identifiant }}
               </span>
             </td>

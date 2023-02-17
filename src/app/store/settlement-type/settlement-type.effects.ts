@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SettlementTypeService } from '../../shared/services/settlement-type.service';
 import { SettlementTypeApiActions, SettlementTypePageActions } from './settlement-type.actions';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class SettlementTypeEffects {
   constructor(
     private actions$: Actions,
-    private service: SettlementTypeService
+    private service: SettlementTypeService,
+    private toastr: ToastrService,
   ) {}
 
   loadAll$ = createEffect(() => this.actions$.pipe(
@@ -24,7 +26,10 @@ export class SettlementTypeEffects {
         }),
         catchError((error) =>
           of(error).pipe(
-            tap((err) => console.error('**** loadAllFailed', err)),
+            tap((err) => {
+              console.error('**** [SettlementType loadAllFailed]', err);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des types de règlement.`);
+            }),
           ),
         ),
       )

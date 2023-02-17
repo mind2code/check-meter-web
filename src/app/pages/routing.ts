@@ -12,6 +12,10 @@ const Routing: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+  },
+  {
     path: 'tenants',
     loadChildren: () => import('../modules/tenants/tenants.module').then(m => m.TenantsModule),
   },

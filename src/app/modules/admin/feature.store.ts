@@ -14,6 +14,8 @@ import { civilitiesFeature } from 'src/app/store/civility/civility.reducer';
 import { gendersFeature } from 'src/app/store/gender/gender.reducer';
 import { CivilityEffects } from 'src/app/store/civility/civility.effects';
 import { GenderEffects } from 'src/app/store/gender/gender.effects';
+import { countriesFeature } from 'src/app/store/country/country.reducer';
+import { CountryEffects } from 'src/app/store/country/country.effects';
 
 export const storeFeatureModules = [
   StoreModule.forFeature(statutesFeature),
@@ -23,6 +25,7 @@ export const storeFeatureModules = [
   StoreModule.forFeature(identityDocumentTypesFeature),
   StoreModule.forFeature(civilitiesFeature),
   StoreModule.forFeature(gendersFeature),
+  StoreModule.forFeature(countriesFeature),
 ];
 
 export const effectsFeatureModules = [
@@ -34,5 +37,6 @@ export const effectsFeatureModules = [
     IdentityDocumentTypeEffects,
     CivilityEffects,
     GenderEffects,
+    CountryEffects,
   ]),
 ];

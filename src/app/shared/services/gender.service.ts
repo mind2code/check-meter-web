@@ -15,7 +15,7 @@ export class GenderService {
   constructor(private http: HttpClient) { }
 
   getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<Gender>> {
-    return this.http.get<ApiPaginatedResponse<Gender>>(this.basePath, {
+    return this.http.get<any>(this.basePath, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,

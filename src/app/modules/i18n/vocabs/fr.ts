@@ -16,6 +16,12 @@ export const locale = {
       OVERVIEW: "Vue d'ensemble",
       ELEMENT_COUNT: '{{count}} éléments',
       COMING_SOON: 'Bientôt disponible',
+      ACTIVE: 'Actif',
+      INACTIVE: 'Inactif',
+    },
+    MESSAGE: {
+      ERROR_OCCUR: 'Une error est survenue',
+      ERROR_OCCUR_WHILE: 'Une error est survenue {{while}}',
     },
     APP: {
       NAME: 'MonLoyer'
@@ -177,7 +183,7 @@ export const locale = {
         dateSignatureContrat: 'Date de signature',
         dateDebutContrat: 'Date de début',
         dateFinContrat: 'Date de fin',
-        montantPasDePorte: 'Montant pas de porte',
+        montantPasDePorte: 'Pas de porte',
         montantCaution: 'Caution',
         montantAvance: 'Avance',
         envoiSms: 'Nofification par SMS',
@@ -249,7 +255,7 @@ export const locale = {
     IDENTITY_DOCUMENT: {
       LABEL: {
         SINGLE: "Pièce d'identité",
-        PLURAL: "Pièce d'identité",
+        PLURAL: "Pièces d'identité",
       },
       FIELD: {
         numeroIdentite: 'Numéro de la pièce',
@@ -272,7 +278,7 @@ export const locale = {
       FIELD: {
         ville: 'Ville',
         quartier: 'Quartier',
-        adresseGeographique: 'Situation geographique',
+        adresseGeographique: 'Situation géographique',
         adressePostale: 'Adresse postale',
         telephoneFixe: `Fixe`,
         telephoneMobile: 'Mobile',
@@ -331,6 +337,20 @@ export const locale = {
       LABEL: {
         SINGLE: `Type de personne`,
         PLURAL: `Type de personne`,
+      },
+      FIELD: {
+        identifiant: 'Identifiant',
+        libelle: 'Libellé',
+        description: 'Description',
+        estActif: 'Actif',
+      },
+    },
+    COUNTRY: {
+      LABEL: {
+        SINGLE: `Pays`,
+        PLURAL: `Pays`,
+        NATIONALITY: 'Nationalité',
+        NATIONALITIES: 'Nationalités',
       },
       FIELD: {
         identifiant: 'Identifiant',

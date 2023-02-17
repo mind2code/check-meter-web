@@ -28,7 +28,7 @@ export class HousingEffects {
           of(error).pipe(
             tap((err) => {
               console.error('*** [Housing loadAllFailed]', err);
-              this.toastr.error(`Une erreur est suvernue.`);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des habitations.`);
             }),
           ),
         ),

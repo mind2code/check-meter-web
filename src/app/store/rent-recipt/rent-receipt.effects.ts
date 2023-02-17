@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { RentReceiptApiActions, RentReceiptPageActions } from './rent-receipt.actions';
-import { EMPTY, catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import { RentReceiptService } from 'src/app/shared/services/rent-receipt.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -25,7 +25,14 @@ export class RentReceiptEffects {
         map(({ data, currentPage, recordsTotal }) => {
           return RentReceiptApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
         }),
-        catchError(() => EMPTY),
+        catchError((error) =>
+          of(error).pipe(
+            tap((err) => {
+              console.error('**** [RentReceipt loadAllFailed]', err);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des quittances de loyer.`);
+            }),
+          ),
+        ),
       )
     )
   ));
@@ -43,7 +50,7 @@ export class RentReceiptEffects {
           of(RentReceiptApiActions.createFailed({ error })).pipe(
             tap((err: any) => {
               console.error(`*** [RentReceipt createFailed]`, err);
-              this.toastr.error(`Une erreur est suvernue.`);
+              this.toastr.error(`Une erreur est suvernue lors de l'encaissement.`);
             }),
           ),
           ),

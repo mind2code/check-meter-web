@@ -71,6 +71,16 @@
             <!--begin::Action=-->
             <td class="text-end">
               <a
+                class="btn btn-icon btn-light-primary btn-sm me-1"
+                routerLink="/housings/{{ housing.id }}/view"
+                ngbTooltip="{{ 'LABEL.DETAILS'|translate }}"
+              >
+                <span
+                  [inlineSVG]="'./assets/media/icons/duotune/general/eye-fill.svg'"
+                  class="svg-icon svg-icon-2"
+                ></span>
+              </a>
+              <a
                 class="btn btn-icon btn-light-success btn-sm me-1"
                 routerLink="/housings/{{ housing.id }}/edit"
                 ngbTooltip="{{ 'LABEL.EDIT'|translate }}"

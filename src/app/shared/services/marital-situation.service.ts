@@ -15,7 +15,7 @@ export class MaritalSituationService {
   constructor(private http: HttpClient) { }
 
   getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<MaritalSituation>> {
-    return this.http.get<ApiPaginatedResponse<MaritalSituation>>(this.basePath, {
+    return this.http.get<any>(this.basePath, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,

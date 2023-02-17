@@ -27,7 +27,7 @@ export class IdentityDocumentTypeEffects {
         catchError((error) =>
           of(error).pipe(
             tap((err) => {
-              console.error('**** loadAllFailed', err);
+              console.error('**** [IdentityDocumentType loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des types de pièce d'identité.`);
             }),
           ),
