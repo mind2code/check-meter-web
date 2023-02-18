@@ -9,6 +9,7 @@ import { Tenant } from 'src/app/shared/models/tenant.model';
 import { ExpiryNoticePageActions } from 'src/app/store/expiry-notice/expiry-notice.actions';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExpiryNoticeMakePaymentComponent } from './make-payment/make-payment.component';
+import { SettlementTypePageActions } from 'src/app/store/settlement-type/settlement-type.actions';
 
 @Component({
   selector: 'app-tenant-view-expiry-notices',
@@ -37,6 +38,7 @@ export class TenantViewExpiryNoticesComponent implements OnInit, OnDestroy {
     this.expiryNotices$ = this.store.select(ExpiryNoticeSelectors.selectAll);
     this.totalRecords$ = this.store.select(ExpiryNoticeSelectors.selectTotalRecords);
     this.refreshList();
+    this.store.dispatch(SettlementTypePageActions.loadAll({ params: { size: 100 } }));
   }
 
   ngOnDestroy(): void {

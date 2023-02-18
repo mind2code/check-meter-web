@@ -3,9 +3,9 @@ import {Observable, Subscription} from "rxjs";
 import { Store } from '@ngrx/store';
 import * as RentReceiptSelectors from 'src/app/store/rent-receipt/rent-receipt.selectors';
 import * as ExpiryNoticeSelectors from 'src/app/store/expiry-notice/expiry-notice.selectors';
+import * as SettlementTypeSelectors from 'src/app/store/settlement-type/settlement-type.selectors';
 import { ExpiryNotice } from 'src/app/shared/models/expiry-notice.model';
-import { ExpiryNoticePageActions } from 'src/app/store/expiry-notice/expiry-notice.actions';
-import { NgbActiveOffcanvas, NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
 import { RentReceiptApiActions, RentReceiptPageActions } from 'src/app/store/rent-receipt/rent-receipt.actions';
@@ -13,6 +13,12 @@ import { joiValidatorFromSchema } from 'src/app/shared/validator/joi.validator';
 import Joi from 'joi';
 import { CreateRentReceiptDto } from 'src/app/shared/dto/rent-receipt.dto';
 import { SettlementType } from 'src/app/shared/models/rent-receipt.model';
+
+type PaymentFormType = {
+  amount: number;
+  type: string;
+  observation: string
+};
 
 @Component({
   selector: 'app-expiry-notice-make-payment',
@@ -38,6 +44,7 @@ export class ExpiryNoticeMakePaymentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.expiryNotice$ = this.store.select(ExpiryNoticeSelectors.selectCurrent);
     this.creating$ = this.store.select(RentReceiptSelectors.selectCreating);
+    this.settlementTypes$ = this.store.select(SettlementTypeSelectors.selectAll);
     this.subscriptions['selectCurrentExpiryNotice'] = this.expiryNotice$
       .subscribe((value) => {
         this.expiryNotice = value;
@@ -58,26 +65,31 @@ export class ExpiryNoticeMakePaymentComponent implements OnInit, OnDestroy {
 
   private buildForm() {
     this.paymentForm = this.fb.group({
-      montant: [new FormControl({ value: '', disabled: (this.expiryNotice?.loyerRestant || 0) <= 0 })],
+      amount: [new FormControl({ value: '', disabled: (this.expiryNotice?.loyerRestant || 0) <= 0 })],
+      type: [''],
       observation: ['']
     }, {
       validators: joiValidatorFromSchema(Joi.object({
-        montant: Joi.number().positive().max(this.expiryNotice?.loyerRestant ?? 0),
+        amount: Joi.number().required().positive().max(this.expiryNotice?.loyerRestant ?? 0),
+        type: Joi.string().required(),
       }))
     });
   }
 
-  get f() {
+  get f(): PaymentFormType {
     return this.paymentForm.getRawValue();
   }
 
   onSubmit() {
     if(this.paymentForm.valid) {
       const dto = {
-        montantRegle: this.f.montant,
+        montantRegle: this.f.amount,
         observation: this.f.observation,
         avisEcheance: {
-          id: this.expiryNotice?.id
+          id: this.expiryNotice?.id,
+        },
+        typeReglement: {
+          id: parseInt(this.f.type),
         },
       } as CreateRentReceiptDto;
 

@@ -39,3 +39,8 @@ export const selectTotalRecords = createSelector(
   settlementTypesFeature.selectTotalRecords,
   (totalRecords) => totalRecords,
 );
+
+export const selectLoading = createSelector(
+  settlementTypesFeature.selectLoading,
+  (loading) => loading,
+);

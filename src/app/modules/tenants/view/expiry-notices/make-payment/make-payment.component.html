@@ -2,17 +2,32 @@
   <ng-container title>{{ 'RENT_RECEIPT.LABEL.RENT_COLLECTION'|translate }}</ng-container>
   <ng-container *ngIf="expiryNotice$|ngrxPush as expiryNotice">
     <form class="form" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+
       <div class="form-group mb-3">
-        <label for="montant" class="form-label">{{ 'RENT_RECEIPT.LABEL.AMOUNT_COLLECTED'|translate }}</label>
+        <label for="amount" class="form-label fw-bold">{{ 'RENT_RECEIPT.LABEL.AMOUNT_COLLECTED'|translate }}</label>
         <input
-          id="montant" type="number" class="form-control" formControlName="montant"
-          [max]="''+expiryNotice?.loyerRestant" min="0" appFormPathFallback />
-        <app-display-form-path-error [pathControl]="paymentForm.get('montant')"></app-display-form-path-error>
+          id="amount" type="number" class="form-control" formControlName="amount"
+          [max]="''+expiryNotice?.loyerRestant" min="0" appFormPathFallback required />
+        <app-display-form-path-error [pathControl]="paymentForm.get('amount')"></app-display-form-path-error>
       </div>
+
       <div class="form-group mb-3">
-        <label for="observation" class="form-label">{{ 'RENT_RECEIPT.FIELD.observation'|translate }}</label>
+        <label for="type" class="form-label fw-bold">{{ 'RENT_RECEIPT.RELATIONSHIP.settlementType'|translate }}</label>
+        <select id="type" class="form-select" formControlName="type" required appFormPathFallback>
+          <ng-container *ngrxLet="settlementTypes$ as settlementTypes">
+            <option *ngFor="let settlementType of settlementTypes" [value]="settlementType.id">
+              {{ settlementType.libelle }}
+            </option>
+          </ng-container>
+        </select>
+        <app-display-form-path-error [pathControl]="paymentForm.get('type')"></app-display-form-path-error>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="observation" class="form-label fw-bold">{{ 'RENT_RECEIPT.FIELD.observation'|translate }}</label>
         <textarea id="observation" rows="3" class="form-control" formControlName="observation"></textarea>
       </div>
+
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button class="btn btn-sm btn-secondary me-md-2" type="button" [disabled]="creating$|ngrxPush" (click)="onClose()">
           {{ 'LABEL.CANCEL'|translate }}
