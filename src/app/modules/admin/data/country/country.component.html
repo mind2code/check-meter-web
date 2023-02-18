@@ -1,69 +1,71 @@
-<!-- begin::Header -->
-<div class="card-header border-0 pt-5">
-  <h3 class="card-title align-items-start flex-column">
-    <span class="card-label fw-bolder fs-3 mb-1">{{ 'COUNTRY.LABEL.NATIONALITIES'|translate }}</span>
-    <ng-container *ngrxLet="totalRecords$ as totalRecords">
-      <span class="text-muted mt-1 fw-bold fs-7">
-        {{ 'LABEL.ELEMENT_COUNT'|translate:{count: totalRecords} }}
-      </span>
-    </ng-container>
-  </h3>
-  <div class="card-toolbar"></div>
-</div>
-<!-- end::Header -->
-<!-- begin::Body -->
-<div class="card-body py-3">
-  <!-- begin::Table container -->
-  <ng-container *ngrxLet="countries$ as countries">
-    <div class="table-responsive scroll-y" style="max-height: 400px;">
-      <!-- begin::Table -->
-      <table class="table table-hover align-middle gs-0 gy-3">
-        <!-- begin::Table head -->
-        <thead>
-          <tr>
-            <th class="p-0 w-40px"></th>
-            <th class="p-0 w-70px"></th>
-            <th class="p-0 min-w-150px"></th>
-          </tr>
-        </thead>
-        <!-- end::Table head -->
-        <!-- begin::Table body -->
-        <tbody>
-          <tr *ngFor="let country of countries; let i=index; trackBy: trackById">
-            <td>
-              <span *ngIf="country.estActif; else elseBlockEstActif"
-                [inlineSVG]="'./assets/media/icons/duotune/general/gen048.svg'"
-                class="svg-icon svg-icon-2 text-success"
-                [ngbTooltip]="'LABEL.ACTIVE'|translate"
-              ></span>
-              <ng-template #elseBlockEstActif>
-                <span
-                  [inlineSVG]="'./assets/media/icons/duotune/general/gen050.svg'"
-                  class="svg-icon svg-icon-2 text-danger"
-                  [ngbTooltip]="'LABEL.INACTIVE'|translate"
+<div class="card card-custom">
+  <!-- begin::Header -->
+  <div class="card-header border-0 pt-5">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label fw-bolder fs-3 mb-1">{{ 'COUNTRY.LABEL.NATIONALITIES'|translate }}</span>
+      <ng-container *ngrxLet="totalRecords$ as totalRecords">
+        <span class="text-muted mt-1 fw-bold fs-7">
+          {{ 'LABEL.ELEMENT_COUNT'|translate:{count: totalRecords} }}
+        </span>
+      </ng-container>
+    </h3>
+    <div class="card-toolbar"></div>
+  </div>
+  <!-- end::Header -->
+  <!-- begin::Body -->
+  <div class="card-body py-3">
+    <!-- begin::Table container -->
+    <ng-container *ngrxLet="countries$ as countries">
+      <div class="table-responsive scroll-y" style="max-height: 400px;">
+        <!-- begin::Table -->
+        <table class="table table-hover align-middle gs-0 gy-3">
+          <!-- begin::Table head -->
+          <thead>
+            <tr>
+              <th class="p-0 w-40px"></th>
+              <th class="p-0 w-70px"></th>
+              <th class="p-0 min-w-150px"></th>
+            </tr>
+          </thead>
+          <!-- end::Table head -->
+          <!-- begin::Table body -->
+          <tbody>
+            <tr *ngFor="let country of countries; let i=index; trackBy: trackById">
+              <td>
+                <span *ngIf="country.estActif; else elseBlockEstActif"
+                  [inlineSVG]="'./assets/media/icons/duotune/general/gen048.svg'"
+                  class="svg-icon svg-icon-2 text-success"
+                  [ngbTooltip]="'LABEL.ACTIVE'|translate"
                 ></span>
-              </ng-template>
-            </td>
-            <td class="fw-bold fs-6">
-              <span class="badge badge-secondary" [ngbTooltip]="'COUNTRY.FIELD.identifiant'|translate">
-                {{ country.identifiant }}
-              </span>
-            </td>
-            <td>
-              <span class="text-dark fw-bolder text-hover-primary mb-1 fs-6" [ngbTooltip]="'COUNTRY.FIELD.libelle'|translate">
-                {{ country.libelle }}
-              </span>
-              <span class="text-muted fw-bold d-block fs-7" [ngbTooltip]="'COUNTRY.FIELD.description'|translate">
-                {{ country.description}}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-        <!-- end::Table body -->
-      </table>
-      <!-- end::Table -->
-    </div>
-  </ng-container>
-  <!-- end::Table container -->
+                <ng-template #elseBlockEstActif>
+                  <span
+                    [inlineSVG]="'./assets/media/icons/duotune/general/gen050.svg'"
+                    class="svg-icon svg-icon-2 text-danger"
+                    [ngbTooltip]="'LABEL.INACTIVE'|translate"
+                  ></span>
+                </ng-template>
+              </td>
+              <td class="fw-bold fs-6">
+                <span class="badge badge-secondary" [ngbTooltip]="'COUNTRY.FIELD.identifiant'|translate">
+                  {{ country.identifiant }}
+                </span>
+              </td>
+              <td>
+                <span class="text-dark fw-bolder text-hover-primary mb-1 fs-6" [ngbTooltip]="'COUNTRY.FIELD.libelle'|translate">
+                  {{ country.libelle }}
+                </span>
+                <span class="text-muted fw-bold d-block fs-7" [ngbTooltip]="'COUNTRY.FIELD.description'|translate">
+                  {{ country.description}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <!-- end::Table body -->
+        </table>
+        <!-- end::Table -->
+      </div>
+    </ng-container>
+    <!-- end::Table container -->
+  </div>
+  <!-- end::Body -->
 </div>
-<!-- end::Body -->

@@ -10,7 +10,7 @@ import { ApiPaginatedResponse } from '../models/api-response.interface';
   providedIn: 'root'
 })
 export class IdentityDocumentTypeService {
-  basePath: string = 'api/v1/type_piece_identites';
+  basePath: string = 'api/v1/type-piece-identites';
 
   constructor(private http: HttpClient) { }
 

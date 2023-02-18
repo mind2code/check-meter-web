@@ -8,7 +8,7 @@ export interface IdentityDocumentType {
   identifiant: string;
   libelle: string;
   description: string;
-  enabled: boolean;
+  estActif: boolean;
 }
 
 /**

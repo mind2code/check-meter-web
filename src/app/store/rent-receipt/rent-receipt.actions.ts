@@ -19,6 +19,7 @@ export const RentReceiptApiActions = createActionGroup({
   source: 'RentReceipts API',
   events: {
     'Load All Success': props<{ items: RentReceipt[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
     'Create Success': props<{ item: RentReceipt }>(),
     'Create Failed': props<{ error: any }>(),
   }

@@ -26,7 +26,7 @@ export class RentReceiptEffects {
           return RentReceiptApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(RentReceiptApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [RentReceipt loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des quittances de loyer.`);

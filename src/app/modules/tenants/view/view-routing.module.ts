@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TenantViewOverviewComponent } from './overview/overview.component';
 import { TenantViewComponent } from './view.component';
 import { TenantViewExpiryNoticesComponent } from './expiry-notices/expiry-notices.component';
+import { TenantViewContractsComponent } from './contracts/contracts.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: TenantViewComponent,
     children: [
       { path: 'overview', component: TenantViewOverviewComponent },
+      { path: 'contracts', component: TenantViewContractsComponent },
       { path: 'expiry-notices', component: TenantViewExpiryNoticesComponent },
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: '**', redirectTo: 'overview', pathMatch: 'full' },

@@ -12,12 +12,16 @@ import { effectsFeatureModules, storeFeatureModules } from './feature.store';
 import { TranslateModule } from '@ngx-translate/core';
 import { TenantViewOverviewComponent } from './overview/overview.component';
 import { TenantViewExpiryNoticesComponent } from './expiry-notices/expiry-notices.component';
+import { TenantViewContractsComponent } from './contracts/contracts.component';
+import { ExpiryNoticeMakePaymentComponent } from './expiry-notices/make-payment/make-payment.component';
 
 @NgModule({
   declarations: [
     TenantViewComponent,
     TenantViewOverviewComponent,
+    TenantViewContractsComponent,
     TenantViewExpiryNoticesComponent,
+    ExpiryNoticeMakePaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -30,8 +34,8 @@ import { TenantViewExpiryNoticesComponent } from './expiry-notices/expiry-notice
     LetModule,
     PushModule,
     TranslateModule,
-    // storeFeatureModules,
-    // effectsFeatureModules,
+    storeFeatureModules,
+    effectsFeatureModules,
   ],
 })
 export class TenantViewModule { }

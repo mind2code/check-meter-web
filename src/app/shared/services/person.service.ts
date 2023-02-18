@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Person } from '../models/person.model';
 import { PaginationQuery } from '../requests/pagination.query';
 import { pagination } from 'src/environments/environment';
-import { ApiPaginatedResponse } from '../models/api-response.interface';
+import { ApiOneResponse, ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +22,9 @@ export class PersonService {
         ...(params?.query || {})
       }
     });
+  }
+
+  getOneById(id: string): Observable<Person> {
+    return this.http.get<any>(this.basePath + '/' + String(id));
   }
 }

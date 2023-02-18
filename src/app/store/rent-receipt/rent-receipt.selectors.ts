@@ -39,3 +39,13 @@ export const selectTotalRecords = createSelector(
   rentReceiptsFeature.selectTotalRecords,
   (totalRecords) => totalRecords,
 );
+
+export const selectLoading = createSelector(
+  rentReceiptsFeature.selectLoading,
+  (loading) => loading,
+);
+
+export const selectCreating = createSelector(
+  rentReceiptsFeature.selectCreating,
+  (creating) => creating,
+);

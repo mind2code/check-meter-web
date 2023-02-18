@@ -3,7 +3,6 @@ import { Person } from './person.model';
 export interface ApiPaginatedResponse<T> {
   currentPage: number;
   recordsTotal: number;
-  recordsFiltered: number;
   data: T[];
 }
 

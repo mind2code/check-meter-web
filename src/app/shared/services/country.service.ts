@@ -14,7 +14,7 @@ export class CountryService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(params?: PaginationQuery): Observable<Country[]> {
+  getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<Country>> {
     return this.http.get<any>(this.basePath, {
       params: {
         page: params?.page ?? 0,

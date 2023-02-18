@@ -21,8 +21,8 @@ export class CountryEffects {
     ),
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
-        map((countries) => {
-          return CountryApiActions.loadAllSuccess({ items: countries, page: 0, total: countries.length })
+        map(({ data, recordsTotal, currentPage  }) => {
+          return CountryApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
         }),
         catchError((error) =>
           of(error).pipe(

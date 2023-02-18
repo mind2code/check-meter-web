@@ -1,4 +1,6 @@
 import { AddressBook } from './address-book.model';
+import { Country } from './country.model';
+import { IdentityDocument } from './identity-document.model';
 
 /**
  * fr => Type de personne
@@ -59,7 +61,9 @@ export interface Person {
   estActif: boolean;
   civilite?: Civility;
   genre?: Gender;
+  nationalite?: Country;
   situationMatrimoniale?: MaritalSituation;
   typePersonne?: PersonType;
-  carnetAdresse?: AddressBook[]
+  carnetAdresse?: AddressBook[];
+  pieceIdentite?: IdentityDocument[];
 }

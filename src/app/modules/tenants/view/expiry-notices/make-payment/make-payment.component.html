@@ -1,0 +1,27 @@
+<app-offfcanvas>
+  <ng-container title>{{ 'RENT_RECEIPT.LABEL.RENT_COLLECTION'|translate }}</ng-container>
+  <ng-container *ngIf="expiryNotice$|ngrxPush as expiryNotice">
+    <form class="form" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mb-3">
+        <label for="montant" class="form-label">{{ 'RENT_RECEIPT.LABEL.AMOUNT_COLLECTED'|translate }}</label>
+        <input
+          id="montant" type="number" class="form-control" formControlName="montant"
+          [max]="''+expiryNotice?.loyerRestant" min="0" appFormPathFallback />
+        <app-display-form-path-error [pathControl]="paymentForm.get('montant')"></app-display-form-path-error>
+      </div>
+      <div class="form-group mb-3">
+        <label for="observation" class="form-label">{{ 'RENT_RECEIPT.FIELD.observation'|translate }}</label>
+        <textarea id="observation" rows="3" class="form-control" formControlName="observation"></textarea>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-sm btn-secondary me-md-2" type="button" [disabled]="creating$|ngrxPush" (click)="onClose()">
+          {{ 'LABEL.CANCEL'|translate }}
+        </button>
+        <button [disabled]="!paymentForm.valid || creating$|ngrxPush" type="submit" class="btn btn-sm btn-primary">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="creating$|ngrxPush"></span>
+          {{ 'LABEL.CASH_OUT'|translate }}
+        </button>
+      </div>
+    </form>
+  </ng-container>
+</app-offfcanvas>

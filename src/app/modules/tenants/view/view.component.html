@@ -1,276 +1,177 @@
-<div class="card mb-5 mb-xl-10">
-  <div class="card-body pt-9 pb-0">
-    <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
-      <div class="flex-grow-1">
-        <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-          <div class="d-flex flex-column">
-            <div class="d-flex align-items-center mb-2">
-              <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">
-                TOURE Constant
-              </a>
-              <a class="cursor-pointer">
-                <span
-                  [inlineSVG]="'./assets/media/icons/duotune/general/gen048.svg'"
-                  class="svg-icon svg-icon-1 svg-icon-success"
-                ></span>
-              </a>
-              <a class="btn btn-sm btn-light-primary fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer">
-                Personne Physique
-              </a>
+<ng-container *ngIf="tenant$|ngrxPush as tenant; else elseBlockTenant">
+  <div class="card mb-1">
+    <div class="card-body pt-9 pb-0">
+      <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+            <div class="d-flex flex-column">
+              <div class="d-flex align-items-center mb-2">
+                <a class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1 cursor-pointer">
+                  {{ tenant.nomComplet }}
+                </a>
+                <a class="cursor-pointer">
+                  <span
+                    [inlineSVG]="'./assets/media/icons/duotune/general/gen048.svg'"
+                    class="svg-icon svg-icon-1 svg-icon-success"
+                  ></span>
+                </a>
+                <a *ngIf="tenant.typePersonne"
+                  class="btn btn-sm btn-light-primary fw-bolder ms-2 fs-8 py-1 px-3 cursor-pointer"
+                >
+                  {{ tenant.typePersonne.libelle }}
+                </a>
+              </div>
+
+              <div
+                *ngIf="tenant.carnetAdresse && tenant.carnetAdresse.length > 0"
+                class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
+                <a
+                  *ngIf="tenant.carnetAdresse[0].telephoneMobile"
+                  class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2 cursor-pointer"
+                >
+                  <span
+                    [inlineSVG]="'./assets/media/icons/duotune/electronics/elc003.svg'"
+                    class="svg-icon svg-icon-4 me-1"
+                  ></span>
+                  {{ tenant.carnetAdresse[0].telephoneMobile }}
+                </a>
+                <a
+                  *ngIf="tenant.carnetAdresse[0].adresseEmail"
+                  class="d-flex align-items-center text-gray-400 text-hover-primary mb-2 cursor-pointer"
+                >
+                  <span
+                    [inlineSVG]="'./assets/media/icons/duotune/communication/com011.svg'"
+                    class="svg-icon svg-icon-4 me-1"
+                  ></span>
+                  {{ tenant.carnetAdresse[0].adresseEmail }}
+                </a>
+              </div>
             </div>
 
-            <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
+            <div class="d-flex justify-content-between align-items-start flex-wrap ms-2">
+              <div *ngIf="tenant.identifiant" class="d-flex flex-column px-4">
+                <div class="fs-6 text-gray-500">{{ 'PERSON.FIELD.identifiant'|translate }}</div>
+                <div class="fs-5 fw-bolder text-gray-800">{{ tenant.identifiant }}</div>
+              </div>
+              <div *ngIf="tenant.nom" class="d-flex flex-column px-4">
+                <div class="fs-6 text-gray-500">{{ 'PERSON.FIELD.nom'|translate }}</div>
+                <div class="fs-5 fw-bolder text-gray-800">{{ tenant.nom }}</div>
+              </div>
+              <div *ngIf="tenant.prenoms" class="d-flex flex-column px-4">
+                <div class="fs-6 text-gray-500">{{ 'PERSON.FIELD.prenoms'|translate }}</div>
+                <div class="fs-5 fw-bolder text-gray-800">{{ tenant.prenoms }}</div>
+              </div>
+              <div *ngIf="tenant.nomJeuneFille" class="d-flex flex-column px-4">
+                <div class="fs-6 text-gray-500">{{ 'PERSON.FIELD.nomJeuneFille'|translate }}</div>
+                <div class="fs-5 fw-bolder text-gray-800">{{ tenant.nomJeuneFille }}</div>
+              </div>
+            </div>
+
+            <div class="d-flex my-4">
               <a
-                class="
-                  d-flex
-                  align-items-center
-                  text-gray-400 text-hover-primary
-                  me-5
-                  mb-2
-                  cursor-pointer
-                "
+                class="btn btn-sm btn-success me-3 cursor-pointer"
+                [ngbTooltip]="'LABEL.EDIT'|translate"
               >
                 <span
-                  [inlineSVG]="
-                    './assets/media/icons/duotune/electronics/elc003.svg'
-                  "
-                  class="svg-icon svg-icon-4 me-1"
+                  [inlineSVG]="'./assets/media/icons/duotune/general/gen055.svg'"
+                  class="svg-icon svg-icon-2"
                 ></span>
-                +2250707070525
-              </a>
-              <a
-                class="
-                  d-flex
-                  align-items-center
-                  text-gray-400 text-hover-primary
-                  mb-2
-                  cursor-pointer
-                "
-              >
-                <span
-                  [inlineSVG]="
-                    './assets/media/icons/duotune/communication/com011.svg'
-                  "
-                  class="svg-icon svg-icon-4 me-1"
-                ></span>
-                camara.emmanuel@gmail.com
+                {{ 'LABEL.EDIT'|translate }}
               </a>
             </div>
           </div>
 
-          <div class="d-flex justify-content-between align-items-start flex-wrap ms-2">
-            <div class="d-flex flex-column px-4">
-              <div class="fs-6 text-gray-500">{{ 'PERSON.FIELD.identifiant'|translate }}</div>
-              <div class="fs-5 fw-bolder text-gray-800">P20230128</div>
-            </div>
-            <div class="d-flex flex-column px-4">
-              <div class="fs-6 text-gray-500">{{ 'PERSON.FIELD.nom'|translate }}</div>
-              <div class="fs-5 fw-bolder text-gray-800">TOURE</div>
-            </div>
-            <div class="d-flex flex-column px-4">
-              <div class="fs-6 text-gray-500">{{ 'PERSON.FIELD.prenoms'|translate }}</div>
-              <div class="fs-5 fw-bolder text-gray-800">Constant</div>
-            </div>
-            <div class="d-flex flex-column px-4">
-              <div class="fs-6 text-gray-500">{{ 'PERSON.FIELD.nomJeuneFille'|translate }}</div>
-              <div class="fs-5 fw-bolder text-gray-800"></div>
-            </div>
-          </div>
+          <div class="d-flex flex-wrap flex-stack">
+            <div class="d-flex flex-column flex-grow-1 pe-8">
+              <div class="d-flex flex-wrap">
+                <div
+                  class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
+                >
+                  <div class="d-flex align-items-center">
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/finance/fin008.svg'"
+                      class="svg-icon svg-icon-2 svg-icon-info me-2"
+                    ></span>
+                    <div class="fs-2 fw-bolder">{{ (tenant.solde || 0)|currency }}</div>
+                  </div>
 
-          <div class="d-flex my-4">
-            <a
-              class="btn btn-sm btn-success me-3 cursor-pointer"
-              [ngbTooltip]="'LABEL.EDIT'|translate"
-            >
-              <span
-                [inlineSVG]="'./assets/media/icons/duotune/general/gen055.svg'"
-                class="svg-icon svg-icon-2"
-              ></span>
-              {{ 'LABEL.EDIT'|translate }}
-            </a>
-          </div>
-        </div>
-
-        <div class="border border-gray-300 rounded bg-light-info p-1 d-flex justify-content-between align-items-start flex-wrap my-6">
-          <div class="d-flex flex-column">
-            <div class="fs-6 text-gray-500">{{ 'IDENTITY_DOCUMENT.LABEL.SINGLE'|translate }}</div>
-            <div class="fs-6 fw-bolder text-gray-800">Carte Nationale d'Identité</div>
-          </div>
-          <div class="d-flex flex-column">
-            <div class="fs-6 text-gray-500">{{ 'IDENTITY_DOCUMENT.FIELD.numeroIdentite'|translate }}</div>
-            <div class="fs-6 fw-bolder text-gray-800">CI0077554544</div>
-          </div>
-          <div class="d-flex flex-column">
-            <div class="fs-6 text-gray-500">{{ 'IDENTITY_DOCUMENT.FIELD.numeroNNI'|translate }}</div>
-            <div class="fs-6 fw-bolder text-gray-800">008645444</div>
-          </div>
-          <div class="d-flex flex-column">
-            <div class="fs-6 text-gray-500">{{ 'IDENTITY_DOCUMENT.FIELD.delivrePar'|translate }}</div>
-            <div class="fs-6 fw-bolder text-gray-800">RCI</div>
-          </div>
-          <div class="d-flex flex-column">
-            <div class="fs-6 text-gray-500">{{ 'IDENTITY_DOCUMENT.FIELD.dateDelivrance'|translate }}</div>
-            <div class="fs-6 fw-bolder text-gray-800">12/05/2022</div>
-          </div>
-          <div class="d-flex flex-column">
-            <div class="fs-6 text-gray-500">{{ 'IDENTITY_DOCUMENT.FIELD.dateExpiration'|translate }}</div>
-            <div class="fs-6 fw-bolder text-gray-800">12/05/2027</div>
-          </div>
-        </div>
-
-        <div class="d-flex flex-wrap flex-stack">
-          <div class="d-flex flex-column flex-grow-1 pe-8">
-            <div class="d-flex flex-wrap">
-              <div
-                class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
-              >
-                <div class="d-flex align-items-center">
-                  <span
-                    [inlineSVG]="
-                      './assets/media/icons/duotune/finance/fin008.svg'
-                    "
-                    class="svg-icon svg-icon-3 svg-icon-info me-2"
-                  ></span>
-                  <div class="fs-2 fw-bolder">{{ 50000|currency }}</div>
+                  <div class="fw-bold fs-6 text-gray-400">{{ 'TENANT.FIELD.solde'|translate }}</div>
                 </div>
 
-                <div class="fw-bold fs-6 text-gray-400">{{ 'TENANT.FIELD.solde'|translate }}</div>
-              </div>
+                <div
+                  class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
+                >
+                  <div class="d-flex align-items-center">
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm008.svg'"
+                      class="svg-icon svg-icon-2 svg-icon-primary me-2"
+                    ></span>
+                    <div class="fs-2 fw-bolder">{{ 10|number }}</div>
+                  </div>
 
-              <div
-                class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
-              >
-                <div class="d-flex align-items-center">
-                  <span
-                    [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm008.svg'"
-                    class="svg-icon svg-icon-3 svg-icon-primary me-2"
-                  ></span>
-                  <div class="fs-2 fw-bolder">{{ 10|number }}</div>
+                  <div class="fw-bold fs-6 text-gray-400">{{ 'CONTRACT.LABEL.PLURAL'|translate }}</div>
                 </div>
 
-                <div class="fw-bold fs-6 text-gray-400">{{ 'CONTRACT.LABEL.PLURAL'|translate }}</div>
-              </div>
+                <div
+                  class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
+                >
+                  <div class="d-flex align-items-center">
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/finance/fin007.svg'"
+                      class="svg-icon svg-icon-2 svg-icon-warning me-2"
+                    ></span>
+                    <div class="fs-2 fw-bolder">{{ 60|number }}</div>
+                  </div>
 
-              <div
-                class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3"
-              >
-                <div class="d-flex align-items-center">
-                  <span
-                    [inlineSVG]="'./assets/media/icons/duotune/finance/fin007.svg'"
-                    class="svg-icon svg-icon-3 svg-icon-warning me-2"
-                  ></span>
-                  <div class="fs-2 fw-bolder">{{ 60|number }}</div>
+                  <div class="fw-bold fs-6 text-gray-400">{{ 'EXPIRY_NOTICE.LABEL.PLURAL'|translate }}</div>
                 </div>
-
-                <div class="fw-bold fs-6 text-gray-400">{{ 'EXPIRY_NOTICE.LABEL.PLURAL'|translate }}</div>
               </div>
-            </div>
-          </div>
-
-          <div class="bg-light-warning border border-gray-500 p-2 me-2 border-dashed rounded d-flex align-items-center min-w-300px min-w-sm-400px flex-column mt-3">
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'PERSON.FIELD.dateNaissance'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">09/08/1980</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'PERSON.FIELD.lieuNaissance'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">Abidjan</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'COUNTRY.LABEL.NATIONALITY'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">Côte d'Ivoire</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'PERSON.RELATIONSHIP.civilite'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">Monsieur</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'PERSON.RELATIONSHIP.genre'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">Masculin</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'PERSON.RELATIONSHIP.situationMatrimoniale'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">Célibataire</span>
-            </div>
-          </div>
-
-          <div class="bg-light-primary border border-gray-500 p-2 border-dashed rounded d-flex align-items-center min-w-300px min-w-sm-400px flex-column mt-3">
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'ADDRESS_BOOK.FIELD.ville'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">Abidjan</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'ADDRESS_BOOK.FIELD.quartier'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">Yopougon</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'ADDRESS_BOOK.FIELD.telephoneMobile2'|translate }}
-              </span>
-              <span class="fw-bolder fs-6"></span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'ADDRESS_BOOK.FIELD.telephoneFixe'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">+225030302015</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'ADDRESS_BOOK.FIELD.adresseGeographique'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">Quartier Maroc, Carrefour Academie</span>
-            </div>
-            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-              <span class="fw-bold fs-6 text-gray-400">
-                {{ 'ADDRESS_BOOK.FIELD.adressePostale'|translate }}
-              </span>
-              <span class="fw-bolder fs-6">16 BP 83</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="d-flex overflow-auto h-55px">
-      <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary me-6"
-            routerLink="overview"
-            routerLinkActive="active"
-          >
-            {{ 'LABEL.OVERVIEW'|translate }}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary me-6"
-            routerLink="expiry-notices"
-            routerLinkActive="active"
-          >
-            {{ 'EXPIRY_NOTICE.LABEL.PLURAL'|translate }}
-          </a>
-        </li>
-      </ul>
+      <div class="d-flex overflow-auto h-55px">
+        <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
+          <li class="nav-item">
+            <a
+              class="nav-link text-active-primary me-6"
+              routerLink="overview"
+              routerLinkActive="active"
+            >
+              {{ 'LABEL.OVERVIEW'|translate }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-active-primary me-6"
+              routerLink="contracts"
+              routerLinkActive="active"
+            >
+              {{ 'CONTRACT.LABEL.PLURAL'|translate }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-active-primary me-6"
+              routerLink="expiry-notices"
+              routerLinkActive="active"
+            >
+              {{ 'EXPIRY_NOTICE.LABEL.PLURAL'|translate }}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</ng-container>
+
+<ng-template #elseBlockTenant>
+  <div class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">{{ 'MESSAGE.LOADING'|translate }}</span>
+    </div>
+  </div>
+</ng-template>

@@ -1,39 +1,38 @@
 <div class="card">
-  <div class="card-header border-0 pt-4">
+  <div class="card-header border-0 pt-6">
+
     <div class="card-title">
-      <div class="d-flex align-items-center position-relative my-1">
-        <span
-          [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
-          class="svg-icon svg-icon-1 position-absolute ms-6"
-        ></span>
-        <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" [placeholder]="'LABEL.SEARCH'|translate" />
-      </div>
+      <span
+        [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm008.svg'"
+        class="svg-icon svg-icon-1 me-2"
+      ></span>
+      <span class="fw-bold fs-2 text-gray-800">{{ 'CONTRACT.LABEL.PLURAL'|translate }}</span>
     </div>
     <div class="card-toolbar">
-      <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-        <a class="btn btn-sm btn-primary" routerLink="/contracts/create">
-          <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr013.svg'" class="svg-icon svg-icon-2"></span>
-          {{ 'LABEL.NEW'|translate }}
-        </a>
-      </div>
+
     </div>
   </div>
+  <!--begin::Card body-->
   <div class="card-body pt-0">
     <ng-container *ngrxLet="contracts$ as contracts">
       <div class="table-responsive">
-        <table class="table table-hover align-middle table-row-dashed fs-6 gy-3">
+        <!--begin::Table-->
+        <table class="table align-middle table-row-dashed fs-6 gy-3" id="kt_customers_table">
+          <!--begin::Table head-->
           <thead>
-          <tr class="text-start bg-light text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+          <!--begin::Table row-->
+          <tr class="text-start bg-light text-gray-400 fw-bold fs-7 text-uppercase gs-0">
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.identifiant'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.numeroExterneBail'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.solde'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.dateDebutContrat'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.dateFinContrat'|translate }}</th>
-            <th class="min-w-125px">{{ 'CONTRACT.RELATIONSHIP.personne'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.RELATIONSHIP.habitation'|translate }}</th>
-            <th class="text-end min-w-70px">{{ 'LABEL.ACTIONS'|translate }}</th>
           </tr>
+          <!--end::Table row-->
           </thead>
+          <!--end::Table head-->
+          <!--begin::Table body-->
           <tbody class="fw-semibold text-gray-600" >
             <tr *ngFor="let contract of contracts; let i=index; trackBy: trackById">
             <td>{{ contract.identifiant}}</td>
@@ -43,7 +42,6 @@
             <td>{{ contract.solde|currency }}</td>
             <td>{{ contract.dateDebutContrat|date }}</td>
             <td>{{ contract.dateFinContrat|date }}</td>
-            <td>{{ contract.personne?.nomComplet }}</td>
             <td>
               <ng-container *ngIf="contract.habitation">
                 <span [ngbTooltip]="contract.habitation.description + ' [' + contract.habitation.localisation + ']'">
@@ -52,31 +50,11 @@
                 </span>
               </ng-container>
             </td>
-            <td class="text-end">
-              <a
-                class="btn btn-icon btn-light-primary btn-sm me-1"
-                routerLink="/contracts/{{ contract.id }}/view"
-                ngbTooltip="{{ 'LABEL.DETAILS'|translate }}"
-              >
-                <span
-                  [inlineSVG]="'./assets/media/icons/duotune/general/eye-fill.svg'"
-                  class="svg-icon svg-icon-2"
-                ></span>
-              </a>
-              <a
-                class="btn btn-icon btn-light-success btn-sm me-1"
-                routerLink="/contracts/{{ contract.id }}/edit"
-                ngbTooltip="{{ 'LABEL.EDIT'|translate }}"
-              >
-                <span
-                  [inlineSVG]="'./assets/media/icons/duotune/general/gen055.svg'"
-                  class="svg-icon svg-icon-2"
-                ></span>
-              </a>
-            </td>
           </tr>
           </tbody>
+          <!--end::Table body-->
         </table>
+        <!--end::Table-->
       </div>
       <div class="d-flex justify-content-between">
         <ngb-pagination
@@ -92,4 +70,5 @@
       </div>
     </ng-container>
   </div>
+  <!--end::Card body-->
 </div>

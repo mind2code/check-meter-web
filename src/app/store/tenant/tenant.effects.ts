@@ -6,7 +6,6 @@ import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import { selectRouteNestedParam } from '../router.selectors';
-import { PersonApiActions, } from '../person/person.actions';
 
 @Injectable()
 export class TenantEffects {
@@ -47,12 +46,8 @@ export class TenantEffects {
     concatLatestFrom(({ paramName }) => this.store.select(selectRouteNestedParam(paramName))),
     exhaustMap(([, paramValue]) => this.service.getOneById(String(paramValue))
       .pipe(
-        map(({ data, statut, error_message }) => {
-          if (statut === true) {
-            return PersonApiActions.loadOneSuccess({ item: data.personne });
-          } else {
-            return TenantApiActions.loadOneFailed({ error: new Error(error_message) })
-          }
+        map((tenant) => {
+          return TenantApiActions.loadOneSuccess({ item: tenant });
         }),
         catchError((error) =>
           of(TenantApiActions.loadOneFailed({ error })).pipe(

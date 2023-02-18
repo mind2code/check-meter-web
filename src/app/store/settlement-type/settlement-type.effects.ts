@@ -22,10 +22,10 @@ export class SettlementTypeEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
-          return SettlementTypeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return SettlementTypeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(SettlementTypeApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [SettlementType loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des types de règlement.`);
