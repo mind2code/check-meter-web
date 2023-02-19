@@ -15,7 +15,7 @@ export class SettlementTypeService {
   constructor(private http: HttpClient) { }
 
   getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<SettlementType>> {
-    return this.http.get<ApiPaginatedResponse<SettlementType>>(this.basePath + '/all', {
+    return this.http.get<any>(this.basePath + '/all', {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,

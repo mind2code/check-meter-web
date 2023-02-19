@@ -1,10 +1,8 @@
+import { Person } from './person.model';
+
 /**
  * fr => Locataire
  */
-export interface Tenant {
-  id: string;
-  identifiant: string;
-  nomComplet: string;
+export interface Tenant extends Person {
   solde: number;
-  typePersonne: string;
 }

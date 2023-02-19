@@ -15,7 +15,7 @@ export class CivilityService {
   constructor(private http: HttpClient) { }
 
   getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<Civility>> {
-    return this.http.get<ApiPaginatedResponse<Civility>>(this.basePath, {
+    return this.http.get<any>(this.basePath, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,

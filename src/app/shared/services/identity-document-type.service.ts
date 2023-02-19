@@ -10,12 +10,12 @@ import { ApiPaginatedResponse } from '../models/api-response.interface';
   providedIn: 'root'
 })
 export class IdentityDocumentTypeService {
-  basePath: string = 'api/v1/type_piece_identites';
+  basePath: string = 'api/v1/type-piece-identites';
 
   constructor(private http: HttpClient) { }
 
   getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<IdentityDocumentType>> {
-    return this.http.get<ApiPaginatedResponse<IdentityDocumentType>>(this.basePath, {
+    return this.http.get<any>(this.basePath, {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,

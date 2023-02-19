@@ -7,7 +7,7 @@ import Joi from "joi";
 import { ExpiryNotice } from 'src/app/shared/models/expiry-notice.model';
 import * as ExpiryNoticeSelector from 'src/app/store/expiry-notice/expiry-notice.selectors';
 import { Actions, ofType } from '@ngrx/effects';
-import { RentReceiptApiActions, RentReceiptPageActions } from 'src/app/store/rent-recipt/rent-receipt.actions';
+import { RentReceiptApiActions, RentReceiptPageActions } from 'src/app/store/rent-receipt/rent-receipt.actions';
 import { CreateRentReceiptDto } from 'src/app/shared/dto/rent-receipt.dto';
 import { Subscription } from 'rxjs';
 

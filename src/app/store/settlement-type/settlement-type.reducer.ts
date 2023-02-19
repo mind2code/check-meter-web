@@ -6,9 +6,10 @@ import { SettlementTypeApiActions, SettlementTypePageActions } from './settlemen
 export const featureName = 'settlementTypes';
 
 export interface State extends EntityState<SettlementType> {
-  selectedId: string | null,
-  currentPage: number,
-  totalRecords: number,
+  selectedId: string | null;
+  currentPage: number;
+  totalRecords: number;
+  loading: boolean;
 }
 
 export const adapter: EntityAdapter<SettlementType> = createEntityAdapter<SettlementType>();
@@ -17,6 +18,7 @@ export const initialState: State = adapter.getInitialState({
   selectedId: null,
   currentPage: 0,
   totalRecords: 0,
+  loading: false,
 });
 
 export const settlementTypesFeature = createFeature({
@@ -24,17 +26,24 @@ export const settlementTypesFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(SettlementTypePageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
+
+    on(SettlementTypePageActions.loadAll, (state) => ({ ...state, loading: true })),
     on(SettlementTypeApiActions.loadAllSuccess, (state, { items, page, total }) => {
       return adapter.setAll(
         items ?? [],
         {
           ...state,
-          selectedId: null,
           currentPage: page ?? 0,
           totalRecords: ((Number.isSafeInteger(total)) ? total : state.totalRecords),
         }
       );
     }),
+    on(
+      SettlementTypeApiActions.loadAllSuccess,
+      SettlementTypeApiActions.loadFailed,
+      (state) => ({ ...state, loading: false, selectedId: null })
+    ),
+
     on(SettlementTypePageActions.clear, (state) => ({
       ...state,
       currentPage: 0,

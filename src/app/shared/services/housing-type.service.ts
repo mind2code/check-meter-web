@@ -10,7 +10,7 @@ import { ApiPaginatedResponse } from '../models/api-response.interface';
   providedIn: 'root'
 })
 export class HousingTypeService {
-  basePath: string = 'api/v1/type_habitations';
+  basePath: string = 'api/v1/type-habitations';
 
   constructor(private http: HttpClient) { }
 

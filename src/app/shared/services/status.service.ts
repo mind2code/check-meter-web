@@ -15,7 +15,7 @@ export class StatusService {
   constructor(private http: HttpClient) { }
 
   getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<Status>> {
-    return this.http.get<ApiPaginatedResponse<Status>>(this.basePath + '/all', {
+    return this.http.get<any>(this.basePath + '/all', {
       params: {
         page: params?.page ?? 0,
         size: params?.size ?? pagination.perPage ?? 25,

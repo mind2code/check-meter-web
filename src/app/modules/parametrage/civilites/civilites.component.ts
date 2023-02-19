@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CiviliteService} from "./services/civilite.service";
 import {Civilite} from "./models/civilite.model";
-import {PageInfoService, PageLink} from "../../../_metronic/layout";
+import {PageInfoService, PageLink} from "../../../_template/layout";
 
 @Component({
   selector: 'app-civilites',

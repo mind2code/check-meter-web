@@ -28,7 +28,7 @@ export class ContractEffects {
           of(error).pipe(
             tap((err) => {
               console.error('*** [Contract loadAllFailed]', err);
-              this.toastr.error(`Une erreur est suvernue.`);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des contrats.`);
             }),
           ),
         ),

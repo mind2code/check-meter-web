@@ -17,6 +17,9 @@ import { DataSettlementTypeComponent } from './data/settlement-type/settlement-t
 import { DataMaritalSituationComponent } from './data/marital-situation/marital-situation.component';
 import { DataIdentityDocumentTypeComponent } from './data/identity-document-type/identity-document-type.component';
 import { DataCivilityComponent } from './data/civility/civility.component';
+import { DataGenderComponent } from './data/gender/gender.component';
+import { DataCountryComponent } from './data/country/country.component';
+import { DataPersonTypeComponent } from './data/person-type/person-type.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { DataCivilityComponent } from './data/civility/civility.component';
     DataMaritalSituationComponent,
     DataIdentityDocumentTypeComponent,
     DataCivilityComponent,
+    DataGenderComponent,
+    DataCountryComponent,
+    DataPersonTypeComponent,
   ],
   imports: [
     CommonModule,

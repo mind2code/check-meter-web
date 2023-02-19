@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CivilityService } from '../../shared/services/civility.service';
 import { CivilityApiActions, CivilityPageActions } from './civility.actions';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class CivilityEffects {
   constructor(
     private actions$: Actions,
-    private service: CivilityService
+    private service: CivilityService,
+    private toastr: ToastrService,
   ) {}
 
   loadAll$ = createEffect(() => this.actions$.pipe(
@@ -24,7 +26,10 @@ export class CivilityEffects {
         }),
         catchError((error) =>
           of(error).pipe(
-            tap((err) => console.error('**** loadAllFailed', err)),
+            tap((err) => {
+              console.error('**** [Civility loadAllFailed]', err);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des civilités.`);
+            }),
           ),
         ),
       )

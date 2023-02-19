@@ -1,49 +1,29 @@
-<!--begin::Card-->
 <div class="card">
-  <!--begin::Card header-->
-  <div class="card-header border-0 pt-6">
-    <!--begin::Card title-->
+  <div class="card-header border-0 pt-4">
     <div class="card-title">
-      <!--begin::Search-->
       <div class="d-flex align-items-center position-relative my-1">
-        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
         <span
           [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
           class="svg-icon svg-icon-1 position-absolute ms-6"
         ></span>
-        <!--end::Svg Icon-->
         <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" [placeholder]="'LABEL.SEARCH'|translate" />
       </div>
-      <!--end::Search-->
     </div>
-    <!--begin::Card title-->
-    <!--begin::Card toolbar-->
     <div class="card-toolbar">
-      <!--begin::Toolbar-->
       <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-
-        <!--begin::Add customer-->
         <a class="btn btn-sm btn-primary" routerLink="/contracts/create">
           <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr013.svg'" class="svg-icon svg-icon-2"></span>
           {{ 'LABEL.NEW'|translate }}
         </a>
-        <!--end::Add customer-->
       </div>
-      <!--end::Toolbar-->
     </div>
-    <!--end::Card toolbar-->
   </div>
-  <!--end::Card header-->
-  <!--begin::Card body-->
   <div class="card-body pt-0">
     <ng-container *ngrxLet="contracts$ as contracts">
       <div class="table-responsive">
-        <!--begin::Table-->
-        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-          <!--begin::Table head-->
+        <table class="table table-hover align-middle table-row-dashed fs-6 gy-3">
           <thead>
-          <!--begin::Table row-->
-          <tr class="text-start bg-light text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+          <tr class="text-start bg-light text-gray-500 fw-bold fs-7 text-uppercase gs-0">
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.identifiant'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.numeroExterneBail'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.solde'|translate }}</th>
@@ -53,10 +33,7 @@
             <th class="min-w-125px">{{ 'CONTRACT.RELATIONSHIP.habitation'|translate }}</th>
             <th class="text-end min-w-70px">{{ 'LABEL.ACTIONS'|translate }}</th>
           </tr>
-          <!--end::Table row-->
           </thead>
-          <!--end::Table head-->
-          <!--begin::Table body-->
           <tbody class="fw-semibold text-gray-600" >
             <tr *ngFor="let contract of contracts; let i=index; trackBy: trackById">
             <td>{{ contract.identifiant}}</td>
@@ -75,7 +52,6 @@
                 </span>
               </ng-container>
             </td>
-            <!--begin::Action=-->
             <td class="text-end">
               <a
                 class="btn btn-icon btn-light-primary btn-sm me-1"
@@ -98,12 +74,9 @@
                 ></span>
               </a>
             </td>
-            <!--end::Action=-->
           </tr>
           </tbody>
-          <!--end::Table body-->
         </table>
-        <!--end::Table-->
       </div>
       <div class="d-flex justify-content-between">
         <ngb-pagination
@@ -119,5 +92,4 @@
       </div>
     </ng-container>
   </div>
-  <!--end::Card body-->
 </div>

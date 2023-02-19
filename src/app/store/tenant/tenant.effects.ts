@@ -6,7 +6,6 @@ import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import { selectRouteNestedParam } from '../router.selectors';
-import { PersonApiActions, } from '../person/person.actions';
 
 @Injectable()
 export class TenantEffects {
@@ -29,7 +28,7 @@ export class TenantEffects {
           return TenantApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(TenantApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('*** [Tenant loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du changement des locataires.`);
@@ -47,22 +46,40 @@ export class TenantEffects {
     concatLatestFrom(({ paramName }) => this.store.select(selectRouteNestedParam(paramName))),
     exhaustMap(([, paramValue]) => this.service.getOneById(String(paramValue))
       .pipe(
-        map(({ data, statut, error_message }) => {
-          if (statut === true) {
-            return PersonApiActions.loadOneSuccess({ item: data.personne });
-          } else {
-            return TenantApiActions.loadOneFailed({ error: new Error(error_message) })
-          }
+        map((tenant) => {
+          return TenantApiActions.loadOneSuccess({ item: tenant });
         }),
         catchError((error) =>
-          of(TenantApiActions.loadOneFailed({ error })).pipe(
+          of(TenantApiActions.loadFailed({ error })).pipe(
             tap((err: any) => {
               console.error('*** [Tenant loadOneFailed]', err);
-              this.toastr.error(`Une erreur est suvernue.`);
+              this.toastr.error(`Une erreur est suvernue lors du chargement du locataire #${paramValue}.`);
             }),
           ),
         ),
       )
     ),
   ));
+
+  // Create item
+  create$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TenantPageActions.create),
+      exhaustMap(({ dto }) => this.service.create(dto).pipe(
+        tap((item) => this.toastr.success(`Locataire créé avec succès. #${item.identifiant}`)),
+        map((item) => {
+          return TenantApiActions.createSuccess({ item })
+        }),
+        catchError((error) =>
+          of(TenantApiActions.createFailed({ error })).pipe(
+            tap((err: any) => {
+              console.error(`*** [Tenant createFailed]`, err);
+              this.toastr.error(`Une erreur est suvernue lors de la création du locataire.`);
+            }),
+          ),
+          ),
+        )
+      )
+    ),
+  );
 }

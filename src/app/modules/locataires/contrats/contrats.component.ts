@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BehaviorSubject, Subscription} from "rxjs";
 import {ICreateAccount, inits} from "./create-account.helper";
-import {PageInfoService, PageLink} from "../../../_metronic/layout";
+import {PageInfoService, PageLink} from "../../../_template/layout";
 
 @Component({
   selector: 'app-contrats',

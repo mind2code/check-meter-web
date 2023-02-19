@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { HousingTypeService } from '../../shared/services/housing-type.service';
 import { HousingTypeApiActions, HousingTypePageActions } from './housing-type.actions';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class HousingTypeEffects {
   constructor(
     private actions$: Actions,
-    private service: HousingTypeService
+    private service: HousingTypeService,
+    private toastr: ToastrService,
   ) {}
 
   loadAll$ = createEffect(() => this.actions$.pipe(
@@ -24,7 +26,10 @@ export class HousingTypeEffects {
         }),
         catchError((error) =>
           of(error).pipe(
-            tap((err) => console.error('**** loadAllFailed', err)),
+            tap((err) => {
+              console.error('**** [HousingType loadAllFailed}', err);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des types d'habitation.`);
+            }),
           ),
         ),
       )

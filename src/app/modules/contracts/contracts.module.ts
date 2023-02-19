@@ -10,10 +10,16 @@ import { LetModule, PushModule } from '@ngrx/component';
 import { ContractsComponent } from './contracts.component';
 import { effectsFeatureModules, storeFeatureModules } from './feature.store';
 import { TranslateModule } from '@ngx-translate/core';
+import { ContractCreateComponent } from './create/create.component';
+import { ContractEditComponent } from './edit/edit.component';
+import { ContractViewComponent } from './view/view.component';
 
 @NgModule({
   declarations: [
     ContractsComponent,
+    ContractCreateComponent,
+    ContractEditComponent,
+    ContractViewComponent,
   ],
   imports: [
     CommonModule,

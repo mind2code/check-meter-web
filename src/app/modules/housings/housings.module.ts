@@ -10,10 +10,16 @@ import { LetModule, PushModule } from '@ngrx/component';
 import { HousingsComponent } from './housings.component';
 import { effectsFeatureModules, storeFeatureModules } from './feature.store';
 import { TranslateModule } from '@ngx-translate/core';
+import { HousingCreateComponent } from './create/create.component';
+import { HousingEditComponent } from './edit/edit.component';
+import { HousingViewComponent } from './view/view.component';
 
 @NgModule({
   declarations: [
     HousingsComponent,
+    HousingCreateComponent,
+    HousingEditComponent,
+    HousingViewComponent,
   ],
   imports: [
     CommonModule,

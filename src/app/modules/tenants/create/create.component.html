@@ -1,0 +1,301 @@
+<div class="card">
+  <form class="form" [formGroup]="form">
+    <fieldset>
+      <div class="card-body p-4">
+        <div class="row gx-2">
+          <div class="col-lg-6">
+            <div class="h-100 w-100 px-2 py-1 border rounded border-gray-300">
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="identifiant">
+                  {{ 'PERSON.FIELD.identifiant'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="text" name="identifiant" id="identifiant" formControlName="identifiant"
+                    class="form-control form-control-solid"
+                    appFormPathFallback required
+                  />
+                  <app-display-form-path-error [pathControl]="form.get('identifiant')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="nom">
+                  {{ 'PERSON.FIELD.nomComplet'|translate }}
+                </label>
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col-lg-6 fv-row form-floating">
+                      <input
+                        type="text" name="nom" id="nom" formControlName="nom"
+                        class="form-control form-control-solid mb-3 mb-lg-0"
+                        [placeholder]="'PERSON.FIELD.nom'|translate"
+                        appFormPathFallback required
+                      />
+                      <label for="nom" class="required">{{ 'PERSON.FIELD.nom'|translate }}</label>
+                    </div>
+                    <div class="col-lg-6 fv-row form-floating">
+                      <input type="text" name="prenoms" id="prenoms" formControlName="prenoms"
+                        class="form-control form-control-solid"
+                        [placeholder]="'PERSON.FIELD.prenoms'|translate"
+                      />
+                      <label for="prenoms">{{ 'PERSON.FIELD.prenoms'|translate }}</label>
+                    </div>
+                  </div>
+                  <app-display-form-path-error [pathControl]="form.get('nom')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="nomJeuneFille">
+                  {{ 'PERSON.FIELD.nomJeuneFille'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="text" name="nomJeuneFille" id="nomJeuneFille" formControlName="nomJeuneFille"
+                    class="form-control form-control-solid"
+                  />
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="typePersonneId">
+                  {{ 'PERSON.RELATIONSHIP.typePersonne'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <select name="typePersonneId" id="typePersonneId" formControlName="typePersonneId"
+                    class="form-select form-select-solid"
+                  >
+                    <option>Sélectionnez un type de personne...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-0">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="estActif">
+                  {{ 'PERSON.FIELD.estActif'|translate }}
+                </label>
+                <div class="col-lg-8 d-flex align-items-center">
+                  <div class="form-check form-check-solid form-switch fv-row">
+                    <input
+                      type="checkbox" name="estActif" id="estActif" formControlName="estActif"
+                      class="form-check-input w-45px h-30px"
+                    />
+                    <label class="form-check-label"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="h-100 w-100 px-2 py-1 border rounded border-red-200">
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="genreId">
+                  {{ 'PERSON.RELATIONSHIP.genre'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <select name="genreId" id="genreId" formControlName="genreId"
+                    class="form-select form-select-solid"
+                  >
+                    <option>Sélectionnez un genre...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="civiliteId">
+                  {{ 'PERSON.RELATIONSHIP.civilite'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <select name="civiliteId" id="civiliteId" formControlName="civiliteId"
+                    class="form-select form-select-solid"
+                  >
+                    <option>Sélectionnez une civilité...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-0">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="situationMatrimonialeId">
+                  {{ 'PERSON.RELATIONSHIP.situationMatrimoniale'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <select name="situationMatrimonialeId" id="situationMatrimonialeId" formControlName="situationMatrimonialeId"
+                    class="form-select form-select-solid"
+                  >
+                    <option>Sélectionnez une situation matrimoniale...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="dateNaissance">
+                  {{ 'PERSON.FIELD.dateNaissance'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="date" name="dateNaissance" id="dateNaissance" formControlName="dateNaissance"
+                    class="form-control form-control-solid"
+                  />
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="lieuNaissance">
+                  {{ 'PERSON.FIELD.lieuNaissance'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="text" name="lieuNaissance" id="lieuNaissance" formControlName="lieuNaissance"
+                    class="form-control form-control-solid"
+                  />
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="nationaliteId">
+                  {{ 'PERSON.RELATIONSHIP.nationalite'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <select name="nationaliteId" id="nationaliteId" formControlName="nationaliteId"
+                    class="form-select form-select-solid"
+                  >
+                    <option>Sélectionnez une nationnalité...</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <fieldset class="mt-6 border-top rounded border-gray-300">
+          <caption class="fs-3 fw-bold d-inline-block">{{ 'PERSON.RELATIONSHIP.carnetAdresse'|translate }}</caption>
+          <div class="row g-2" formArrayName="carnetAdresse">
+            <ng-container *ngFor="let addressBookForm of carnetAdresse.controls; let i = index">
+              <div class="col-lg-4 position-relative" [formGroup]="addressBookForm">
+                <div
+                  class="position-absolute position-absolute top-5 start-98 translate-middle-90"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-light-danger p-1"
+                    [ngbTooltip]="'LABEL.REMOVE'|translate"
+                    (click)="removeCarnetAdresse(i)"
+                  >
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/arrows/arr088.svg'"
+                      class="svg-icon svg-icon-2 me-0"
+                    ></span>
+                  </button>
+                </div>
+
+                <div class="h-100 w-100 px-2 py-1 border rounded border-blue-200">
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="adresseEmail">
+                      {{ 'ADDRESS_BOOK.FIELD.adresseEmail'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="email" name="adresseEmail" id="adresseEmail" formControlName="adresseEmail"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="telephoneMobile">
+                      {{ 'ADDRESS_BOOK.FIELD.telephoneMobile'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="tel" name="telephoneMobile" id="telephoneMobile" formControlName="telephoneMobile"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="telephoneMobile2">
+                      {{ 'ADDRESS_BOOK.FIELD.telephoneMobile2'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="tel" name="telephoneMobile2" id="telephoneMobile2" formControlName="telephoneMobile2"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="telephoneFixe">
+                      {{ 'ADDRESS_BOOK.FIELD.telephoneFixe'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="tel" name="telephoneFixe" id="telephoneFixe" formControlName="telephoneFixe"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="ville">
+                      {{ 'ADDRESS_BOOK.FIELD.ville'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="text" name="ville" id="ville" formControlName="ville"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="quartier">
+                      {{ 'ADDRESS_BOOK.FIELD.quartier'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="text" name="quartier" id="quartier" formControlName="quartier"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="adresseGeographique">
+                      {{ 'ADDRESS_BOOK.FIELD.adresseGeographique'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="text" name="adresseGeographique" id="adresseGeographique" formControlName="adresseGeographique"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="adressePostale">
+                      {{ 'ADDRESS_BOOK.FIELD.adressePostale'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="text" name="adressePostale" id="adressePostale" formControlName="adressePostale"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="col-lg-4">
+              <button
+                type="button"
+                class="btn btn-light btn-active-primary border border-blue-300 w-100 h-100"
+                [ngbTooltip]="'LABEL.ADD'|translate"
+                (click)="addCarnetAdresse()"
+              >
+                <span
+                  [inlineSVG]="'./assets/media/icons/duotune/arrows/arr017.svg'"
+                  [setSVGAttributes]="{ class: 'h-100px w-100px' }"
+                  class="svg-icon"
+                ></span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="card-footer d-flex justify-content-end py-2 px-4">
+        <button class="btn btn-light btn-active-light-primary border border-gray-500 me-2" type="button">
+          <span
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr014.svg'"
+            class="svg-icon svg-icon-2"
+          ></span>
+          {{ 'LABEL.CANCEL'|translate }}
+        </button>
+        <button class="btn btn-primary" type="button">
+          <span
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/save-fill.svg'"
+            class="svg-icon svg-icon-2"
+          ></span>
+          {{ 'LABEL.SAVE'|translate }}
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>

@@ -3,12 +3,9 @@ import {Observable, Subscription} from "rxjs";
 import { Store } from '@ngrx/store';
 import { pagination } from 'src/environments/environment';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
+import * as TenantSelectors from 'src/app/store/tenant/tenant.selectors';
 import { Tenant } from 'src/app/shared/models/tenant.model';
 import { TenantPageActions } from 'src/app/store/tenant/tenant.actions';
-import * as TenantSelectors from 'src/app/store/tenant/tenant.selectors';
-import * as PersonSelectors from 'src/app/store/person/person.selectors';
-import { Person } from 'src/app/shared/models/person.model';
-import { PersonPageActions } from 'src/app/store/person/person.actions';
 
 @Component({
   selector: 'app-tenants',
@@ -17,7 +14,7 @@ import { PersonPageActions } from 'src/app/store/person/person.actions';
 })
 export class TenantsComponent implements OnInit, OnDestroy {
 
-  tenants$: Observable<Person[]>;
+  tenants$: Observable<Tenant[]>;
 
   page = 1;
   totalRecords$: Observable<number>;
@@ -31,8 +28,8 @@ export class TenantsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.tenants$ = this.store.select(PersonSelectors.selectAll);
-    this.totalRecords$ = this.store.select(PersonSelectors.selectTotalRecords);
+    this.tenants$ = this.store.select(TenantSelectors.selectAll);
+    this.totalRecords$ = this.store.select(TenantSelectors.selectTotalRecords);
     this.refreshList();
 
   }
@@ -43,7 +40,7 @@ export class TenantsComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackById(index: number, item: Person): string {
+  trackById(index: number, item: Tenant): string {
     return item.id;
   }
 
@@ -53,6 +50,6 @@ export class TenantsComponent implements OnInit, OnDestroy {
       currentPage = 0;
     }
     this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
-    this.store.dispatch(PersonPageActions.loadAll({ params: this.paginationQuery }));
+    this.store.dispatch(TenantPageActions.loadAll({ params: this.paginationQuery }));
   }
 }
