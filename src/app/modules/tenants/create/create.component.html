@@ -6,6 +6,18 @@
           <div class="col-lg-6">
             <div class="h-100 w-100 px-2 py-1 border rounded border-gray-300">
               <div class="row mb-4">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="typePersonneId">
+                  {{ 'PERSON.RELATIONSHIP.typePersonne'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <select name="typePersonneId" id="typePersonneId" formControlName="typePersonneId"
+                    class="form-select form-select-solid"
+                  >
+                    <option>Sélectionnez un type de personne...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-4">
                 <label class="col-lg-4 col-form-label required fw-bold fs-6" for="identifiant">
                   {{ 'PERSON.FIELD.identifiant'|translate }}
                 </label>
@@ -51,18 +63,6 @@
                   <input type="text" name="nomJeuneFille" id="nomJeuneFille" formControlName="nomJeuneFille"
                     class="form-control form-control-solid"
                   />
-                </div>
-              </div>
-              <div class="row mb-4">
-                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="typePersonneId">
-                  {{ 'PERSON.RELATIONSHIP.typePersonne'|translate }}
-                </label>
-                <div class="col-lg-8 fv-row">
-                  <select name="typePersonneId" id="typePersonneId" formControlName="typePersonneId"
-                    class="form-select form-select-solid"
-                  >
-                    <option>Sélectionnez un type de personne...</option>
-                  </select>
                 </div>
               </div>
               <div class="row mb-0">
