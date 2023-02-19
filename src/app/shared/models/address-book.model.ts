@@ -1,17 +1,14 @@
-import { Person } from './person.model';
-
 /**
  * fr => Carnet d'adresse
  */
 export interface AddressBook {
   id: number;
+  adresseEmail: string;
+  telephoneMobile: string;
+  telephoneMobile2: string;
+  telephoneFixe: string;
   ville: string;
   quartier: string;
   adresseGeographique: string;
   adressePostale: string;
-  telephoneFixe: string;
-  telephoneMobile: string;
-  telephoneMobile2: string;
-  adresseEmail: string;
-  person?: Person;
 }

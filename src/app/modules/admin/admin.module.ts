@@ -19,6 +19,7 @@ import { DataIdentityDocumentTypeComponent } from './data/identity-document-type
 import { DataCivilityComponent } from './data/civility/civility.component';
 import { DataGenderComponent } from './data/gender/gender.component';
 import { DataCountryComponent } from './data/country/country.component';
+import { DataPersonTypeComponent } from './data/person-type/person-type.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DataCountryComponent } from './data/country/country.component';
     DataCivilityComponent,
     DataGenderComponent,
     DataCountryComponent,
+    DataPersonTypeComponent,
   ],
   imports: [
     CommonModule,

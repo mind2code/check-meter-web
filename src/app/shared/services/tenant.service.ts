@@ -6,6 +6,7 @@ import { PaginationQuery } from '../requests/pagination.query';
 import { pagination } from 'src/environments/environment';
 import { ApiPaginatedResponse } from '../models/api-response.interface';
 import { PersonService } from './person.service';
+import { CreateTenantDto } from '../dto/tenant.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class TenantService {
 
   getOneById(id: string): Observable<Tenant> {
     return this.personService.getOneById(id) as Observable<Tenant>;
+  }
+
+  create(data: CreateTenantDto): Observable<Tenant> {
+    return this.personService.create(data) as Observable<Tenant>;
   }
 }

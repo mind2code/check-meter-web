@@ -4,7 +4,7 @@
     <form class="form" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
 
       <div class="form-group mb-3">
-        <label for="amount" class="form-label fw-bold">{{ 'RENT_RECEIPT.LABEL.AMOUNT_COLLECTED'|translate }}</label>
+        <label for="amount" class="form-label fw-bold required">{{ 'RENT_RECEIPT.LABEL.AMOUNT_COLLECTED'|translate }}</label>
         <input
           id="amount" type="number" class="form-control" formControlName="amount"
           [max]="''+expiryNotice?.loyerRestant" min="0" appFormPathFallback required />
@@ -12,7 +12,7 @@
       </div>
 
       <div class="form-group mb-3">
-        <label for="type" class="form-label fw-bold">{{ 'RENT_RECEIPT.RELATIONSHIP.settlementType'|translate }}</label>
+        <label for="type" class="form-label fw-bold required">{{ 'RENT_RECEIPT.RELATIONSHIP.settlementType'|translate }}</label>
         <select id="type" class="form-select" formControlName="type" required appFormPathFallback>
           <ng-container *ngrxLet="settlementTypes$ as settlementTypes">
             <option *ngFor="let settlementType of settlementTypes" [value]="settlementType.id">
@@ -33,7 +33,7 @@
           {{ 'LABEL.CANCEL'|translate }}
         </button>
         <button [disabled]="!paymentForm.valid || creating$|ngrxPush" type="submit" class="btn btn-sm btn-primary">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="creating$|ngrxPush"></span>
+          <app-progress-spinner *ngIf="creating$|ngrxPush" role="status" aria-hidden="true" [displayMessage]="false"></app-progress-spinner>
           {{ 'LABEL.CASH_OUT'|translate }}
         </button>
       </div>

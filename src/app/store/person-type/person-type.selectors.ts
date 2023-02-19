@@ -1,11 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   getEntitySelectors,
-  tenantsFeature,
+  personTypesFeature,
   featureName,
   State,
-} from './tenant.reducer';
-import {  getRouterSelectors} from '../router.selectors';
+} from './person-type.reducer';
 
 const selectState = createFeatureSelector<State>(featureName);
 
@@ -20,18 +19,8 @@ export const selectEntities = createSelector(
 );
 
 export const selectCurrentId = createSelector(
-  tenantsFeature.selectSelectedId,
+  personTypesFeature.selectSelectedId,
   (selectedId) => selectedId,
-);
-
-export const selectLoading = createSelector(
-  tenantsFeature.selectLoading,
-  (loading) => loading,
-);
-
-export const selectCreating = createSelector(
-  tenantsFeature.selectCreating,
-  (creating) => creating,
 );
 
 export const selectCurrent = createSelector(
@@ -40,21 +29,18 @@ export const selectCurrent = createSelector(
   (entities, id) => (id) ? entities[id] : null,
 );
 
-export const selectCurrentFromRouter = (paramName: string) => createSelector(
-  selectEntities,
-  getRouterSelectors().selectRouteParam(paramName),
-  (entities, paramValue) => {
-    return (paramValue) ? entities[paramValue] : null;
-  },
-);
-
 
 export const selectCurrentPage = createSelector(
-  tenantsFeature.selectCurrentPage,
+  personTypesFeature.selectCurrentPage,
   (currentPage) => currentPage,
 );
 
 export const selectTotalRecords = createSelector(
-  tenantsFeature.selectTotalRecords,
+  personTypesFeature.selectTotalRecords,
   (totalRecords) => totalRecords,
+);
+
+export const selectLoading = createSelector(
+  personTypesFeature.selectLoading,
+  (loading) => loading,
 );

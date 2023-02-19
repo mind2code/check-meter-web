@@ -15,10 +15,11 @@ export default {
       estActif: 'Compte actif',
     },
     RELATIONSHIP: {
+      nationalite: 'Nationalité',
       civilite: 'Civilité',
       genre: 'Genre',
       situationMatrimoniale: 'Situation matrimoniale',
-      typePersonne: 'Type',
+      typePersonne: 'Type de personne',
       carnetAdresse: "Carnet d'adresse",
     },
   },
@@ -27,6 +28,7 @@ export default {
     LABEL: {
       SINGLE: 'Locataire',
       PLURAL: 'Locataires',
+      CREATE_TITLE: 'Ajouter un locataire',
     },
     FIELD: {
       solde: 'Solde',
@@ -74,7 +76,7 @@ export default {
   PERSON_TYPE: {
     LABEL: {
       SINGLE: `Type de personne`,
-      PLURAL: `Type de personne`,
+      PLURAL: `Types de personne`,
     },
     FIELD: {
       identifiant: 'Identifiant',

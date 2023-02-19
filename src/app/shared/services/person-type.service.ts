@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Person } from '../models/person.model';
+import { PersonType } from '../models/person.model';
 import { PaginationQuery } from '../requests/pagination.query';
 import { pagination } from 'src/environments/environment';
-import { ApiOneResponse, ApiPaginatedResponse } from '../models/api-response.interface';
+import { ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersonService {
-  basePath: string = 'api/v1/personnes';
+export class PersonTypeService {
+  basePath: string = 'api/v1/type-personnes';
 
   constructor(private http: HttpClient) { }
 
-  getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<Person>> {
+  getAll(params?: PaginationQuery): Observable<ApiPaginatedResponse<PersonType>> {
     return this.http.get<any>(this.basePath, {
       params: {
         page: params?.page ?? 0,
@@ -22,13 +22,5 @@ export class PersonService {
         ...(params?.query || {})
       }
     });
-  }
-
-  getOneById(id: string): Observable<Person> {
-    return this.http.get<any>(this.basePath + '/' + String(id));
-  }
-
-  create(data: any): Observable<Person> {
-    return this.http.post<any>(this.basePath, data);
   }
 }

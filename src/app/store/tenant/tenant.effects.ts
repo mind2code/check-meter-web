@@ -28,7 +28,7 @@ export class TenantEffects {
           return TenantApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(TenantApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('*** [Tenant loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du changement des locataires.`);
@@ -50,14 +50,36 @@ export class TenantEffects {
           return TenantApiActions.loadOneSuccess({ item: tenant });
         }),
         catchError((error) =>
-          of(TenantApiActions.loadOneFailed({ error })).pipe(
+          of(TenantApiActions.loadFailed({ error })).pipe(
             tap((err: any) => {
               console.error('*** [Tenant loadOneFailed]', err);
-              this.toastr.error(`Une erreur est suvernue.`);
+              this.toastr.error(`Une erreur est suvernue lors du chargement du locataire #${paramValue}.`);
             }),
           ),
         ),
       )
     ),
   ));
+
+  // Create item
+  create$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TenantPageActions.create),
+      exhaustMap(({ dto }) => this.service.create(dto).pipe(
+        tap((item) => this.toastr.success(`Locataire créé avec succès. #${item.identifiant}`)),
+        map((item) => {
+          return TenantApiActions.createSuccess({ item })
+        }),
+        catchError((error) =>
+          of(TenantApiActions.createFailed({ error })).pipe(
+            tap((err: any) => {
+              console.error(`*** [Tenant createFailed]`, err);
+              this.toastr.error(`Une erreur est suvernue lors de la création du locataire.`);
+            }),
+          ),
+          ),
+        )
+      )
+    ),
+  );
 }

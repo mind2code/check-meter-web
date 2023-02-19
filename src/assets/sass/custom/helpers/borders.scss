@@ -1,0 +1,54 @@
+// Blue border colors
+@each $name, $value in $blues {
+	// Initial
+	.border-#{$name} {
+		border-color: $value !important;
+	}
+}
+
+// Indigo border colors
+@each $name, $value in $indigos {
+	// Initial
+	.border-#{$name} {
+		border-color: $value !important;
+	}
+}
+
+// Purple border colors
+@each $name, $value in $purples {
+	// Initial
+	.border-#{$name} {
+		border-color: $value !important;
+	}
+}
+
+// Red border colors
+@each $name, $value in $reds {
+	// Initial
+	.border-#{$name} {
+		border-color: $value !important;
+	}
+}
+
+// Orange border colors
+@each $name, $value in $oranges {
+	// Initial
+	.border-#{$name} {
+		border-color: $value !important;
+	}
+}
+
+// Yellow border colors
+@each $name, $value in $yellows {
+	// Initial
+	.border-#{$name} {
+		border-color: $value !important;
+	}
+}
+// Green border colors
+@each $name, $value in $greens {
+	// Initial
+	.border-#{$name} {
+		border-color: $value !important;
+	}
+}
