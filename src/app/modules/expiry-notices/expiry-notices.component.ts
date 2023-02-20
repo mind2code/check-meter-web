@@ -3,30 +3,28 @@ import {Observable, Subscription} from "rxjs";
 import { Store } from '@ngrx/store';
 import { pagination } from 'src/environments/environment';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
-import * as ExpiryNoticeSelectors from 'src/app/store/expiry-notice/expiry-notice.selectors';
 import { ExpiryNotice } from 'src/app/shared/models/expiry-notice.model';
-import { Tenant } from 'src/app/shared/models/tenant.model';
 import { ExpiryNoticePageActions } from 'src/app/store/expiry-notice/expiry-notice.actions';
+import * as ExpiryNoticeSelectors from 'src/app/store/expiry-notice/expiry-notice.selectors';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
-import { SettlementTypePageActions } from 'src/app/store/settlement-type/settlement-type.actions';
 import { ExpiryNoticeMakePaymentComponent } from 'src/app/shared/components/expiry-notices/make-payment/make-payment.component';
+import { SettlementTypePageActions } from 'src/app/store/settlement-type/settlement-type.actions';
 
 @Component({
-  selector: 'app-tenant-view-expiry-notices',
+  selector: 'app-expiry-notices',
   templateUrl: './expiry-notices.component.html',
 })
-export class TenantViewExpiryNoticesComponent implements OnInit, OnDestroy {
+export class ExpiryNoticesComponent implements OnInit, OnDestroy {
   expiryNotices$: Observable<ExpiryNotice[]>;
   loading$: Observable<boolean>;
-  tenant$: Observable<Tenant>;
+  totalRecords$: Observable<number>;
+
 
   page = 1;
-  totalRecords$: Observable<number>;
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
   bsOffcanvasRef: NgbOffcanvasRef;
-
   subscriptions: Record<string, Subscription> = {};
 
   constructor(

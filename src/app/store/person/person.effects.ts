@@ -39,6 +39,7 @@ export class PersonEffects {
     )
   ));
 
+  // Load one from route param
   loadOneFromRouter$ = createEffect(() => this.actions$.pipe(
     ofType(
       PersonPageActions.loadOneFromRouter,
@@ -50,10 +51,10 @@ export class PersonEffects {
           return PersonApiActions.loadOneSuccess({ item: tenant });
         }),
         catchError((error) =>
-          of(PersonApiActions.loadOneFailed({ error })).pipe(
+          of(PersonApiActions.loadFailed({ error })).pipe(
             tap((err: any) => {
               console.error('*** [Person loadOneFailed]', err);
-              this.toastr.error(`Une erreur est suvernue.`);
+              this.toastr.error(`Une erreur est suvernue lors du chargement de la personne #${paramValue}.`);
             }),
           ),
         ),

@@ -38,4 +38,8 @@ export class ContractService {
       }
     });
   }
+
+  create(data: any): Observable<Contract> {
+    return this.http.post<any>(this.basePath, data);
+  }
 }

@@ -5,6 +5,7 @@ import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 export const HousingPageActions = createActionGroup({
   source: 'Housings Page',
   events: {
+    'Create': props<{ dto: any }>(),
     'Load All': props<{ params?: PaginationQuery }>(),
     'Pagination Change': props<{ params?: PaginationQuery }>(),
     'Query Change': props<{ params?: PaginationQuery }>(),
@@ -20,6 +21,8 @@ export const HousingApiActions = createActionGroup({
   events: {
     'Load All Success': props<{ items: Housing[], total: number, page: number }>(),
     'Load One Success': props<{ item: Housing }>(),
-    'Load One Failed': props<{ error: any }>()
+    'Load Failed': props<{ error: any }>(),
+    'Create Success': props<{ item: Housing }>(),
+    'Create Failed': props<{ error: any }>(),
   }
 });

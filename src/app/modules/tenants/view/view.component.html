@@ -107,7 +107,7 @@
                       [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm008.svg'"
                       class="svg-icon svg-icon-2 svg-icon-primary me-2"
                     ></span>
-                    <div class="fs-2 fw-bolder">{{ 10|number }}</div>
+                    <div class="fs-2 fw-bolder">{{ ((contractCount$|ngrxPush) ?? 0)|number }}</div>
                   </div>
 
                   <div class="fw-bold fs-6 text-gray-400">{{ 'CONTRACT.LABEL.PLURAL'|translate }}</div>
@@ -121,7 +121,7 @@
                       [inlineSVG]="'./assets/media/icons/duotune/finance/fin007.svg'"
                       class="svg-icon svg-icon-2 svg-icon-warning me-2"
                     ></span>
-                    <div class="fs-2 fw-bolder">{{ 60|number }}</div>
+                    <div class="fs-2 fw-bolder">{{ ((expiryNoticeCount$|ngrxPush) ?? 0)|number }}</div>
                   </div>
 
                   <div class="fw-bold fs-6 text-gray-400">{{ 'EXPIRY_NOTICE.LABEL.PLURAL'|translate }}</div>

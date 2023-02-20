@@ -23,6 +23,11 @@ export const selectCurrentId = createSelector(
   (selectedId) => selectedId,
 );
 
+export const selectLoading = createSelector(
+  maritalSituationsFeature.selectLoading,
+  (loading) => loading,
+);
+
 export const selectCurrent = createSelector(
   selectEntities,
   selectCurrentId,

@@ -1,184 +1,181 @@
 <ng-container *ngIf="tenant$|ngrxPush as tenant">
-<div class="row g-2 g-xl-4 my-2">
-  <div class="col-lg-4 col-md-12">
-    <div class="card">
-      <div class="card-body p-0">
-        <div class="bg-light-danger border border-gray-500 p-2 border-dashed rounded d-flex align-items-center flex-column">
-          <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-            <span class="fw-bold fs-5 text-gray-500">
-              {{ 'PERSON.FIELD.dateNaissance'|translate }}
-            </span>
-            <span class="fw-bolder fs-6">{{ tenant.dateNaissance|date }}</span>
+  <div class="row g-2 g-xl-4 my-2">
+    <div class="col-lg-4 col-md-12">
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="bg-light-danger border border-gray-500 p-2 border-dashed rounded d-flex align-items-center flex-column">
+            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+              <span class="fw-bold fs-5 text-gray-500">
+                {{ 'PERSON.FIELD.dateNaissance'|translate }}
+              </span>
+              <span class="fw-bolder fs-6">{{ tenant.dateNaissance|date }}</span>
+            </div>
+            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+              <span class="fw-bold fs-5 text-gray-500">
+                {{ 'PERSON.FIELD.lieuNaissance'|translate }}
+              </span>
+              <span class="fw-bolder fs-6">{{ tenant.lieuNaissance }}</span>
+            </div>
+            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+              <span class="fw-bold fs-5 text-gray-500">
+                {{ 'COUNTRY.LABEL.NATIONALITY'|translate }}
+              </span>
+              <span class="fw-bolder fs-6">{{ tenant?.nationalite?.libelle }}</span>
+            </div>
+            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+              <span class="fw-bold fs-5 text-gray-500">
+                {{ 'PERSON.RELATIONSHIP.civilite'|translate }}
+              </span>
+              <span class="fw-bolder fs-6">{{ tenant?.civilite?.libelle }}</span>
+            </div>
+            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+              <span class="fw-bold fs-5 text-gray-500">
+                {{ 'PERSON.RELATIONSHIP.genre'|translate }}
+              </span>
+              <span class="fw-bolder fs-6">{{ tenant?.genre?.libelle }}</span>
+            </div>
+            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+              <span class="fw-bold fs-5 text-gray-500">
+                {{ 'PERSON.RELATIONSHIP.situationMatrimoniale'|translate }}
+              </span>
+              <span class="fw-bolder fs-6">{{ tenant?.situationMatrimoniale?.libelle }}</span>
+            </div>
           </div>
-          <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-            <span class="fw-bold fs-5 text-gray-500">
-              {{ 'PERSON.FIELD.lieuNaissance'|translate }}
-            </span>
-            <span class="fw-bolder fs-6">{{ tenant.lieuNaissance }}</span>
-          </div>
-          <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-            <span class="fw-bold fs-5 text-gray-500">
-              {{ 'COUNTRY.LABEL.NATIONALITY'|translate }}
-            </span>
-            <span class="fw-bolder fs-6">{{ tenant?.nationalite?.libelle }}</span>
-          </div>
-          <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-            <span class="fw-bold fs-5 text-gray-500">
-              {{ 'PERSON.RELATIONSHIP.civilite'|translate }}
-            </span>
-            <span class="fw-bolder fs-6">{{ tenant?.civilite?.libelle }}</span>
-          </div>
-          <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-            <span class="fw-bold fs-5 text-gray-500">
-              {{ 'PERSON.RELATIONSHIP.genre'|translate }}
-            </span>
-            <span class="fw-bolder fs-6">{{ tenant?.genre?.libelle }}</span>
-          </div>
-          <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-            <span class="fw-bold fs-5 text-gray-500">
-              {{ 'PERSON.RELATIONSHIP.situationMatrimoniale'|translate }}
-            </span>
-            <span class="fw-bolder fs-6">{{ tenant?.situationMatrimoniale?.libelle }}</span>
-          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-md-12">
+      <div class="card">
+        <div class="card-body p-1">
+          <!-- begin::Table carnetAdresse -->
+          <ng-container *ngIf="tenant.carnetAdresse">
+            <div class="table-responsive border border-gray-400 border-dashed rounded p-1">
+              <table class="table table-hover table-rounded table-row-bordered align-middle gs-0 fs-7 gy-3">
+                <thead>
+                  <tr class="bg-light-primary text-gray-600 fw-bold fs-7 gs-0">
+                    <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.adresseEmail'|translate }}</th>
+                    <th class="p-0">{{ 'ADDRESS_BOOK.LABEL.CONTACTS'|translate }}</th>
+                    <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.ville'|translate }}</th>
+                    <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.quartier'|translate }}</th>
+                    <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.adresseGeographique'|translate }}</th>
+                    <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.adressePostale'|translate }}</th>
+                  </tr>
+                </thead>
+                <tbody class="fw-bold text-gray-900">
+                  <tr *ngFor="let carnetAdresse of tenant.carnetAdresse">
+                    <td>{{ carnetAdresse.adresseEmail }}</td>
+                    <td>
+                      <div class="d-flex flex-column">
+                        <div
+                          class="d-flex align-items-center mb-1"
+                          *ngIf="carnetAdresse.telephoneMobile">
+                          <span
+                            [inlineSVG]="'./assets/media/icons/duotune/electronics/elc003.svg'"
+                            [ngbTooltip]="'ADDRESS_BOOK.FIELD.telephoneMobile'|translate"
+                            class="svg-icon svg-icon-6 me-1"
+                          ></span>
+                          {{ carnetAdresse.telephoneMobile }}
+                        </div>
+                        <div
+                          class="d-flex align-items-center mb-1"
+                          [ngbTooltip]="'ADDRESS_BOOK.FIELD.telephoneMobile2'|translate"
+                          *ngIf="carnetAdresse.telephoneMobile2">
+                          <span
+                            [inlineSVG]="'./assets/media/icons/duotune/electronics/elc002.svg'"
+                            class="svg-icon svg-icon-6 me-1"
+                          ></span>
+                          {{ carnetAdresse.telephoneMobile2 }}
+                        </div>
+                        <div
+                          class="d-flex align-items-center"
+                          [ngbTooltip]="'ADDRESS_BOOK.FIELD.telephoneFixe'|translate"
+                          *ngIf="carnetAdresse.telephoneFixe">
+                          <span
+                            [inlineSVG]="'./assets/media/icons/duotune/electronics/telephone-fill.svg'"
+                            class="svg-icon svg-icon-6 me-1"
+                          ></span>
+                          {{ carnetAdresse.telephoneFixe }}
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ carnetAdresse.ville }}</td>
+                    <td>{{ carnetAdresse.quartier }}</td>
+                    <td>{{ carnetAdresse.adresseGeographique }}</td>
+                    <td>{{ carnetAdresse.adressePostale }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-container>
+          <!-- end::Table carnetAdresse -->
+
+          <!-- begin::Table pieceIdentite -->
+          <ng-container *ngIf="tenant.pieceIdentite">
+            <div class="table-responsive border border-gray-400 border-dashed rounded p-1 mt-6">
+              <table class="table table-hover table-rounded table-row-bordered align-middle gs-0 fs-7 gy-3">
+                <thead>
+                  <tr class="bg-light-info text-gray-600 fw-bold fs-7 gs-0">
+                    <th class="p-0">{{ 'IDENTITY_DOCUMENT.RELATIONSHIP.typePieceIdentite'|translate }}</th>
+                    <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.numeroIdentite'|translate }}</th>
+                    <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.numeroNNI'|translate }}</th>
+                    <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.delivrePar'|translate }}</th>
+                    <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.dateDelivrance'|translate }}</th>
+                    <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.dateExpiration'|translate }}</th>
+                  </tr>
+                </thead>
+                <tbody class="fw-bold text-gray-900">
+                  <tr *ngFor="let pieceIdentite of tenant.pieceIdentite">
+                    <td>
+                      <div class="d-flex flex-wrap align-items-center me-1">
+                        <span>
+                          <span *ngIf="pieceIdentite.estActif; else elseBlockEstActif"
+                            [inlineSVG]="'./assets/media/icons/duotune/general/gen048.svg'"
+                            class="svg-icon svg-icon-2 text-success"
+                            [ngbTooltip]="'LABEL.ACTIVE'|translate"
+                          ></span>
+                          <ng-template #elseBlockEstActif>
+                            <span
+                              [inlineSVG]="'./assets/media/icons/duotune/general/gen050.svg'"
+                              class="svg-icon svg-icon-2 text-danger"
+                              [ngbTooltip]="'LABEL.INACTIVE'|translate"
+                            ></span>
+                          </ng-template>
+                        </span>
+                        <span>{{ pieceIdentite?.typePieceIdentite?.libelle }}</span>
+                      </div>
+                    </td>
+                    <td>{{ pieceIdentite.numeroIdentite }}</td>
+                    <td>{{ pieceIdentite.numeroNNI }}</td>
+                    <td>{{ pieceIdentite.delivrePar }}</td>
+                    <td>{{ pieceIdentite.dateDelivrance|date }}</td>
+                    <td>{{ pieceIdentite.dateExpiration|date }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-container>
+          <!-- end::Table pieceIdentite -->
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-lg-8 col-md-12">
-    <div class="card">
-      <div class="card-body p-1">
-        <!-- begin::Table carnetAdresse -->
-        <ng-container *ngIf="tenant.carnetAdresse">
-          <div class="table-responsive border border-gray-400 border-dashed rounded p-1">
-            <table class="table table-hover table-rounded table-row-bordered align-middle gs-0 fs-7 gy-3">
-              <thead>
-                <tr class="bg-light-primary text-gray-600 fw-bold fs-7 gs-0">
-                  <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.adresseEmail'|translate }}</th>
-                  <th class="p-0">{{ 'ADDRESS_BOOK.LABEL.CONTACTS'|translate }}</th>
-                  <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.ville'|translate }}</th>
-                  <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.quartier'|translate }}</th>
-                  <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.adresseGeographique'|translate }}</th>
-                  <th class="p-0">{{ 'ADDRESS_BOOK.FIELD.adressePostale'|translate }}</th>
-                </tr>
-              </thead>
-              <tbody class="fw-bold text-gray-900">
-                <tr *ngFor="let carnetAdresse of tenant.carnetAdresse">
-                  <td>{{ carnetAdresse.adresseEmail }}</td>
-                  <td>
-                    <div class="d-flex flex-column">
-                      <div
-                        class="d-flex align-items-center mb-1"
-                        *ngIf="carnetAdresse.telephoneMobile">
-                        <span
-                          [inlineSVG]="'./assets/media/icons/duotune/electronics/elc003.svg'"
-                          [ngbTooltip]="'ADDRESS_BOOK.FIELD.telephoneMobile'|translate"
-                          class="svg-icon svg-icon-6 me-1"
-                        ></span>
-                        {{ carnetAdresse.telephoneMobile }}
-                      </div>
-                      <div
-                        class="d-flex align-items-center mb-1"
-                        [ngbTooltip]="'ADDRESS_BOOK.FIELD.telephoneMobile2'|translate"
-                        *ngIf="carnetAdresse.telephoneMobile2">
-                        <span
-                          [inlineSVG]="'./assets/media/icons/duotune/electronics/elc002.svg'"
-                          class="svg-icon svg-icon-6 me-1"
-                        ></span>
-                        {{ carnetAdresse.telephoneMobile2 }}
-                      </div>
-                      <div
-                        class="d-flex align-items-center"
-                        [ngbTooltip]="'ADDRESS_BOOK.FIELD.telephoneFixe'|translate"
-                        *ngIf="carnetAdresse.telephoneFixe">
-                        <span
-                          [inlineSVG]="'./assets/media/icons/duotune/electronics/telephone-fill.svg'"
-                          class="svg-icon svg-icon-6 me-1"
-                        ></span>
-                        {{ carnetAdresse.telephoneFixe }}
-                      </div>
-                    </div>
-                  </td>
-                  <td>{{ carnetAdresse.ville }}</td>
-                  <td>{{ carnetAdresse.quartier }}</td>
-                  <td>{{ carnetAdresse.adresseGeographique }}</td>
-                  <td>{{ carnetAdresse.adressePostale }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </ng-container>
-        <!-- end::Table carnetAdresse -->
-
-        <!-- begin::Table pieceIdentite -->
-        <ng-container *ngIf="tenant.pieceIdentite">
-          <div class="table-responsive border border-gray-400 border-dashed rounded p-1 mt-6">
-            <table class="table table-hover table-rounded table-row-bordered align-middle gs-0 fs-7 gy-3">
-              <thead>
-                <tr class="bg-light-info text-gray-600 fw-bold fs-7 gs-0">
-                  <th class="p-0">{{ 'IDENTITY_DOCUMENT.RELATIONSHIP.typePieceIdentite'|translate }}</th>
-                  <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.numeroIdentite'|translate }}</th>
-                  <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.numeroNNI'|translate }}</th>
-                  <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.delivrePar'|translate }}</th>
-                  <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.dateDelivrance'|translate }}</th>
-                  <th class="p-0">{{ 'IDENTITY_DOCUMENT.FIELD.dateExpiration'|translate }}</th>
-                </tr>
-              </thead>
-              <tbody class="fw-bold text-gray-900">
-                <tr *ngFor="let pieceIdentite of tenant.pieceIdentite">
-                  <td>
-                    <div class="d-flex flex-wrap align-items-center me-1">
-                      <span>
-                        <span *ngIf="pieceIdentite.estActif; else elseBlockEstActif"
-                          [inlineSVG]="'./assets/media/icons/duotune/general/gen048.svg'"
-                          class="svg-icon svg-icon-2 text-success"
-                          [ngbTooltip]="'LABEL.ACTIVE'|translate"
-                        ></span>
-                        <ng-template #elseBlockEstActif>
-                          <span
-                            [inlineSVG]="'./assets/media/icons/duotune/general/gen050.svg'"
-                            class="svg-icon svg-icon-2 text-danger"
-                            [ngbTooltip]="'LABEL.INACTIVE'|translate"
-                          ></span>
-                        </ng-template>
-                      </span>
-                      <span>{{ pieceIdentite?.typePieceIdentite?.libelle }}</span>
-                    </div>
-                  </td>
-                  <td>{{ pieceIdentite.numeroIdentite }}</td>
-                  <td>{{ pieceIdentite.numeroNNI }}</td>
-                  <td>{{ pieceIdentite.delivrePar }}</td>
-                  <td>{{ pieceIdentite.dateDelivrance|date }}</td>
-                  <td>{{ pieceIdentite.dateExpiration|date }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </ng-container>
-        <!-- end::Table pieceIdentite -->
+  <!--
+  <div *ngIf="tenant.description && tenant.description.trim().length > 0" class="card my-2">
+    <div class="card-body d-flex align-items-center p-1">
+      <div class="d-flex h-50px w-50px flex-shrink-0 flex-center position-relative">
+        <span class="svg-icon svg-icon-primary position-absolute opacity-15"
+          [inlineSVG]="'./assets/media/icons/duotune/abstract/abs051.svg'"
+          [setSVGAttributes]="{ class: 'h-50px w-50px' }"></span>
+        <span [inlineSVG]="'./assets/media/icons/duotune/general/gen045.svg'"
+          class="svg-icon svg-icon-3x svg-icon-primary position-absolute"></span>
+      </div>
+      <div class="ms-6">
+        <p class="list-unstyled text-gray-500 fw-bold fs-6 p-0 m-0">{{ tenant.description }}</p>
       </div>
     </div>
   </div>
-</div>
-
-<div *ngIf="tenant.description && tenant.description.trim().length > 0" class="card my-2">
-  <div class="card-body d-flex align-items-center p-1">
-    <!-- begin::Icon -->
-    <div class="d-flex h-50px w-50px flex-shrink-0 flex-center position-relative">
-      <span class="svg-icon svg-icon-primary position-absolute opacity-15"
-        [inlineSVG]="'./assets/media/icons/duotune/abstract/abs051.svg'"
-        [setSVGAttributes]="{ class: 'h-50px w-50px' }"></span>
-      <span [inlineSVG]="'./assets/media/icons/duotune/general/gen045.svg'"
-        class="svg-icon svg-icon-3x svg-icon-primary position-absolute"></span>
-    </div>
-    <!-- end::Icon  -->
-
-    <!-- begin::Description  -->
-    <div class="ms-6">
-      <p class="list-unstyled text-gray-500 fw-bold fs-6 p-0 m-0">{{ tenant.description }}</p>
-    </div>
-    <!-- end::Description  -->
-  </div>
-</div>
+  -->
 </ng-container>
 

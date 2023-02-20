@@ -6,9 +6,10 @@ import { IdentityDocumentTypeApiActions, IdentityDocumentTypePageActions } from 
 export const featureName = 'identityDocumentTypes';
 
 export interface State extends EntityState<IdentityDocumentType> {
-  selectedId: string | null,
-  currentPage: number,
-  totalRecords: number,
+  selectedId: string | null;
+  currentPage: number;
+  totalRecords: number;
+  loading: boolean,
 }
 
 export const adapter: EntityAdapter<IdentityDocumentType> = createEntityAdapter<IdentityDocumentType>();
@@ -17,6 +18,7 @@ export const initialState: State = adapter.getInitialState({
   selectedId: null,
   currentPage: 0,
   totalRecords: 0,
+  loading: false,
 });
 
 export const identityDocumentTypesFeature = createFeature({
@@ -24,6 +26,11 @@ export const identityDocumentTypesFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(IdentityDocumentTypePageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
+
+    on(
+      IdentityDocumentTypePageActions.loadAll,
+      (state) => ({ ...state, loading: true }),
+    ),
     on(IdentityDocumentTypeApiActions.loadAllSuccess, (state, { items, page, total }) => {
       return adapter.setAll(
         items ?? [],
@@ -35,14 +42,13 @@ export const identityDocumentTypesFeature = createFeature({
         }
       );
     }),
-    on(IdentityDocumentTypePageActions.clear, (state) => ({
-      ...state,
-      currentPage: 0,
-      totalRecords: 0,
-      selectedId: null,
-      entities: {},
-      ids: [],
-    })),
+    on(
+      IdentityDocumentTypeApiActions.loadAllSuccess,
+      IdentityDocumentTypeApiActions.loadFailed,
+      (state) => ({ ...state, loading: false }),
+    ),
+
+    on(IdentityDocumentTypePageActions.clear, () => initialState),
   ),
 });
 

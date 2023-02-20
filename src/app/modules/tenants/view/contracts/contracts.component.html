@@ -2,25 +2,20 @@
   <div class="card-header border-0 pt-6">
 
     <div class="card-title">
-      <span
-        [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm008.svg'"
-        class="svg-icon svg-icon-1 me-2"
-      ></span>
-      <span class="fw-bold fs-2 text-gray-800">{{ 'CONTRACT.LABEL.PLURAL'|translate }}</span>
+
     </div>
     <div class="card-toolbar">
 
     </div>
   </div>
-  <!--begin::Card body-->
   <div class="card-body pt-0">
     <ng-container *ngrxLet="contracts$ as contracts">
-      <div class="table-responsive">
-        <!--begin::Table-->
-        <table class="table align-middle table-row-dashed fs-6 gy-3" id="kt_customers_table">
-          <!--begin::Table head-->
+      <div class="table-responsive table-loading">
+        <div class="table-loading-message" *ngIf="loading$|ngrxPush">
+          <app-progress-spinner></app-progress-spinner>
+        </div>
+        <table class="table align-middle table-row-dashed fs-6 gy-3">
           <thead>
-          <!--begin::Table row-->
           <tr class="text-start bg-light text-gray-400 fw-bold fs-7 text-uppercase gs-0">
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.identifiant'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.numeroExterneBail'|translate }}</th>
@@ -29,10 +24,7 @@
             <th class="min-w-125px">{{ 'CONTRACT.FIELD.dateFinContrat'|translate }}</th>
             <th class="min-w-125px">{{ 'CONTRACT.RELATIONSHIP.habitation'|translate }}</th>
           </tr>
-          <!--end::Table row-->
           </thead>
-          <!--end::Table head-->
-          <!--begin::Table body-->
           <tbody class="fw-semibold text-gray-600" >
             <tr *ngFor="let contract of contracts; let i=index; trackBy: trackById">
             <td>{{ contract.identifiant}}</td>
@@ -52,9 +44,7 @@
             </td>
           </tr>
           </tbody>
-          <!--end::Table body-->
         </table>
-        <!--end::Table-->
       </div>
       <div class="d-flex justify-content-between">
         <ngb-pagination
@@ -70,5 +60,4 @@
       </div>
     </ng-container>
   </div>
-  <!--end::Card body-->
 </div>

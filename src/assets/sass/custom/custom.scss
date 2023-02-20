@@ -13,13 +13,22 @@
 }
 
 .start {
+  &-3 {
+    left: 3% !important;
+  }
+  &-4 {
+    left: 4% !important;
+  }
   &-98 {
     left: 98% !important;
   }
 }
 
 .top {
-  &-5 {
-    top: 5% !important;
+  &-3 {
+    top: 3% !important;
+  }
+  &-4 {
+    top: 4% !important;
   }
 }

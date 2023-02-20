@@ -57,7 +57,6 @@ export interface Person {
   nomJeuneFille: string;
   dateNaissance: Date;
   lieuNaissance: string;
-  description: string;
   estActif: boolean;
   civilite?: Civility;
   genre?: Gender;

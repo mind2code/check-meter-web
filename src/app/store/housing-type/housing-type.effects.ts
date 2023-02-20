@@ -22,10 +22,10 @@ export class HousingTypeEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
-          return HousingTypeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return HousingTypeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(HousingTypeApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [HousingType loadAllFailed}', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des types d'habitation.`);

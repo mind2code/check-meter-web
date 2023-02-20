@@ -10,14 +10,13 @@ import * as HousingSelectors from 'src/app/store/housing/housing.selectors';
 @Component({
   selector: 'app-housings',
   templateUrl: './housings.component.html',
-  styleUrls: ['./housings.component.scss'],
 })
 export class HousingsComponent implements OnInit, OnDestroy {
-
   housings$: Observable<Housing[]>;
+  loading$: Observable<boolean>;
+  totalRecords$: Observable<number>;
 
   page = 1;
-  totalRecords$: Observable<number>;
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
@@ -29,9 +28,10 @@ export class HousingsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.housings$ = this.store.select(HousingSelectors.selectAll);
+    this.loading$ = this.store.select(HousingSelectors.selectLoading);
     this.totalRecords$ = this.store.select(HousingSelectors.selectTotalRecords);
-    this.refreshList();
 
+    this.loadData();
   }
 
   ngOnDestroy(): void {
@@ -42,6 +42,10 @@ export class HousingsComponent implements OnInit, OnDestroy {
 
   trackById(index: number, item: Housing): string {
     return item.id;
+  }
+
+  private loadData() {
+    this.refreshList();
   }
 
   refreshList() {

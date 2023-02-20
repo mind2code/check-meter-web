@@ -20,6 +20,6 @@ export const PersonApiActions = createActionGroup({
   events: {
     'Load All Success': props<{ items: Person[], total: number, page: number }>(),
     'Load One Success': props<{ item: Person }>(),
-    'Load One Failed': props<{ error: any }>()
+    'Load Failed': props<{ error: any }>(),
   }
 });

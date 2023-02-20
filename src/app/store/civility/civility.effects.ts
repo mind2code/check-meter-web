@@ -22,10 +22,10 @@ export class CivilityEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
-          return CivilityApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return CivilityApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(CivilityApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [Civility loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des civilités.`);

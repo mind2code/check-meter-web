@@ -1,31 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { TenantViewRoutingModule } from './view-routing.module';
+import { ExpiryNoticeRoutingModule } from './expiry-notices-routing.module';
 import {InlineSVGModule} from "ng-inline-svg-2";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LetModule, PushModule } from '@ngrx/component';
-import { TenantViewComponent } from './view.component';
+import { ExpiryNoticesComponent } from './expiry-notices.component';
 import { effectsFeatureModules, storeFeatureModules } from './feature.store';
 import { TranslateModule } from '@ngx-translate/core';
-import { TenantViewOverviewComponent } from './overview/overview.component';
-import { TenantViewExpiryNoticesComponent } from './expiry-notices/expiry-notices.component';
-import { TenantViewContractsComponent } from './contracts/contracts.component';
 
 @NgModule({
   declarations: [
-    TenantViewComponent,
-    TenantViewOverviewComponent,
-    TenantViewContractsComponent,
-    TenantViewExpiryNoticesComponent,
+    ExpiryNoticesComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TenantViewRoutingModule,
+    ExpiryNoticeRoutingModule,
     InlineSVGModule,
     NgbModule,
     SharedModule,
@@ -36,4 +29,4 @@ import { TenantViewContractsComponent } from './contracts/contracts.component';
     effectsFeatureModules,
   ],
 })
-export class TenantViewModule { }
+export class ExpiryNoticesModule { }
