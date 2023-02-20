@@ -17,13 +17,13 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": ""
+        "sourceLocale": "fr"
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": true,
+            "localize": false,
             "outputPath": "dist/monloyer",
             "allowedCommonJsDependencies": [
               "object-path",
