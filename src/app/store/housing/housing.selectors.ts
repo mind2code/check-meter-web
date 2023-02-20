@@ -24,6 +24,16 @@ export const selectCurrentId = createSelector(
   (selectedId) => selectedId,
 );
 
+export const selectLoading = createSelector(
+  housingsFeature.selectLoading,
+  (loading) => loading,
+);
+
+export const selectCreating = createSelector(
+  housingsFeature.selectCreating,
+  (creating) => creating,
+);
+
 export const selectCurrent = createSelector(
   selectEntities,
   selectCurrentId,

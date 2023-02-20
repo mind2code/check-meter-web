@@ -22,10 +22,10 @@ export class IdentityDocumentTypeEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
-          return IdentityDocumentTypeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return IdentityDocumentTypeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(IdentityDocumentTypeApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [IdentityDocumentType loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des types de pièce d'identité.`);

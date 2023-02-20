@@ -17,5 +17,6 @@ export const ExpiryNoticeApiActions = createActionGroup({
   source: 'ExpiryNotices API',
   events: {
     'Load All Success': props<{ items: ExpiryNotice[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });

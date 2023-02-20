@@ -1,15 +1,15 @@
 <div class="card">
   <div class="card-header border-0 pt-4">
     <div class="card-title">
-
+      <div class="d-flex align-items-center position-relative my-1">
+        <span
+          [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
+          class="svg-icon svg-icon-1 position-absolute ms-6"
+        ></span>
+        <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" [placeholder]="'LABEL.SEARCH'|translate" />
+      </div>
     </div>
     <div class="card-toolbar">
-      <div class="d-flex justify-content-end">
-        <a class="btn btn-sm btn-primary p-2">
-          <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr058.svg'" class="svg-icon svg-icon-2"></span>
-          {{ 'LABEL.GENERATE'|translate }}
-        </a>
-      </div>
     </div>
   </div>
   <div class="card-body pt-0">
@@ -23,6 +23,7 @@
           <tr class="text-start bg-light text-gray-500 fw-bold fs-7 text-uppercase gs-0">
             <th>{{ 'EXPIRY_NOTICE.FIELD.identifiant'|translate }}</th>
             <th>{{ 'EXPIRY_NOTICE.FIELD.dateEmission'|translate }}</th>
+            <th>{{ 'TENANT.LABEL.SINGLE'|translate }}</th>
             <th>{{ 'EXPIRY_NOTICE.RELATIONSHIP.contrat'|translate }}</th>
             <th>{{ 'HOUSING.LABEL.SINGLE'|translate }}</th>
             <th>{{ 'EXPIRY_NOTICE.FIELD.sommeDue'|translate }}</th>
@@ -31,10 +32,20 @@
             <th class="text-end">{{ 'LABEL.ACTIONS'|translate }}</th>
           </tr>
           </thead>
-          <tbody class="fw-semibold text-gray-700">
+          <tbody class="fw-semibold text-gray-600" >
             <tr *ngFor="let expiryNotice of expiryNotices; let i=index; trackBy: trackById">
               <td>{{ expiryNotice.identifiant }}</td>
               <td>{{ expiryNotice.dateEmission|date }}</td>
+              <td>
+                <ng-container *ngIf="expiryNotice.contrat?.personne as person">
+                  <span *ngIf="person.identifiant" class="badge badge-secondary me-1" [ngbTooltip]="'PERSON.FIELD.identifiant'|translate">
+                    {{ person.identifiant }}
+                  </span>
+                  <span [ngbTooltip]="'PERSON.FIELD.nomComplet'|translate">
+                    {{ person.nomComplet || (person.nom + ' ' + person.prenoms) }}
+                  </span>
+                </ng-container>
+              </td>
               <td>
                 <ng-container *ngIf="expiryNotice.contrat as contract">
                   <span class="badge badge-primary me-1" [ngbTooltip]="'CONTRACT.FIELD.numeroExterneBail'|translate">
@@ -60,27 +71,27 @@
                   <span [outerHTML]="expiryNotice.statut|status"></span>
                 </ng-container>
               </td>
-            <td class="text-end">
-              <a
-                class="btn btn-icon btn-light-success btn-sm me-1"
-                ngbTooltip="{{ 'EXPIRY_NOTICE.LABEL.MAKE_PAYMENT'|translate }}"
-                (click)="makePayment(expiryNotice.id)"
-              >
-                <span
-                  [inlineSVG]="'./assets/media/icons/duotune/finance/cash-stack.svg'"
-                  class="svg-icon svg-icon-2"
-                ></span>
-            </a>
-              <a
-                class="btn btn-icon btn-light-info btn-sm me-1"
-                ngbTooltip="{{ 'EXPIRY_NOTICE.LABEL.PRINT_RECEIPT'|translate }}"
-              >
-                <span
-                  [inlineSVG]="'./assets/media/icons/duotune/electronics/printer-fill.svg'"
-                  class="svg-icon svg-icon-2"
-                ></span>
-              </a>
-            </td>
+              <td class="text-end">
+                <a
+                  class="btn btn-icon btn-light-success btn-sm me-1"
+                  ngbTooltip="{{ 'EXPIRY_NOTICE.LABEL.MAKE_PAYMENT'|translate }}"
+                  (click)="makePayment(expiryNotice.id)"
+                >
+                  <span
+                    [inlineSVG]="'./assets/media/icons/duotune/finance/cash-stack.svg'"
+                    class="svg-icon svg-icon-2"
+                  ></span>
+                </a>
+                <a
+                  class="btn btn-icon btn-light-info btn-sm me-1"
+                  ngbTooltip="{{ 'EXPIRY_NOTICE.LABEL.PRINT_RECEIPT'|translate }}"
+                >
+                  <span
+                    [inlineSVG]="'./assets/media/icons/duotune/electronics/printer-fill.svg'"
+                    class="svg-icon svg-icon-2"
+                  ></span>
+                </a>
+              </td>
           </tr>
           </tbody>
         </table>

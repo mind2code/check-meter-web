@@ -27,4 +27,8 @@ export class HousingService {
   getOneById(id: string): Observable<Housing> {
     return this.http.get<any>(this.basePath + '/' + String(id));
   }
+
+  create(data: any): Observable<Housing> {
+    return this.http.post<any>(this.basePath, data);
+  }
 }

@@ -22,10 +22,10 @@ export class ExpiryNoticeEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
-          return ExpiryNoticeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return ExpiryNoticeApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(ExpiryNoticeApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [ExpiryNotice loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des avis d'échéance.`);

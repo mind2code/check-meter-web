@@ -22,6 +22,10 @@ export const selectCurrentId = createSelector(
   civilitiesFeature.selectSelectedId,
   (selectedId) => selectedId,
 );
+export const selectLoading = createSelector(
+  civilitiesFeature.selectLoading,
+  (loading) => loading,
+);
 
 export const selectCurrent = createSelector(
   selectEntities,

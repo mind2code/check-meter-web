@@ -6,9 +6,10 @@ import { GenderApiActions, GenderPageActions } from './gender.actions';
 export const featureName = 'genders';
 
 export interface State extends EntityState<Gender> {
-  selectedId: string | null,
-  currentPage: number,
-  totalRecords: number,
+  selectedId: string | null;
+  currentPage: number;
+  totalRecords: number;
+  loading: boolean;
 }
 
 export const adapter: EntityAdapter<Gender> = createEntityAdapter<Gender>();
@@ -17,6 +18,7 @@ export const initialState: State = adapter.getInitialState({
   selectedId: null,
   currentPage: 0,
   totalRecords: 0,
+  loading: false,
 });
 
 export const gendersFeature = createFeature({
@@ -24,6 +26,11 @@ export const gendersFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(GenderPageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
+
+    on(
+      GenderPageActions.loadAll,
+      (state) => ({ ...state, loading: true })
+    ),
     on(GenderApiActions.loadAllSuccess, (state, { items, page, total }) => {
       return adapter.setAll(
         items ?? [],
@@ -35,14 +42,13 @@ export const gendersFeature = createFeature({
         }
       );
     }),
-    on(GenderPageActions.clear, (state) => ({
-      ...state,
-      currentPage: 0,
-      totalRecords: 0,
-      selectedId: null,
-      entities: {},
-      ids: [],
-    })),
+    on(
+      GenderApiActions.loadAllSuccess,
+      GenderApiActions.loadFailed,
+      (state) => ({ ...state, loading: false })
+    ),
+
+    on(GenderPageActions.clear, (state) => initialState),
   ),
 });
 

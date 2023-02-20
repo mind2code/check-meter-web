@@ -6,6 +6,11 @@ import { CommonModule } from '@angular/common';
 import { StatusPipe } from './pipes/status.pipe';
 import { AppProgressSpinnerComponent } from './components/spinners/app-progress-spinner.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ExpiryNoticeMakePaymentComponent } from './components/expiry-notices/make-payment/make-payment.component';
+import { LetModule, PushModule } from '@ngrx/component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 
 const declarations = [
   AppOffcanvasComponent,
@@ -13,6 +18,7 @@ const declarations = [
   AppFormPathFallbackDirective,
   StatusPipe,
   AppProgressSpinnerComponent,
+  ExpiryNoticeMakePaymentComponent,
 ];
 
 @NgModule({
@@ -21,7 +27,13 @@ const declarations = [
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InlineSVGModule,
+    NgbModule,
     TranslateModule,
+    LetModule,
+    PushModule,
   ],
   exports: [
     declarations,

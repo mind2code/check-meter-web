@@ -28,16 +28,13 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/housings/housings.module').then(m => m.HousingsModule),
   },
   {
+    path: 'expiry-notices',
+    loadChildren: () => import('../modules/expiry-notices/expiry-notices.module').then(m => m.ExpiryNoticesModule),
+  },
+  {
     path: 'admin',
     loadChildren: () => import('../modules/admin/admin.module').then(m => m.AdminModule),
   },
-
-  // Old
-  { path: 'habitations', loadChildren: () => import('../modules/habitations/habitations.module').then(m => m.HabitationsModule) },
-  { path: 'contrats', loadChildren: () => import('../modules/contrats/contrats.module').then(m => m.ContratsModule) },
-  { path: 'parametrage', loadChildren: () => import('../modules/parametrage/parametrage.module').then(m => m.ParametrageModule) },
-  { path: 'civilites', loadChildren: () => import('../modules/parametrage/civilites/civilites.module').then(m => m.CivilitesModule) },
-
   {
     path: '**',
     redirectTo: 'error/404',

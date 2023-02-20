@@ -17,5 +17,6 @@ export const CountryApiActions = createActionGroup({
   source: 'Countries API',
   events: {
     'Load All Success': props<{ items: Country[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });

@@ -22,10 +22,10 @@ export class MaritalSituationEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
-          return MaritalSituationApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return MaritalSituationApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(MaritalSituationApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [MaritalSituation loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des situations matrimoniales.`);

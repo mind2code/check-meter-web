@@ -10,14 +10,13 @@ import * as ContractSelectors from 'src/app/store/contract/contract.selectors';
 @Component({
   selector: 'app-contracts',
   templateUrl: './contracts.component.html',
-  styleUrls: ['./contracts.component.scss'],
 })
 export class ContractsComponent implements OnInit, OnDestroy {
-
   contracts$: Observable<Contract[]>;
+  loading$: Observable<boolean>;
+  totalRecords$: Observable<number>;
 
   page = 1;
-  totalRecords$: Observable<number>;
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
@@ -30,8 +29,9 @@ export class ContractsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.contracts$ = this.store.select(ContractSelectors.selectAll);
     this.totalRecords$ = this.store.select(ContractSelectors.selectTotalRecords);
-    this.refreshList();
+    this.loading$ = this.store.select(ContractSelectors.selectLoading);
 
+    this.loadData();
   }
 
   ngOnDestroy(): void {
@@ -42,6 +42,10 @@ export class ContractsComponent implements OnInit, OnDestroy {
 
   trackById(index: number, item: Contract): string {
     return item.id;
+  }
+
+  private loadData() {
+    this.refreshList();
   }
 
   refreshList() {

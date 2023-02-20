@@ -10,14 +10,13 @@ import { TenantPageActions } from 'src/app/store/tenant/tenant.actions';
 @Component({
   selector: 'app-tenants',
   templateUrl: './tenants.component.html',
-  styleUrls: ['./tenants.component.scss'],
 })
 export class TenantsComponent implements OnInit, OnDestroy {
-
   tenants$: Observable<Tenant[]>;
+  loading$: Observable<boolean>;
+  totalRecords$: Observable<number>;
 
   page = 1;
-  totalRecords$: Observable<number>;
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
@@ -30,8 +29,9 @@ export class TenantsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tenants$ = this.store.select(TenantSelectors.selectAll);
     this.totalRecords$ = this.store.select(TenantSelectors.selectTotalRecords);
-    this.refreshList();
+    this.loading$ = this.store.select(TenantSelectors.selectLoading);
 
+    this.loadData();
   }
 
   ngOnDestroy(): void {
@@ -51,5 +51,9 @@ export class TenantsComponent implements OnInit, OnDestroy {
     }
     this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
     this.store.dispatch(TenantPageActions.loadAll({ params: this.paginationQuery }));
+  }
+
+  private loadData() {
+    this.refreshList();
   }
 }

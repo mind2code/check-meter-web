@@ -21,6 +21,7 @@ export default {
       situationMatrimoniale: 'Situation matrimoniale',
       typePersonne: 'Type de personne',
       carnetAdresse: "Carnet d'adresse",
+      pieceIdentite: `Pièces d'identité`,
     },
   },
 
@@ -118,7 +119,7 @@ export default {
       adresseEmail: 'Email',
     },
     RELATIONSHIP: {
-      person: `Personne`,
+      typePieceIdentite: `Type de pièce`,
     }
   },
 }

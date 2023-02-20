@@ -22,10 +22,10 @@ export class GenderEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
-          return GenderApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return GenderApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(GenderApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [Gender loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des genres.`);

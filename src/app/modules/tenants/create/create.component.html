@@ -1,20 +1,26 @@
 <div class="card">
-  <form class="form" [formGroup]="form">
-    <fieldset>
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="on">
+    <fieldset [disabled]="creating$|ngrxPush">
       <div class="card-body p-4">
-        <div class="row gx-2">
+        <div class="row g-2">
           <div class="col-lg-6">
             <div class="h-100 w-100 px-2 py-1 border rounded border-gray-300">
               <div class="row mb-4">
-                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="identifiant">
-                  {{ 'PERSON.FIELD.identifiant'|translate }}
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="typePersonneId">
+                  {{ 'PERSON.RELATIONSHIP.typePersonne'|translate }}
                 </label>
                 <div class="col-lg-8 fv-row">
-                  <input type="text" name="identifiant" id="identifiant" formControlName="identifiant"
-                    class="form-control form-control-solid"
-                    appFormPathFallback required
-                  />
-                  <app-display-form-path-error [pathControl]="form.get('identifiant')"></app-display-form-path-error>
+                  <select name="typePersonneId" id="typePersonneId" formControlName="typePersonneId"
+                    class="form-select form-select-solid" appFormPathFallback required
+                  >
+                    <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
+                    <ng-container *ngrxLet="personTypes$ as personTypes">
+                      <option *ngFor="let personType of personTypes" [value]="personType.id">
+                        {{ personType.libelle }}
+                      </option>
+                    </ng-container>
+                  </select>
+                  <app-display-form-path-error [pathControl]="form.get('typePersonneId')"></app-display-form-path-error>
                 </div>
               </div>
               <div class="row mb-4">
@@ -54,29 +60,20 @@
                 </div>
               </div>
               <div class="row mb-4">
-                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="typePersonneId">
-                  {{ 'PERSON.RELATIONSHIP.typePersonne'|translate }}
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="genreId">
+                  {{ 'PERSON.RELATIONSHIP.genre'|translate }}
                 </label>
                 <div class="col-lg-8 fv-row">
-                  <select name="typePersonneId" id="typePersonneId" formControlName="typePersonneId"
+                  <select name="genreId" id="genreId" formControlName="genreId"
                     class="form-select form-select-solid"
                   >
-                    <option>Sélectionnez un type de personne...</option>
+                  <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
+                  <ng-container *ngrxLet="genders$ as genders">
+                    <option *ngFor="let gender of genders" [value]="gender.id">
+                      {{ gender.libelle }}
+                    </option>
+                  </ng-container>
                   </select>
-                </div>
-              </div>
-              <div class="row mb-0">
-                <label class="col-lg-4 col-form-label fw-bold fs-6" for="estActif">
-                  {{ 'PERSON.FIELD.estActif'|translate }}
-                </label>
-                <div class="col-lg-8 d-flex align-items-center">
-                  <div class="form-check form-check-solid form-switch fv-row">
-                    <input
-                      type="checkbox" name="estActif" id="estActif" formControlName="estActif"
-                      class="form-check-input w-45px h-30px"
-                    />
-                    <label class="form-check-label"></label>
-                  </div>
                 </div>
               </div>
             </div>
@@ -85,18 +82,6 @@
           <div class="col-lg-6">
             <div class="h-100 w-100 px-2 py-1 border rounded border-red-200">
               <div class="row mb-4">
-                <label class="col-lg-4 col-form-label fw-bold fs-6" for="genreId">
-                  {{ 'PERSON.RELATIONSHIP.genre'|translate }}
-                </label>
-                <div class="col-lg-8 fv-row">
-                  <select name="genreId" id="genreId" formControlName="genreId"
-                    class="form-select form-select-solid"
-                  >
-                    <option>Sélectionnez un genre...</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-4">
                 <label class="col-lg-4 col-form-label fw-bold fs-6" for="civiliteId">
                   {{ 'PERSON.RELATIONSHIP.civilite'|translate }}
                 </label>
@@ -104,7 +89,12 @@
                   <select name="civiliteId" id="civiliteId" formControlName="civiliteId"
                     class="form-select form-select-solid"
                   >
-                    <option>Sélectionnez une civilité...</option>
+                  <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
+                  <ng-container *ngrxLet="civilities$ as civilities">
+                    <option *ngFor="let civility of civilities" [value]="civility.id">
+                      {{ civility.libelle }}
+                    </option>
+                  </ng-container>
                   </select>
                 </div>
               </div>
@@ -116,7 +106,12 @@
                   <select name="situationMatrimonialeId" id="situationMatrimonialeId" formControlName="situationMatrimonialeId"
                     class="form-select form-select-solid"
                   >
-                    <option>Sélectionnez une situation matrimoniale...</option>
+                  <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
+                  <ng-container *ngrxLet="maritalSituations$ as maritalSituations">
+                    <option *ngFor="let maritalSituation of maritalSituations" [value]="maritalSituation.id">
+                      {{ maritalSituation.libelle }}
+                    </option>
+                  </ng-container>
                   </select>
                 </div>
               </div>
@@ -148,7 +143,12 @@
                   <select name="nationaliteId" id="nationaliteId" formControlName="nationaliteId"
                     class="form-select form-select-solid"
                   >
-                    <option>Sélectionnez une nationnalité...</option>
+                  <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
+                  <ng-container *ngrxLet="countries$ as countries">
+                    <option *ngFor="let country of countries" [value]="country.id">
+                      {{ country.libelle }}
+                    </option>
+                  </ng-container>
                   </select>
                 </div>
               </div>
@@ -156,105 +156,104 @@
           </div>
         </div>
 
-
-        <fieldset class="mt-6 border-top rounded border-gray-300">
-          <caption class="fs-3 fw-bold d-inline-block">{{ 'PERSON.RELATIONSHIP.carnetAdresse'|translate }}</caption>
+        <fieldset class="my-12 border-top rounded border-gray-300">
+          <caption class="fs-3 fw-bolder d-inline-block">{{ 'PERSON.RELATIONSHIP.carnetAdresse'|translate }}</caption>
           <div class="row g-2" formArrayName="carnetAdresse">
             <ng-container *ngFor="let addressBookForm of carnetAdresse.controls; let i = index">
               <div class="col-lg-4 position-relative" [formGroup]="addressBookForm">
                 <div
-                  class="position-absolute position-absolute top-5 start-98 translate-middle-90"
+                  class="position-absolute position-absolute top-3 start-3 translate-middle-90"
                 >
                   <button
                     type="button"
-                    class="btn btn-sm btn-light-danger p-1"
+                    class="btn btn-sm btn-color-danger btn-link p-1"
                     [ngbTooltip]="'LABEL.REMOVE'|translate"
-                    (click)="removeCarnetAdresse(i)"
+                    (click)="removeAddressBook(i)"
                   >
                     <span
                       [inlineSVG]="'./assets/media/icons/duotune/arrows/arr088.svg'"
-                      class="svg-icon svg-icon-2 me-0"
+                      class="svg-icon svg-icon-1 me-0"
                     ></span>
                   </button>
                 </div>
 
-                <div class="h-100 w-100 px-2 py-1 border rounded border-blue-200">
+                <div class="h-100 w-100 px-2 py-1 border rounded border-blue-300">
                   <div class="row mb-2">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="adresseEmail">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'adresseEmail'+i">
                       {{ 'ADDRESS_BOOK.FIELD.adresseEmail'|translate }}
                     </label>
                     <div class="col-lg-8 fv-row">
-                      <input type="email" name="adresseEmail" id="adresseEmail" formControlName="adresseEmail"
+                      <input type="email" name="adresseEmail" [id]="'adresseEmail'+i" formControlName="adresseEmail"
                         class="form-control form-control-sm form-control-solid"
                       />
                     </div>
                   </div>
                   <div class="row mb-2">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="telephoneMobile">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'telephoneMobile'+i">
                       {{ 'ADDRESS_BOOK.FIELD.telephoneMobile'|translate }}
                     </label>
                     <div class="col-lg-8 fv-row">
-                      <input type="tel" name="telephoneMobile" id="telephoneMobile" formControlName="telephoneMobile"
+                      <input type="tel" name="telephoneMobile" [id]="'telephoneMobile'+i" formControlName="telephoneMobile"
                         class="form-control form-control-sm form-control-solid"
                       />
                     </div>
                   </div>
                   <div class="row mb-2">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="telephoneMobile2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'telephoneMobile2'+i">
                       {{ 'ADDRESS_BOOK.FIELD.telephoneMobile2'|translate }}
                     </label>
                     <div class="col-lg-8 fv-row">
-                      <input type="tel" name="telephoneMobile2" id="telephoneMobile2" formControlName="telephoneMobile2"
+                      <input type="tel" name="telephoneMobile2" [id]="'telephoneMobile2'+i" formControlName="telephoneMobile2"
                         class="form-control form-control-sm form-control-solid"
                       />
                     </div>
                   </div>
                   <div class="row mb-2">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="telephoneFixe">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'telephoneFixe'+i">
                       {{ 'ADDRESS_BOOK.FIELD.telephoneFixe'|translate }}
                     </label>
                     <div class="col-lg-8 fv-row">
-                      <input type="tel" name="telephoneFixe" id="telephoneFixe" formControlName="telephoneFixe"
+                      <input type="tel" name="telephoneFixe" [id]="'telephoneFixe'+i" formControlName="telephoneFixe"
                         class="form-control form-control-sm form-control-solid"
                       />
                     </div>
                   </div>
                   <div class="row mb-2">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="ville">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'ville'+i">
                       {{ 'ADDRESS_BOOK.FIELD.ville'|translate }}
                     </label>
                     <div class="col-lg-8 fv-row">
-                      <input type="text" name="ville" id="ville" formControlName="ville"
+                      <input type="text" name="ville" [id]="'ville'+i" formControlName="ville"
                         class="form-control form-control-sm form-control-solid"
                       />
                     </div>
                   </div>
                   <div class="row mb-2">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="quartier">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'quartier'+i">
                       {{ 'ADDRESS_BOOK.FIELD.quartier'|translate }}
                     </label>
                     <div class="col-lg-8 fv-row">
-                      <input type="text" name="quartier" id="quartier" formControlName="quartier"
+                      <input type="text" name="quartier" [id]="'quartier'+i" formControlName="quartier"
                         class="form-control form-control-sm form-control-solid"
                       />
                     </div>
                   </div>
                   <div class="row mb-2">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="adresseGeographique">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'adresseGeographique'+i">
                       {{ 'ADDRESS_BOOK.FIELD.adresseGeographique'|translate }}
                     </label>
                     <div class="col-lg-8 fv-row">
-                      <input type="text" name="adresseGeographique" id="adresseGeographique" formControlName="adresseGeographique"
+                      <input type="text" name="adresseGeographique" [id]="'adresseGeographique'+i" formControlName="adresseGeographique"
                         class="form-control form-control-sm form-control-solid"
                       />
                     </div>
                   </div>
                   <div class="row mb-2">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6" for="adressePostale">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'adressePostale'+i">
                       {{ 'ADDRESS_BOOK.FIELD.adressePostale'|translate }}
                     </label>
                     <div class="col-lg-8 fv-row">
-                      <input type="text" name="adressePostale" id="adressePostale" formControlName="adressePostale"
+                      <input type="text" name="adressePostale" [id]="'adressePostale'+i" formControlName="adressePostale"
                         class="form-control form-control-sm form-control-solid"
                       />
                     </div>
@@ -268,7 +267,117 @@
                 type="button"
                 class="btn btn-light btn-active-primary border border-blue-300 w-100 h-100"
                 [ngbTooltip]="'LABEL.ADD'|translate"
-                (click)="addCarnetAdresse()"
+                (click)="addAddressBook()"
+              >
+                <span
+                  [inlineSVG]="'./assets/media/icons/duotune/arrows/arr017.svg'"
+                  [setSVGAttributes]="{ class: 'h-100px w-100px' }"
+                  class="svg-icon"
+                ></span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="my-12 border-top rounded border-gray-300">
+          <caption class="fs-3 fw-bolder d-inline-block">{{ 'PERSON.RELATIONSHIP.pieceIdentite'|translate }}</caption>
+          <div class="row g-2" formArrayName="pieceIdentite">
+            <ng-container *ngFor="let identityDocumentForm of pieceIdentite.controls; let i = index">
+              <div class="col-lg-4 position-relative" [formGroup]="identityDocumentForm">
+                <div
+                  class="position-absolute position-absolute top-4 start-3 translate-middle-90"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-color-danger btn-link p-1"
+                    [ngbTooltip]="'LABEL.REMOVE'|translate"
+                    (click)="removeIdentityDocument(i)"
+                  >
+                    <span
+                      [inlineSVG]="'./assets/media/icons/duotune/arrows/arr088.svg'"
+                      class="svg-icon svg-icon-1 me-0"
+                    ></span>
+                  </button>
+                </div>
+
+                <div class="h-100 w-100 px-2 py-1 border rounded border-purple-300">
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'typePieceIdentiteId'+i">
+                      {{ 'IDENTITY_DOCUMENT.RELATIONSHIP.typePieceIdentite'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <select name="typePieceIdentiteId" [id]="'typePieceIdentiteId'+i" formControlName="typePieceIdentiteId"
+                        class="form-select form-select-sm form-select-solid"
+                      >
+                      <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
+                      <ng-container *ngrxLet="identityDocumentTypes$ as identityDocumentTypes">
+                        <option *ngFor="let identityDocumentType of identityDocumentTypes" [value]="identityDocumentType.id">
+                          {{ identityDocumentType.libelle }}
+                        </option>
+                      </ng-container>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'numeroIdentite'+i">
+                      {{ 'IDENTITY_DOCUMENT.FIELD.numeroIdentite'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="text" name="numeroIdentite" [id]="'numeroIdentite'+i" formControlName="numeroIdentite"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'numeroNNI'+i">
+                      {{ 'IDENTITY_DOCUMENT.FIELD.numeroNNI'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="text" name="numeroNNI" [id]="'numeroNNI'+i" formControlName="numeroNNI"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'delivrePar'+i">
+                      {{ 'IDENTITY_DOCUMENT.FIELD.delivrePar'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="text" name="delivrePar" [id]="'delivrePar'+i" formControlName="delivrePar"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'dateDelivrance'+i">
+                      {{ 'IDENTITY_DOCUMENT.FIELD.dateDelivrance'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="date" name="dateDelivrance" [id]="'dateDelivrance'+i" formControlName="dateDelivrance"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6" [for]="'dateExpiration'+i">
+                      {{ 'IDENTITY_DOCUMENT.FIELD.dateExpiration'|translate }}
+                    </label>
+                    <div class="col-lg-8 fv-row">
+                      <input type="date" name="dateExpiration" [id]="'dateExpiration'+i" formControlName="dateExpiration"
+                        class="form-control form-control-sm form-control-solid"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="col-lg-4">
+              <button
+                type="button"
+                class="btn btn-light btn-active-info border border-purple-300 w-100 h-100"
+                [ngbTooltip]="'LABEL.ADD'|translate"
+                (click)="addIdentityDocument()"
               >
                 <span
                   [inlineSVG]="'./assets/media/icons/duotune/arrows/arr017.svg'"
@@ -288,11 +397,13 @@
           ></span>
           {{ 'LABEL.CANCEL'|translate }}
         </button>
-        <button class="btn btn-primary" type="button">
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
           <span
+          *ngIf="!(creating$|ngrxPush)"
             [inlineSVG]="'./assets/media/icons/duotune/arrows/save-fill.svg'"
             class="svg-icon svg-icon-2"
           ></span>
+          <app-progress-spinner *ngIf="creating$|ngrxPush" role="status" aria-hidden="true" [displayMessage]="false"></app-progress-spinner>
           {{ 'LABEL.SAVE'|translate }}
         </button>
       </div>

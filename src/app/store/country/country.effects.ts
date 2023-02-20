@@ -22,10 +22,10 @@ export class CountryEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, recordsTotal, currentPage  }) => {
-          return CountryApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return CountryApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
+          of(CountryApiActions.loadFailed({ error })).pipe(
             tap((err) => {
               console.error('**** [Country loadAllFailed]', err);
               this.toastr.error(`Une erreur est suvernue lors du chargement des nationalités.`);

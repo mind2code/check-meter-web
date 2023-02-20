@@ -1,49 +1,32 @@
-<!--begin::Card-->
 <div class="card">
-  <!--begin::Card header-->
-  <div class="card-header border-0 pt-6">
-    <!--begin::Card title-->
+  <div class="card-header border-0 pt-4">
     <div class="card-title">
-      <!--begin::Search-->
       <div class="d-flex align-items-center position-relative my-1">
-        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
         <span
           [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
           class="svg-icon svg-icon-1 position-absolute ms-6"
         ></span>
-        <!--end::Svg Icon-->
-        <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" [placeholder]="'LABEL.SEARCH'|translate" />
+        <input type="search" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" [placeholder]="'LABEL.SEARCH'|translate" />
       </div>
-      <!--end::Search-->
     </div>
-    <!--begin::Card title-->
-    <!--begin::Card toolbar-->
     <div class="card-toolbar">
-      <!--begin::Toolbar-->
       <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-
-        <!--begin::Add customer-->
         <a class="btn btn-sm btn-primary" routerLink="/housings/create">
           <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr013.svg'" class="svg-icon svg-icon-2"></span>
           {{ 'LABEL.NEW'|translate }}
         </a>
-        <!--end::Add customer-->
       </div>
-      <!--end::Toolbar-->
     </div>
-    <!--end::Card toolbar-->
   </div>
-  <!--end::Card header-->
-  <!--begin::Card body-->
   <div class="card-body pt-0">
     <ng-container *ngrxLet="housings$ as housings">
-      <div class="table-responsive">
-        <!--begin::Table-->
-        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-          <!--begin::Table head-->
+      <div class="table-responsive table-loading">
+        <div class="table-loading-message" *ngIf="loading$|ngrxPush">
+          <app-progress-spinner></app-progress-spinner>
+        </div>
+        <table class="table table-hover align-middle table-row-dashed fs-6 gy-3" id="kt_customers_table">
           <thead>
-          <!--begin::Table row-->
-          <tr class="text-start bg-light text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+          <tr class="text-start bg-light text-gray-500 fw-bold fs-7 text-uppercase gs-0">
             <th class="min-w-125px">{{ 'HOUSING.FIELD.identifiant'|translate }}</th>
             <th class="min-w-125px">{{ 'HOUSING.RELATIONSHIP.typeHabitation'|translate }}</th>
             <th class="min-w-125px">{{ 'HOUSING.FIELD.description'|translate }}</th>
@@ -53,11 +36,8 @@
             <th class="min-w-125px">{{ 'HOUSING.FIELD.latitude'|translate }}</th>
             <th class="text-end min-w-70px">{{ 'LABEL.ACTIONS'|translate }}</th>
           </tr>
-          <!--end::Table row-->
           </thead>
-          <!--end::Table head-->
-          <!--begin::Table body-->
-          <tbody class="fw-semibold text-gray-600" >
+          <tbody class="fw-semibold text-gray-700" >
             <tr *ngFor="let housing of housings; let i=index; trackBy: trackById">
             <td>{{ housing.identifiant}}</td>
             <td>
@@ -68,7 +48,6 @@
             <td>{{ housing.superficie|number }}</td>
             <td>{{ housing.longitude|number:'1.0-12' }}</td>
             <td>{{ housing.latitude|number:'1.0-12' }}</td>
-            <!--begin::Action=-->
             <td class="text-end">
               <a
                 class="btn btn-icon btn-light-primary btn-sm me-1"
@@ -91,12 +70,9 @@
                 ></span>
               </a>
             </td>
-            <!--end::Action=-->
           </tr>
           </tbody>
-          <!--end::Table body-->
         </table>
-        <!--end::Table-->
       </div>
       <div class="d-flex justify-content-between">
         <ngb-pagination
@@ -112,5 +88,4 @@
       </div>
     </ng-container>
   </div>
-  <!--end::Card body-->
 </div>

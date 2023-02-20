@@ -6,7 +6,7 @@
           [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
           class="svg-icon svg-icon-1 position-absolute ms-6"
         ></span>
-        <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" [placeholder]="'LABEL.SEARCH'|translate" />
+        <input type="search" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" [placeholder]="'LABEL.SEARCH'|translate" />
       </div>
     </div>
     <div class="card-toolbar">
@@ -20,7 +20,10 @@
   </div>
   <div class="card-body pt-0">
     <ng-container *ngrxLet="tenants$ as tenants">
-      <div class="table-responsive">
+      <div class="table-responsive table-loading">
+        <div class="table-loading-message" *ngIf="loading$|ngrxPush">
+          <app-progress-spinner></app-progress-spinner>
+        </div>
         <table class="table table-hover align-middle table-row-dashed fs-6 gy-3">
           <thead>
           <tr class="text-start bg-light text-gray-500 fw-bold fs-7 text-uppercase gs-0">

@@ -17,5 +17,6 @@ export const IdentityDocumentTypeApiActions = createActionGroup({
   source: 'IdentityDocumentTypes API',
   events: {
     'Load All Success': props<{ items: IdentityDocumentType[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });

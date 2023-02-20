@@ -2,21 +2,20 @@ import { Person } from '../models/person.model';
 import { CreateAddressBookDto } from './address-book.dto';
 import { CreateIdentityDocumentDto, CreateIdentityDocumentFormType } from './identity-document.dto';
 
-export interface CreatePersonDto extends Pick<Person, (
-  'identifiant'|'nomComplet'|'nom'|'prenoms'|'nomJeuneFille'
-  |'dateNaissance'|'lieuNaissance'|'description'|'estActif'
-)> {
-  civilite: {
-    id: number;
+export interface CreatePersonDto extends Partial<Pick<Person, (
+  'nom'|'prenoms'|'nomJeuneFille'|'dateNaissance'|'lieuNaissance'
+)>> {
+  civilite: null | {
+    id: number | null;
   };
-  genre: {
-    id: number;
+  genre: null | {
+    id: number | null;
   };
-  nationalite: {
-    id: number
+  nationalite: null | {
+    id: number | null;
   };
-  situationMatrimoniale: {
-    id: number;
+  situationMatrimoniale: null | {
+    id: number | null;
   };
   typePersonne: {
     id: number

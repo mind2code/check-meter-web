@@ -20,7 +20,10 @@
   </div>
   <div class="card-body pt-0">
     <ng-container *ngrxLet="contracts$ as contracts">
-      <div class="table-responsive">
+      <div class="table-responsive table-loading">
+        <div class="table-loading-message" *ngIf="loading$|ngrxPush">
+          <app-progress-spinner></app-progress-spinner>
+        </div>
         <table class="table table-hover align-middle table-row-dashed fs-6 gy-3">
           <thead>
           <tr class="text-start bg-light text-gray-500 fw-bold fs-7 text-uppercase gs-0">

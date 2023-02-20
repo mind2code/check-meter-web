@@ -40,6 +40,7 @@ export const locale = {
       CASH_OUT: 'Encaisser',
       SAVE: 'Enrégistrer',
       CANCEL: 'Annuler',
+      SELECT_OPTION: '--Sélectionnez--'
     },
     MESSAGE: {
       ELEMENT_COUNT: '{{count}} éléments',
@@ -68,6 +69,7 @@ export const locale = {
       TENANTS: 'Gestion des locataires',
       HOUSINGS: 'Gestion des habitations',
       CONTRACTS: 'Gestion des contracts',
+      EXPIRY_NOTICES: `Gestion des avis d'échéance`,
     },
   },
 };

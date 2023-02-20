@@ -17,5 +17,6 @@ export const MaritalSituationApiActions = createActionGroup({
   source: 'MaritalSituations API',
   events: {
     'Load All Success': props<{ items: MaritalSituation[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });

@@ -17,5 +17,6 @@ export const HousingTypeApiActions = createActionGroup({
   source: 'HousingTypes API',
   events: {
     'Load All Success': props<{ items: HousingType[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });
