@@ -1,22 +1,24 @@
 
 <!--begin::Row-->
 <div class="row g-3 g-xl-6 mb-5">
-  <div class="col-lg-3 col-md-4" *ngIf="tenantsCount$|ngrxPush as tenantsCount">
-    <app-stats-widget5
-      class="card hoverable bg-primary"
-      [svgIcon]="'./assets/media/icons/duotune/communication/com013.svg'"
-      [title]="((tenantsCount ?? 0)|number)+''"
-      [description]="'TENANT.LABEL.PLURAL'|translate"
-      iconColor="white"
-      color="primary"
-    ></app-stats-widget5>
-  </div>
+  <ng-container *ngrxLet="tenantsCount$ as tenantsCount">
+    <div class="col-lg-3 col-md-4">
+      <app-stats-widget5
+        class="card hoverable bg-primary"
+        [svgIcon]="'./assets/media/icons/duotune/communication/com013.svg'"
+        [title]="((tenantsCount || 0)|number)+''"
+        [description]="'TENANT.LABEL.PLURAL'|translate"
+        iconColor="white"
+        color="primary"
+      ></app-stats-widget5>
+    </div>
+  </ng-container>
 
-  <div class="col-md-4 col-lg-3" *ngIf="housingsCount$|ngrxPush as housingsCount">
+  <div class="col-md-4 col-lg-3">
     <app-stats-widget5
       class="card hoverable bg-dark"
       [svgIcon]="'./assets/media/icons/duotune/maps/map008.svg'"
-      [title]="((housingsCount ?? 0)|number)+''"
+      [title]="((housingsCount || 0)|number)+''"
       [description]="'HOUSING.LABEL.PLURAL'|translate"
       iconColor="white"
       color="dark"
@@ -27,7 +29,7 @@
     <app-stats-widget5
       class="card hoverable bg-success"
       [svgIcon]="'./assets/media/icons/duotune/ecommerce/ecm008.svg'"
-      [title]="((contractsCount ?? 0)|number)+''"
+      [title]="((contractsCount || 0)|number)+''"
       [description]="'CONTRACT.LABEL.PLURAL'|translate"
       iconColor="white"
       color="success"
@@ -38,7 +40,7 @@
     <app-stats-widget5
       class="card hoverable bg-info"
       [svgIcon]="'./assets/media/icons/duotune/finance/fin007.svg'"
-      [title]="((expiryNoticesCount ?? 0)|number)+''"
+      [title]="((expiryNoticesCount || 0)|number)+''"
       [description]="'EXPIRY_NOTICE.LABEL.PLURAL'|translate"
       iconColor="white"
       color="info"
