@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { PaginationQuery } from '../requests/pagination.query';
 import { Country } from '../models/country.model';
-import { pagination } from 'src/environments/environment';
+import {environment, pagination} from 'src/environments/environment';
 import { ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CountryService {
-  basePath: string = 'api/v1/nationalites';
+  basePath: string = environment.apiUrl + 'api/v1/nationalites';
 
   constructor(private http: HttpClient) { }
 

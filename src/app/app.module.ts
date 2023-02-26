@@ -15,16 +15,20 @@ import { StoreModule } from '@ngrx/store';
 import { ToastsContainerComponent } from './shared/toast/toasts-container.component';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
-import { extModules } from '../environments/environment';
+import {environment, extModules} from '../environments/environment';
 import { LetModule, PushModule } from '@ngrx/component';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
-        url: 'https://auth.mind2codes.com/auth',
-        realm: 'monloyer',
-        clientId: 'dev'
+        url: environment.keycloakConfig.url,
+        realm: environment.keycloakConfig.realm,
+        clientId: environment.keycloakConfig.clientId
       },
       // loadUserProfileAtStartUp: true,
       initOptions: {

@@ -19,7 +19,7 @@ export const environment = {
   appVersion: 'v8.1.5',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
-  apiUrl: 'http://localhost:9000/api/v1',
+  apiUrl: 'http://localhost:4200/',
   appThemeName: 'Metronic',
   appPurchaseUrl: 'https://1.envato.market/EA4JP',
   appHTMLIntegration:
@@ -30,6 +30,11 @@ export const environment = {
   appPreviewDocsUrl: 'https://preview.keenthemes.com/metronic8/angular/docs',
   appPreviewChangelogUrl:
     'https://preview.keenthemes.com/metronic8/angular/docs/changelog',
+  keycloakConfig: {
+    url: 'https://auth.mind2codes.com/auth',
+    realm: 'monloyer',
+    clientId: 'dev'
+  },
   appDemos: {
     demo1: {
       title: 'Demo 1',

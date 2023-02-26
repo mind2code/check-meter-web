@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { CreateRentReceiptDto } from '../dto/rent-receipt.dto';
 import { RentReceipt } from '../models/rent-receipt.model';
 import { PaginationQuery } from '../requests/pagination.query';
-import { pagination } from 'src/environments/environment';
+import {environment, pagination} from 'src/environments/environment';
 import { ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentReceiptService {
-  basePath: string = 'api/v1/quittance-loyers';
+  basePath: string = environment.apiUrl + 'api/v1/quittance-loyers';
 
   constructor(private http: HttpClient) { }
 

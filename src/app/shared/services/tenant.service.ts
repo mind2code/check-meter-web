@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tenant } from '../models/tenant.model';
 import { PaginationQuery } from '../requests/pagination.query';
-import { pagination } from 'src/environments/environment';
+import {environment, pagination} from 'src/environments/environment';
 import { ApiPaginatedResponse } from '../models/api-response.interface';
 import { PersonService } from './person.service';
 import { CreateTenantDto } from '../dto/tenant.dto';
@@ -12,7 +12,7 @@ import { CreateTenantDto } from '../dto/tenant.dto';
   providedIn: 'root'
 })
 export class TenantService {
-  basePath: string = 'api/v1/locataires';
+  basePath: string = environment.apiUrl + 'api/v1/locataires';
 
   constructor(private personService: PersonService) { }
 

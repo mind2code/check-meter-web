@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Housing } from '../models/housing.model';
 import { PaginationQuery } from '../requests/pagination.query';
-import { pagination } from 'src/environments/environment';
+import {environment, pagination} from 'src/environments/environment';
 import { ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HousingService {
-  basePath: string = 'api/v1/habitations';
+  basePath: string = environment.apiUrl + 'api/v1/habitations';
 
   constructor(private http: HttpClient) { }
 
