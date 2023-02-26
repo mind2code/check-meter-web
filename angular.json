@@ -87,7 +87,7 @@
           "configurations": {
             "production": {
               "browserTarget": "monloyer:build:production",
-              "proxyConfig": "src/proxy-prod.conf.json"
+              "proxyConfig": ""
             },
             "development": {
               "browserTarget": "monloyer:build:development",

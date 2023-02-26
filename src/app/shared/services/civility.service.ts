@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { PaginationQuery } from '../requests/pagination.query';
 import { Civility } from '../models/person.model';
-import { pagination } from 'src/environments/environment';
+import {environment, pagination} from 'src/environments/environment';
 import { ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CivilityService {
-  basePath: string = 'api/v1/civilites';
+  basePath: string = environment.apiUrl + 'api/v1/civilites';
 
   constructor(private http: HttpClient) { }
 

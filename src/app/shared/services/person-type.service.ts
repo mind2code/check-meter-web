@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PersonType } from '../models/person.model';
 import { PaginationQuery } from '../requests/pagination.query';
-import { pagination } from 'src/environments/environment';
+import {environment, pagination} from 'src/environments/environment';
 import { ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonTypeService {
-  basePath: string = 'api/v1/type-personnes';
+  basePath: string = environment.apiUrl + 'api/v1/type-personnes';
 
   constructor(private http: HttpClient) { }
 
