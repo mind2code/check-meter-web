@@ -19,7 +19,75 @@
     </div>
   </div>
   <div class="card-body pt-0">
-    <ng-container *ngrxLet="tenants$ as tenants">
+    <div class="table-responsive table-loading">
+      <div class="table-loading-message" *ngIf="loading$|ngrxPush">
+        <app-progress-spinner></app-progress-spinner>
+      </div>
+      <table mat-table [dataSource]="tenants$" [trackBy]="trackById"
+        class="table align-middle table-row-bordered table-hover fs-6 gy-2"
+      >
+        <ng-container matColumnDef="identifiant">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'PERSON.FIELD.identifiant'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.identifiant }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nomComplet">
+          <th mat-header-cell *matHeaderCellDef>{{ 'PERSON.FIELD.nomComplet'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.nomComplet }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="solde">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'TENANT.FIELD.solde'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.solde|currency }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="typePersonne">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'PERSON.RELATIONSHIP.typePersonne'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.typePersonne?.libelle }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="min-w-80px text-end">{{ 'LABEL.ACTIONS'|translate }}</th>
+          <td mat-cell *matCellDef="let row" class="text-end">
+            <a
+              class="btn btn-icon btn-light-primary btn-sm me-1"
+              routerLink="/tenants/{{ row.id }}/view"
+              ngbTooltip="{{ 'LABEL.DETAILS'|translate }}"
+            >
+              <span
+                [inlineSVG]="'./assets/media/icons/duotune/general/eye-fill.svg'"
+                class="svg-icon svg-icon-2"
+              ></span>
+            </a>
+            <a
+              class="btn btn-icon btn-light-success btn-sm me-1"
+              routerLink="/tenants/{{ row.id }}/edit"
+              ngbTooltip="{{ 'LABEL.EDIT'|translate }}"
+            >
+              <span
+                [inlineSVG]="'./assets/media/icons/duotune/general/gen055.svg'"
+                class="svg-icon svg-icon-2"
+              ></span>
+            </a>
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row *matHeaderRowDef="displayedColumns"
+          class="text-start bg-light text-gray-600 fw-bold fs-7 text-uppercase"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator
+      (page)="onPaginatorChange($event)"
+      [pageSize]="pageSize" [pageSizeOptions]="pageSizes"
+      [length]="(totalRecords$|ngrxPush)||0"
+      [showFirstLastButtons]="true" [attr.aria-label]="'PAGINATOR.LABEL.ARIA'|translate"
+    ></mat-paginator>
+
+    <!-- <ng-container *ngrxLet="tenants$ as tenants">
       <div class="table-responsive table-loading">
         <div class="table-loading-message" *ngIf="loading$|ngrxPush">
           <app-progress-spinner></app-progress-spinner>
@@ -78,6 +146,6 @@
         >
         </ngb-pagination>
       </div>
-    </ng-container>
+    </ng-container> -->
   </div>
 </div>

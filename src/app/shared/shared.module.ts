@@ -9,7 +9,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ExpiryNoticeMakePaymentComponent } from './components/expiry-notices/make-payment/make-payment.component';
 import { LetModule, PushModule } from '@ngrx/component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 
 const declarations = [
@@ -30,7 +29,6 @@ const declarations = [
     FormsModule,
     ReactiveFormsModule,
     InlineSVGModule,
-    NgbModule,
     TranslateModule,
     LetModule,
     PushModule,

@@ -6,6 +6,7 @@ import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 import { Contract } from 'src/app/shared/models/contract.model';
 import { ContractPageActions } from 'src/app/store/contract/contract.actions';
 import * as ContractSelectors from 'src/app/store/contract/contract.selectors';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-contracts',
@@ -16,7 +17,11 @@ export class ContractsComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   totalRecords$: Observable<number>;
 
-  page = 1;
+  displayedColumns: string[] = [
+    'identifiant', 'numeroExterneBail', 'solde', 'dateDebutContrat',
+    'dateFinContrat', 'personne', 'habitation', 'actions'
+  ];
+  pageSizes: number[] = pagination.pageSizes || [];
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
@@ -48,12 +53,14 @@ export class ContractsComponent implements OnInit, OnDestroy {
     this.refreshList();
   }
 
+  onPaginatorChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.paginationQuery = { ...this.paginationQuery, page: event.pageIndex, size: event.pageSize };
+    this.refreshList();
+  }
+
   refreshList() {
-    let currentPage = this.page - 1;
-    if (currentPage < 0) {
-      currentPage = 0;
-    }
-    this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
+    this.paginationQuery = { ...this.paginationQuery, size: this.pageSize };
     this.store.dispatch(ContractPageActions.loadAll({ params: this.paginationQuery }));
   }
 }

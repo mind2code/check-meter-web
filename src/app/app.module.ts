@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg-2';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
@@ -19,6 +18,8 @@ import {environment, extModules} from '../environments/environment';
 import { LetModule, PushModule } from '@ngrx/component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomPaginatorIntl } from './shared/providers/custom-paginator-intl';
 
 registerLocaleData(localeFr);
 
@@ -72,7 +73,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
     }),
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
     StoreModule.forRoot({
       router: routerReducer,
     }),
@@ -91,7 +91,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
       deps: [KeycloakService],
     },
     { provide: LOCALE_ID, useValue: 'fr' },
-    { provide: DEFAULT_CURRENCY_CODE, useValue: 'XOF' }
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'XOF' },
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ],
   bootstrap: [AppComponent],
 })

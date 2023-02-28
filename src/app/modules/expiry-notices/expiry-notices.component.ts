@@ -9,6 +9,7 @@ import * as ExpiryNoticeSelectors from 'src/app/store/expiry-notice/expiry-notic
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExpiryNoticeMakePaymentComponent } from 'src/app/shared/components/expiry-notices/make-payment/make-payment.component';
 import { SettlementTypePageActions } from 'src/app/store/settlement-type/settlement-type.actions';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-expiry-notices',
@@ -20,7 +21,11 @@ export class ExpiryNoticesComponent implements OnInit, OnDestroy {
   totalRecords$: Observable<number>;
 
 
-  page = 1;
+  displayedColumns: string[] = [
+    'identifiant', 'dateEmission', 'tenant', 'contrat',
+    'housing', 'sommeDue', 'loyerRestant', 'statut', 'actions'
+  ];
+  pageSizes: number[] = pagination.pageSizes || [];
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
@@ -55,12 +60,14 @@ export class ExpiryNoticesComponent implements OnInit, OnDestroy {
     this.store.dispatch(SettlementTypePageActions.loadAll({ params: { size: 100 } }));
   }
 
+  onPaginatorChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.paginationQuery = { ...this.paginationQuery, page: event.pageIndex, size: event.pageSize };
+    this.refreshList();
+  }
+
   refreshList() {
-    let currentPage = this.page - 1;
-    if (currentPage < 0) {
-      currentPage = 0;
-    }
-    this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
+    this.paginationQuery = { ...this.paginationQuery, size: this.pageSize };
     this.store.dispatch(ExpiryNoticePageActions.loadAll({ params: this.paginationQuery }));
   }
 

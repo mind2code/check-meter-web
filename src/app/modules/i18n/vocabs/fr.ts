@@ -6,6 +6,7 @@ import IDENTITY_DOCUMENT from './fr/identity-document';
 import EXPIRY_NOTICE from './fr/expiry-notice';
 import AUTH from './fr/auth';
 import ECOMMERCE from './fr/ecommerce';
+import PAGINATOR from './fr/paginator';
 
 // France
 export const locale = {
@@ -19,6 +20,8 @@ export const locale = {
     ...STATUS,
     ...AUTH,
     ...ECOMMERCE,
+    ...PAGINATOR,
+
     LABEL: {
       LANGUAGE: 'Langue',
       CREATE: 'Créer',

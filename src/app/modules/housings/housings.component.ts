@@ -6,6 +6,7 @@ import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 import { Housing } from 'src/app/shared/models/housing.model';
 import { HousingPageActions } from 'src/app/store/housing/housing.actions';
 import * as HousingSelectors from 'src/app/store/housing/housing.selectors';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-housings',
@@ -16,7 +17,11 @@ export class HousingsComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   totalRecords$: Observable<number>;
 
-  page = 1;
+  displayedColumns: string[] = [
+    'identifiant', 'typeHabitation', 'description', 'localisation',
+    'superficie', 'longitude', 'latitude', 'actions'
+  ];
+  pageSizes: number[] = pagination.pageSizes || [];
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
@@ -48,12 +53,14 @@ export class HousingsComponent implements OnInit, OnDestroy {
     this.refreshList();
   }
 
+  onPaginatorChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.paginationQuery = { ...this.paginationQuery, page: event.pageIndex, size: event.pageSize };
+    this.refreshList();
+  }
+
   refreshList() {
-    let currentPage = this.page - 1;
-    if (currentPage < 0) {
-      currentPage = 0;
-    }
-    this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
+    this.paginationQuery = { ...this.paginationQuery, size: this.pageSize };
     this.store.dispatch(HousingPageActions.loadAll({ params: this.paginationQuery }));
   }
 }

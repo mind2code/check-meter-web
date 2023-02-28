@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   contractsCount$: Observable<number>;
   expiryNoticesCount$: Observable<number>;
 
-  housingsCount: number;
   subscriptions: Record<string, Subscription> = {};
 
   constructor(
@@ -32,10 +31,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.housingsCount$ = this.store.select(HousingSelectors.selectTotalRecords);
     this.contractsCount$ = this.store.select(ContractSelectors.selectTotalRecords);
     this.expiryNoticesCount$ = this.store.select(ExpiryNoticeSelectors.selectTotalRecords);
-
-    this.subscriptions['housingsCount'] = this.housingsCount$
-      .subscribe((value) => this.housingsCount = value)
-    ;
 
     this.loadData();
   }

@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import { Store } from '@ngrx/store';
 import { pagination } from 'src/environments/environment';
-import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 import * as TenantSelectors from 'src/app/store/tenant/tenant.selectors';
 import { Tenant } from 'src/app/shared/models/tenant.model';
 import { TenantPageActions } from 'src/app/store/tenant/tenant.actions';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 
 @Component({
   selector: 'app-tenants',
@@ -16,11 +17,14 @@ export class TenantsComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   totalRecords$: Observable<number>;
 
-  page = 1;
+  displayedColumns: string[] = ['identifiant', 'nomComplet', 'solde', 'typePersonne', 'actions'];
+  pageSizes: number[] = pagination.pageSizes || [];
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
   subscriptions: Record<string, Subscription> = {};
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private store: Store,
@@ -45,15 +49,18 @@ export class TenantsComponent implements OnInit, OnDestroy {
   }
 
   refreshList() {
-    let currentPage = this.page - 1;
-    if (currentPage < 0) {
-      currentPage = 0;
-    }
-    this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
+    this.paginationQuery = { ...this.paginationQuery, size: this.pageSize };
     this.store.dispatch(TenantPageActions.loadAll({ params: this.paginationQuery }));
+  }
+
+  onPaginatorChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.paginationQuery = { ...this.paginationQuery, page: event.pageIndex, size: event.pageSize };
+    this.refreshList();
   }
 
   private loadData() {
     this.refreshList();
   }
+
 }

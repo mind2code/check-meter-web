@@ -5,7 +5,8 @@
 export const extModules = [];
 
 export const pagination = {
-  perPage: 25,
+  perPage: 10,
+  pageSizes: [5, 10, 25, 50, 100],
 };
 
 export const environment = {
