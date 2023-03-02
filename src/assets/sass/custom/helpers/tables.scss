@@ -1,0 +1,23 @@
+.table {
+  tr {
+    &.mat-header-row, &.mat-row, &.mat-footer-row {
+      height: initial !important;
+    }
+
+    &.mat-header-row {
+      th {
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+      }
+    }
+
+    th, td {
+      &.mat-header-cell:first-of-type, &.mat-cell:first-of-type, &.mat-footer-cell:first-of-type {
+        padding-left: 2px !important;
+      }
+      &.mat-header-cell:last-of-type, &.mat-cell:last-of-type, &.mat-footer-cell:last-of-type {
+        padding-right: 2px !important;
+      }
+    }
+  }
+}

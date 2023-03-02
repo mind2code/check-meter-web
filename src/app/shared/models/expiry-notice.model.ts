@@ -1,5 +1,6 @@
 import { Status } from './commons.model';
 import { Contract } from './contract.model';
+import { RentReceipt } from './rent-receipt.model';
 
 /**
  * fr => Avis écheance
@@ -17,4 +18,5 @@ export interface ExpiryNotice {
   observation: string;
   statut?: Status;
   contrat?: Contract;
+  quittanceLoyers?: RentReceipt[];
 }

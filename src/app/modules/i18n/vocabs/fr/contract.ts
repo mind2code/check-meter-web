@@ -3,6 +3,7 @@ export default {
     LABEL: {
       SINGLE: 'Contrat',
       PLURAL: 'Contrats',
+      HAVE_LEASE_NUMBER: `J'ai déjà un numéro de bail`,
     },
     FIELD: {
       identifiant: 'Identifiant',

@@ -390,13 +390,16 @@
         </fieldset>
       </div>
       <div class="card-footer d-flex justify-content-end py-2 px-4">
-        <button class="btn btn-light btn-active-light-primary border border-gray-500 me-2" type="button">
+        <a
+          class="btn btn-light btn-active-light-primary border border-gray-500 me-2"
+          routerLink="/tenants"
+        >
           <span
             [inlineSVG]="'./assets/media/icons/duotune/arrows/arr014.svg'"
             class="svg-icon svg-icon-2"
           ></span>
           {{ 'LABEL.CANCEL'|translate }}
-        </button>
+        </a>
         <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
           <span
           *ngIf="!(creating$|ngrxPush)"

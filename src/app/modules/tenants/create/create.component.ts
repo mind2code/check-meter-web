@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import Joi from 'joi';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CreateTenantDto, CreateTenantFormType } from 'src/app/shared/dto/tenant.dto';
 import { joiValidatorFromSchema } from 'src/app/shared/validator/joi.validator';
 import * as TenantSelectors from 'src/app/store/tenant/tenant.selectors';
@@ -12,6 +12,7 @@ import * as GenderSelectors from 'src/app/store/gender/gender.selectors';
 import * as MaritalSituationSelectors from 'src/app/store/marital-situation/marital-situation.selectors';
 import * as CountrySelectors from 'src/app/store/country/country.selectors';
 import * as IdentityDocumentTypeSelectors from 'src/app/store/identity-document-type/identity-document-type.selectors';
+import * as PersonTypeSelectors from 'src/app/store/person-type/person-type.selectors';
 import { Civility, Gender, MaritalSituation, PersonType } from 'src/app/shared/models/person.model';
 import { Country } from 'src/app/shared/models/country.model';
 import { IdentityDocumentType } from 'src/app/shared/models/identity-document.model';
@@ -22,6 +23,7 @@ import { IdentityDocumentTypePageActions } from 'src/app/store/identity-document
 import { MaritalSituationPageActions } from 'src/app/store/marital-situation/marital-situation.actions';
 import { TenantApiActions, TenantPageActions } from 'src/app/store/tenant/tenant.actions';
 import { Router } from '@angular/router';
+import { PersonTypePageActions } from 'src/app/store/person-type/person-type.actions';
 
 @Component({
   selector: 'app-tenant-create',
@@ -53,16 +55,7 @@ export class TenantCreateComponent implements OnInit, OnDestroy {
     this.countries$ = this.store.select(CountrySelectors.selectAll);
     this.maritalSituations$ = this.store.select(MaritalSituationSelectors.selectAll);
     this.identityDocumentTypes$ = this.store.select(IdentityDocumentTypeSelectors.selectAll);
-
-    this.personTypes$ = of(
-      [
-        {
-          id: 1,
-          identifiant: 'PP',
-          libelle: 'Personne Physique'
-        }
-      ] as PersonType[]
-    );
+    this.personTypes$ = this.store.select(PersonTypeSelectors.selectAll);
 
     this.loadData();
     this.buildForm();
@@ -81,6 +74,7 @@ export class TenantCreateComponent implements OnInit, OnDestroy {
     this.store.dispatch(CountryPageActions.loadAll({ params: { size: 400 } }));
     this.store.dispatch(IdentityDocumentTypePageActions.loadAll({ params: { size: 400 } }));
     this.store.dispatch(MaritalSituationPageActions.loadAll({ params: { size: 400 } }));
+    this.store.dispatch(PersonTypePageActions.loadAll({ params: { size: 400 } }));
   }
 
   private buildForm() {

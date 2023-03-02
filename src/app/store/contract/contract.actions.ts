@@ -1,11 +1,12 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { Contract } from '../../shared/models/contract.model';
 import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
+import { CreateContractDto } from 'src/app/shared/dto/contract.dto';
 
 export const ContractPageActions = createActionGroup({
   source: 'Contracts Page',
   events: {
-    'Create': props<{ dto: any }>(),
+    'Create': props<{ dto: CreateContractDto }>(),
     'Load All': props<{ params?: PaginationQuery }>(),
     'Pagination Change': props<{ params?: PaginationQuery }>(),
     'Query Change': props<{ params?: PaginationQuery }>(),

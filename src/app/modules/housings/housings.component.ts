@@ -45,7 +45,7 @@ export class HousingsComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackById(index: number, item: Housing): string {
+  trackById(index: number, item: Housing): number {
     return item.id;
   }
 

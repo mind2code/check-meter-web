@@ -36,7 +36,7 @@ export class DataHousingTypeComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackById(index: number, item: HousingType): string {
+  trackById(index: number, item: HousingType): number {
     return item.id;
   }
 

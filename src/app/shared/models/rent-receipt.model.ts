@@ -23,5 +23,5 @@ export interface RentReceipt {
   montantRegle: number;
   observation: string;
   avisEcheance?: ExpiryNotice;
-  settlementType?: SettlementType;
+  typeReglement?: SettlementType;
 }

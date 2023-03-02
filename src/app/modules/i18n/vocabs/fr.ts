@@ -43,7 +43,11 @@ export const locale = {
       CASH_OUT: 'Encaisser',
       SAVE: 'Enrégistrer',
       CANCEL: 'Annuler',
-      SELECT_OPTION: '--Sélectionnez--'
+      SELECT_OPTION: '--Sélectionnez--',
+      NOTIFICATION: 'Notification',
+      NOTIFICATIONS: 'Notifications',
+      SMS: 'SMS',
+      EMAIL: 'Email',
     },
     MESSAGE: {
       ELEMENT_COUNT: '{{count}} éléments',

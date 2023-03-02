@@ -5,6 +5,9 @@ export default {
       PLURAL: "Avis d'échéance",
       MAKE_PAYMENT: 'Effectuer un encaissement',
       PRINT_RECEIPT: 'Imprimer un reçu',
+      PAYMENTS_LIST: `Liste des paiements`,
+      PAYMENTS_COUNT: `Nombre des paiements`,
+      ITEM_DETAILS: `Détails de l'avis d'échéance {{reference}}`,
     },
     FIELD: {
       identifiant: 'Identifiant',
@@ -20,6 +23,7 @@ export default {
     RELATIONSHIP: {
       statut: 'Statut',
       contrat: 'Contrat',
+      quittanceLoyers: 'Paiements',
     }
   },
 
@@ -41,6 +45,7 @@ export default {
     RELATIONSHIP: {
       avisEcheance: "Avis d'échéance",
       settlementType: 'Type de règlement',
+      typeReglement: 'Type de règlement',
     }
   },
 

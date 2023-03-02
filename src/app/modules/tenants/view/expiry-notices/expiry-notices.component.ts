@@ -11,6 +11,7 @@ import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { SettlementTypePageActions } from 'src/app/store/settlement-type/settlement-type.actions';
 import { ExpiryNoticeMakePaymentComponent } from 'src/app/shared/components/expiry-notices/make-payment/make-payment.component';
 import { PageEvent } from '@angular/material/paginator';
+import { ExpiryNoticeViewComponent } from 'src/app/shared/components/expiry-notices/view/view.component';
 
 @Component({
   selector: 'app-tenant-view-expiry-notices',
@@ -73,11 +74,27 @@ export class TenantViewExpiryNoticesComponent implements OnInit, OnDestroy {
     this.store.dispatch(ExpiryNoticePageActions.loadAll({ params: this.paginationQuery }));
   }
 
+  showDetails(id: string) {
+    this.selectOneById(id);
+    this.bsOffcanvasRef = this.bsOffcanvasService.open(ExpiryNoticeViewComponent, {
+      position: 'end',
+      panelClass: 'vw-lg-50 vw-md-100 vw-sm-100',
+    });
+    this.bsOffcanvasRef.result.then((reason) => {
+      //
+    }).catch(() => {
+      //
+    }).finally(() => {
+      this.selectOneById(null);
+    });
+  }
+
   makePayment(id: string) {
     this.selectOneById(id);
     this.bsOffcanvasRef = this.bsOffcanvasService.open(ExpiryNoticeMakePaymentComponent, {
       backdrop: 'static',
       position: 'end',
+      panelClass: 'vw-xxl-25 vw-lg-35 vw-md-50 vw-sm-100',
     });
     this.bsOffcanvasRef.result.then((reason) => {
       if (reason === 'success') {
