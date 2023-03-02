@@ -38,14 +38,14 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'HOUSING.FIELD.description'|translate }}</th>
-          <td mat-cell *matCellDef="let row">{{ row.description }}</td>
-        </ng-container>
-
         <ng-container matColumnDef="localisation">
           <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'HOUSING.FIELD.localisation'|translate }}</th>
           <td mat-cell *matCellDef="let row">{{ row.localisation }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'HOUSING.FIELD.description'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.description }}</td>
         </ng-container>
 
         <ng-container matColumnDef="superficie">
@@ -68,8 +68,8 @@
           <td mat-cell *matCellDef="let row" class="text-end">
             <a
               class="btn btn-icon btn-light-primary btn-sm me-1"
-              routerLink="/housings/{{ row.id }}/view"
               ngbTooltip="{{ 'LABEL.DETAILS'|translate }}"
+              (click)="showDetails(row.id)"
             >
               <span
                 [inlineSVG]="'./assets/media/icons/duotune/general/eye-fill.svg'"

@@ -48,6 +48,7 @@ export const locale = {
       NOTIFICATIONS: 'Notifications',
       SMS: 'SMS',
       EMAIL: 'Email',
+      MAP: 'Carte',
     },
     MESSAGE: {
       ELEMENT_COUNT: '{{count}} éléments',

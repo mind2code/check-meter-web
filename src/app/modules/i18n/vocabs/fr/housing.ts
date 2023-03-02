@@ -3,6 +3,7 @@ export default {
     LABEL: {
       SINGLE: 'Habitation',
       PLURAL: 'Habitations',
+      ITEM_DETAILS: `Détails de l'habitation {{reference}}`,
     },
     FIELD: {
       identifiant: 'Identifiant',

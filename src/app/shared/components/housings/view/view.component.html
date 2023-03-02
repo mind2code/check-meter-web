@@ -1,0 +1,88 @@
+<app-offfcanvas>
+  <ng-container title>
+    <ng-container *ngIf="housing$|ngrxPush as housing">
+      {{ 'HOUSING.LABEL.ITEM_DETAILS'|translate:{ reference: '#'+housing.identifiant} }}
+      ({{ housing.localisation }})
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="housing$|ngrxPush as housing">
+
+    <ul class="
+        nav nav-stretch nav-line-tabs
+        fw-bold
+        border-transparent
+        flex-nowrap
+      " role="tablist">
+
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'overview' }"
+          (click)="setActiveTab('overview')" role="tab">
+          {{ 'LABEL.OVERVIEW'|translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'map' }"
+          (click)="setActiveTab('map')" role="tab">
+          {{ 'LABEL.MAP'|translate }}
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content pt-4">
+
+      <div class="tab-pane" [ngClass]="{ active: activeTab === 'overview' }">
+        <div class="d-flex flex-row-fluid justify-content-between align-items-start flex-wrap mb-6">
+          <div class="d-flex flex-column">
+            <div class="fs-6 text-gray-500">{{ 'HOUSING.FIELD.identifiant'|translate }}</div>
+            <div class="fs-5 fw-bolder text-gray-800">{{ housing.identifiant }}</div>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="fs-6 text-gray-500">{{ 'HOUSING.RELATIONSHIP.typeHabitation'|translate }}</div>
+            <div class="fs-5 fw-bolder text-gray-800">
+              <span class="badge badge-info">{{ housing.typeHabitation?.libelle }}</span>
+            </div>
+          </div>
+          <div class="d-flex flex-column">
+            <div class="fs-6 text-gray-500">{{ 'HOUSING.FIELD.superficie'|translate }}</div>
+            <div class="fs-5 fw-bolder text-gray-800">{{ housing.superficie|number }}</div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="table-responsive">
+          <table class="table table-row-bordered">
+          <tbody>
+            <tr class="fw-semibold fs-6">
+              <td class="bg-light text-gray-600 mw-85px">{{ 'HOUSING.FIELD.localisation'|translate }}</td>
+              <td>{{ housing.localisation }}</td>
+            </tr>
+            <tr class="fw-semibold fs-6">
+              <td class="bg-light text-gray-600 mw-85px">{{ 'HOUSING.FIELD.longitude'|translate }}</td>
+              <td>{{ housing.longitude|number:'1.0-12' }}</td>
+            </tr>
+            <tr class="fw-semibold fs-6">
+              <td class="bg-light text-gray-600 mw-85px">{{ 'HOUSING.FIELD.latitude'|translate }}</td>
+              <td>{{ housing.latitude|number:'1.0-12' }}</td>
+            </tr>
+            <tr class="fw-semibold fs-6">
+              <td class="bg-light text-gray-600 mw-85px">{{ 'HOUSING.FIELD.description'|translate }}</td>
+              <td>{{ housing.description }}</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+
+      </div>
+
+      <div class="tab-pane" [ngClass]="{ active: activeTab === 'map' }">
+        <div class="vh-75"
+            leaflet
+            [leafletOptions]="mapOptions">
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+</app-offfcanvas>

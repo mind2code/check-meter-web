@@ -6,7 +6,7 @@ import { HousingApiActions, HousingPageActions } from './housing.actions';
 export const featureName = 'housings';
 
 export interface State extends EntityState<Housing> {
-  selectedId: string | null;
+  selectedId: number | null;
   currentPage: number;
   totalRecords: number;
   loading: boolean;

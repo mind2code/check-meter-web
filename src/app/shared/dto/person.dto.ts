@@ -25,7 +25,7 @@ export interface CreatePersonDto extends Partial<Pick<Person, (
 }
 
 export interface CreatePersonFormType extends Omit<CreatePersonDto, (
-  'nomComplet'|'civilite'|'genre'|'nationalite'
+  'civilite'|'genre'|'nationalite'
   |'situationMatrimoniale'|'typePersonne'|'pieceIdentite'
 )> {
   civiliteId: number;

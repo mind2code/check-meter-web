@@ -12,7 +12,6 @@ import { effectsFeatureModules, storeFeatureModules } from './feature.store';
 import { TranslateModule } from '@ngx-translate/core';
 import { HousingCreateComponent } from './create/create.component';
 import { HousingEditComponent } from './edit/edit.component';
-import { HousingViewComponent } from './view/view.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 
@@ -21,7 +20,6 @@ import { MatTableModule } from '@angular/material/table';
     HousingsComponent,
     HousingCreateComponent,
     HousingEditComponent,
-    HousingViewComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 <div class="card">
-  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="on">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
     <fieldset [disabled]="creating$|ngrxPush">
       <div class="card-body p-4">
         <div class="row g-2">
@@ -400,9 +400,9 @@
           ></span>
           {{ 'LABEL.CANCEL'|translate }}
         </a>
-        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
+        <button class="btn btn-primary d-flex align-items-center flex-nowrap" type="submit" [disabled]="!form.valid">
           <span
-          *ngIf="!(creating$|ngrxPush)"
+            *ngIf="!(creating$|ngrxPush)"
             [inlineSVG]="'./assets/media/icons/duotune/arrows/save-fill.svg'"
             class="svg-icon svg-icon-2"
           ></span>
