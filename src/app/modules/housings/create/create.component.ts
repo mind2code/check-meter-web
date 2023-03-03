@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import Joi from 'joi';
+import { pick } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { CreateHousingDto, CreateHousingFormType } from 'src/app/shared/dto/housing.dto';
 import { HousingType } from 'src/app/shared/models/housing.model';
@@ -52,6 +53,7 @@ export class HousingCreateComponent implements OnInit, OnDestroy {
 
   private buildForm() {
     this.form = this.fb.group({
+      identifiant: [],
       localisation: [],
       superficie: [],
       longitude: [],
@@ -60,6 +62,7 @@ export class HousingCreateComponent implements OnInit, OnDestroy {
       typeHabitationId: [''],
     }, {
       validators: joiValidatorFromSchema(Joi.object({
+        identifiant: Joi.string().required(),
         typeHabitationId: Joi.string().required(),
         localisation: Joi.string().required(),
         superficie: Joi.number(),
@@ -92,14 +95,15 @@ export class HousingCreateComponent implements OnInit, OnDestroy {
     let typeHabitationId: number|null = parseInt(String(this.f.typeHabitationId));
     typeHabitationId = isNaN(typeHabitationId) ? null : typeHabitationId;
 
-    const dto: CreateHousingDto =  {
-      localisation: this.f.localisation,
-      superficie: this.f.superficie,
-      longitude: this.f.longitude,
-      latitude: this.f.latitude,
-      description: this.f.description,
-      typeHabitation: typeHabitationId ? { id: typeHabitationId } : null,
-    };
+    const dto: CreateHousingDto =  pick(this.f, [
+      'identifiant',
+      'localisation',
+      'superficie',
+      'longitude',
+      'latitude',
+      'description',
+    ]);
+    dto.typeHabitation = typeHabitationId ? { id: typeHabitationId } : null;
 
     return dto;
   }

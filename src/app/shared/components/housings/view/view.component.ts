@@ -53,13 +53,29 @@ export class HousingViewComponent implements OnInit, OnDestroy {
   }
 
   private buildMapOptions(housing: Housing) {
+    let lat = Number(housing.latitude);
+    let lng = Number(housing.longitude);
     this.mapOptions = {
       layers: [
-        tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }),
-        marker([ 46.879966, -121.726909 ])
+        tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }),
       ],
-      zoom: 10,
-      center: latLng(46.879966, -121.726909),
+      zoom: 11,
     };
+
+    if (!(isNaN(lat) || isNaN(lng))) {
+      const coordinates = latLng(lat, lng);
+      const mapMarker = marker(coordinates,);
+      this.mapOptions.layers?.push(mapMarker);
+      this.mapOptions.center = coordinates;
+    }
+  }
+
+  openCollision(map : L.Map){
+    setTimeout(function() {
+      console.log('**** HousingViewComponent loading'); // TODO: Remove
+      map.invalidateSize();
+    }, 10);
   }
 }

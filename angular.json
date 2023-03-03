@@ -31,7 +31,8 @@
               "clipboard.js",
               "prismjs",
               "joi",
-              "leaflet"
+              "leaflet",
+              "lodash"
             ],
             "index": "src/index.html",
             "main": "src/main.ts",

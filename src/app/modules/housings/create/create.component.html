@@ -3,8 +3,19 @@
     <fieldset [disabled]="creating$|ngrxPush">
       <div class="card-body p-4">
         <div class="row g-2">
-          <div class="col">
+          <div class="col-lg-6">
             <div class="h-100 w-100 px-2 py-1 border rounded border-gray-300">
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="identifiant">
+                  {{ 'HOUSING.FIELD.identifiant'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="text" id="identifiant" formControlName="identifiant"
+                    class="form-control form-control-solid" appFormPathFallback required
+                  />
+                  <app-display-form-path-error [pathControl]="form.get('identifiant')"></app-display-form-path-error>
+                </div>
+              </div>
               <div class="row mb-4">
                 <label class="col-lg-4 col-form-label required fw-bold fs-6" for="typeHabitationId">
                   {{ 'HOUSING.RELATIONSHIP.typeHabitation'|translate }}
@@ -23,9 +34,8 @@
                   <app-display-form-path-error [pathControl]="form.get('typeHabitationId')"></app-display-form-path-error>
                 </div>
               </div>
-
               <div class="row mb-4">
-                <label class="col-lg-4 col-form-label fw-bold fs-6" for="localisation">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="localisation">
                   {{ 'HOUSING.FIELD.localisation'|translate }}
                 </label>
                 <div class="col-lg-8 fv-row">

@@ -1,9 +1,9 @@
 import { Housing } from '../models/housing.model';
 
 export interface CreateHousingDto extends Partial<Pick<Housing, (
-  'description'|'localisation'|'superficie'|'longitude'|'latitude'
+  'identifiant'|'description'|'localisation'|'superficie'|'longitude'|'latitude'
 )>> {
-  typeHabitation: null | {
+  typeHabitation?: null | {
     id: number | null;
   };
 }

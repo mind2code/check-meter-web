@@ -9,6 +9,7 @@ import * as HousingSelectors from 'src/app/store/housing/housing.selectors';
 import { PageEvent } from '@angular/material/paginator';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { HousingViewComponent } from 'src/app/shared/components/housings/view/view.component';
+import { MapOptions, latLng, marker, tileLayer } from 'leaflet';
 
 @Component({
   selector: 'app-housings',
@@ -29,6 +30,7 @@ export class HousingsComponent implements OnInit, OnDestroy {
 
   bsOffcanvasRef: NgbOffcanvasRef;
   subscriptions: Record<string, Subscription> = {};
+  mapOptions: MapOptions;
 
   constructor(
     private store: Store,
