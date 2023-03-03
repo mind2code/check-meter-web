@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import Joi from 'joi';
-import { MapOptions, Marker, marker, tileLayer } from 'leaflet';
+import { MapOptions, Marker, latLng, marker, tileLayer } from 'leaflet';
 import { pick } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { CreateHousingDto, CreateHousingFormType } from 'src/app/shared/dto/housing.dto';
@@ -78,10 +78,25 @@ export class HousingCreateComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Update map marker position on user change lat & lng form input
+   */
+  onLatLngInput() {
+    if (this.mapMarker) {
+      const lat = Number(this.f.latitude);
+      const lng = Number(this.f.longitude);
+      if (!(isNaN(lat) || isNaN(lng))) {
+        this.mapMarker.setLatLng(latLng(lat, lng));
+      }
+    }
+  }
+
   private buildMapOptions() {
-    getUserCoordinates().then((coordinates) => {
-      // this.form.get('latitude')?.setValue(event.latlng.lat);
-      // this.form.get('longitude')?.setValue(event.latlng.lng);
+    getUserCoordinates().then((coordinates: any) => {
+      // Set initial coordinates
+      this.form.get('latitude')?.setValue(coordinates.lat);
+      this.form.get('longitude')?.setValue(coordinates.lng);
+
       this.mapMarker = marker(coordinates, {
         icon: leafletHousingIcon(),
         draggable: true,
@@ -95,6 +110,8 @@ export class HousingCreateComponent implements OnInit, OnDestroy {
         zoom: 6,
         center: coordinates
       };
+
+      // Get marker coordinates on dragging
       this.mapMarker.on('drag', (event: any) => {
         this.form.get('latitude')?.setValue(event.latlng.lat);
         this.form.get('longitude')?.setValue(event.latlng.lng);

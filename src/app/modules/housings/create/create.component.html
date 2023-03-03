@@ -57,29 +57,7 @@
                 </div>
               </div>
               <div class="row mb-4">
-                <label class="col-lg-4 col-form-label fw-bold fs-6" for="longitude">
-                  {{ 'HOUSING.FIELD.longitude'|translate }}
-                </label>
-                <div class="col-lg-8 fv-row">
-                  <input type="number" step="0.001" id="longitude" formControlName="longitude"
-                    class="form-control form-control-solid"
-                  />
-                  <app-display-form-path-error [pathControl]="form.get('longitude')"></app-display-form-path-error>
-                </div>
-              </div>
-              <div class="row mb-4">
-                <label class="col-lg-4 col-form-label fw-bold fs-6" for="latitude">
-                  {{ 'HOUSING.FIELD.latitude'|translate }}
-                </label>
-                <div class="col-lg-8 fv-row">
-                  <input type="number" step="0.001" id="latitude" formControlName="latitude"
-                    class="form-control form-control-solid"
-                  />
-                  <app-display-form-path-error [pathControl]="form.get('latitude')"></app-display-form-path-error>
-                </div>
-              </div>
-              <div class="row mb-4">
-                <label class="col-lg-4 col-form-label fw-bold fs-6" for="description">
+                <label class="col-lg-4 form-label fw-bold fs-6" for="description">
                   {{ 'HOUSING.FIELD.description'|translate }}
                 </label>
                 <div class="col-lg-8 fv-row">
@@ -94,29 +72,29 @@
           <div class="col-lg-6">
             <div class="h-100 w-100 px-2 py-1 border rounded border-blue-200 position-relative">
               <div
-                class="position-absolute position-absolute top-0 start-50 translate-middle-50 opacity-75"
+                class="position-absolute position-absolute top-0 start-50 translate-middle-50 opacity-75 bg-white"
                 style="z-index: 1000;"
               >
-                <div class="input-group">
+                <div class="input-group input-group-sm">
                   <div class="form-floating">
-                    <input type="text" id="latitude" class="form-control form-control-sm"
-                      formControlName="latitude"
+                    <input type="text" id="latitude" class="form-control" formControlName="latitude"
                       [placeholder]="'HOUSING.FIELD.latitude'|translate"
+                      (input)="onLatLngInput()"
                     />
                     <label for="latitude">{{ 'HOUSING.FIELD.latitude'|translate }}</label>
                   </div>
-                  <span class="input-group-text"><i class="bi bi-geo"></i></span>
+                  <span class="input-group-text opacity-100"><i class="bi bi-geo-fill fs-2 fw-bold"></i></span>
                   <div class="form-floating">
-                    <input type="text" id="longitude" class="form-control form-control-sm"
-                      formControlName="longitude"
+                    <input type="text" id="longitude" class="form-control" formControlName="longitude"
                       [placeholder]="'HOUSING.FIELD.longitude'|translate"
+                      (input)="onLatLngInput()"
                     />
                     <label for="longitude">{{ 'HOUSING.FIELD.longitude'|translate }}</label>
                   </div>
                 </div>
               </div>
               <ng-container *ngIf="mapCoordinatesLoaded; else elseBlockMapCoordinates">
-                <div class="h-100"
+                <div class="vh-50"
                     leaflet
                     [leafletOptions]="mapOptions"
                   >
