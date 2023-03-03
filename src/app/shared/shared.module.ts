@@ -8,11 +8,13 @@ import { AppProgressSpinnerComponent } from './components/spinners/app-progress-
 import { TranslateModule } from '@ngx-translate/core';
 import { ExpiryNoticeMakePaymentComponent } from './components/expiry-notices/make-payment/make-payment.component';
 import { ExpiryNoticeViewComponent } from './components/expiry-notices/view/view.component';
+import { HousingViewComponent } from './components/housings/view/view.component';
 import { LetModule, PushModule } from '@ngrx/component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MatTableModule } from '@angular/material/table';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 const declarations = [
   AppOffcanvasComponent,
@@ -22,6 +24,7 @@ const declarations = [
   AppProgressSpinnerComponent,
   ExpiryNoticeMakePaymentComponent,
   ExpiryNoticeViewComponent,
+  HousingViewComponent,
 ];
 
 @NgModule({
@@ -38,6 +41,7 @@ const declarations = [
     NgbTooltipModule,
     LetModule,
     PushModule,
+    LeafletModule,
   ],
   exports: [
     declarations,

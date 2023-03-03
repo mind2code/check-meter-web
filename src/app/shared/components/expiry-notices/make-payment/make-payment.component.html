@@ -1,7 +1,7 @@
 <app-offfcanvas>
   <ng-container title>{{ 'RENT_RECEIPT.LABEL.RENT_COLLECTION'|translate }}</ng-container>
   <ng-container *ngIf="expiryNotice$|ngrxPush as expiryNotice">
-    <form class="form" [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="paymentForm" (ngSubmit)="onSubmit()" autocomplete="off">
 
       <div class="form-group mb-3">
         <label for="amount" class="form-label fw-bold required">{{ 'RENT_RECEIPT.LABEL.AMOUNT_COLLECTED'|translate }}</label>
@@ -32,7 +32,9 @@
         <button class="btn btn-sm btn-secondary me-md-2" type="button" [disabled]="creating$|ngrxPush" (click)="onClose()">
           {{ 'LABEL.CANCEL'|translate }}
         </button>
-        <button [disabled]="!paymentForm.valid || creating$|ngrxPush" type="submit" class="btn btn-sm btn-primary">
+        <button [disabled]="!paymentForm.valid || creating$|ngrxPush" type="submit"
+          class="btn btn-sm btn-primary d-flex align-items-center flex-nowrap"
+        >
           <app-progress-spinner *ngIf="creating$|ngrxPush" role="status" aria-hidden="true" [displayMessage]="false"></app-progress-spinner>
           {{ 'LABEL.CASH_OUT'|translate }}
         </button>

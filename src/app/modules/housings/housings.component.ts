@@ -7,6 +7,9 @@ import { Housing } from 'src/app/shared/models/housing.model';
 import { HousingPageActions } from 'src/app/store/housing/housing.actions';
 import * as HousingSelectors from 'src/app/store/housing/housing.selectors';
 import { PageEvent } from '@angular/material/paginator';
+import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
+import { HousingViewComponent } from 'src/app/shared/components/housings/view/view.component';
+import { MapOptions, latLng, marker, tileLayer } from 'leaflet';
 
 @Component({
   selector: 'app-housings',
@@ -18,17 +21,20 @@ export class HousingsComponent implements OnInit, OnDestroy {
   totalRecords$: Observable<number>;
 
   displayedColumns: string[] = [
-    'identifiant', 'typeHabitation', 'description', 'localisation',
+    'identifiant', 'typeHabitation', 'localisation', 'description',
     'superficie', 'longitude', 'latitude', 'actions'
   ];
   pageSizes: number[] = pagination.pageSizes || [];
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
+  bsOffcanvasRef: NgbOffcanvasRef;
   subscriptions: Record<string, Subscription> = {};
+  mapOptions: MapOptions;
 
   constructor(
     private store: Store,
+    private bsOffcanvasService: NgbOffcanvas,
   ) {}
 
   ngOnInit(): void {
@@ -62,5 +68,24 @@ export class HousingsComponent implements OnInit, OnDestroy {
   refreshList() {
     this.paginationQuery = { ...this.paginationQuery, size: this.pageSize };
     this.store.dispatch(HousingPageActions.loadAll({ params: this.paginationQuery }));
+  }
+
+  showDetails(id: number) {
+    this.selectOneById(id);
+    this.bsOffcanvasRef = this.bsOffcanvasService.open(HousingViewComponent, {
+      position: 'end',
+      panelClass: 'vw-lg-50 vw-md-100 vw-sm-100',
+    });
+    this.bsOffcanvasRef.result.then((reason) => {
+      //
+    }).catch(() => {
+      //
+    }).finally(() => {
+      this.selectOneById(null);
+    });
+  }
+
+  private selectOneById(id: number|null) {
+    this.store.dispatch(HousingPageActions.selectOne({ id: id }));
   }
 }

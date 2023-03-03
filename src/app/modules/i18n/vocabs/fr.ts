@@ -48,6 +48,7 @@ export const locale = {
       NOTIFICATIONS: 'Notifications',
       SMS: 'SMS',
       EMAIL: 'Email',
+      MAP: 'Carte',
     },
     MESSAGE: {
       ELEMENT_COUNT: '{{count}} éléments',
@@ -55,6 +56,7 @@ export const locale = {
       LOADING: 'Chargement en cours...',
       ERROR_OCCUR: 'Une error est survenue',
       ERROR_OCCUR_WHILE: 'Une error est survenue {{while}}',
+      WAITING_FOR_USER_LOCATION: `En attente des coordonnées...`,
     },
     APP: {
       NAME: 'MonLoyer'

@@ -1,5 +1,5 @@
 <div class="card">
-  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="on">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
     <fieldset [disabled]="creating$|ngrxPush">
       <div class="card-body p-4">
         <div class="row g-2">
@@ -11,7 +11,7 @@
                 </label>
                 <div class="col-lg-8 fv-row">
                   <select id="personneId" formControlName="personneId"
-                    class="form-select form-select-solid" appFormPathFallback required
+                    class="form-select form-select-solid" required
                   >
                     <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
                     <ng-container *ngrxLet="persons$ as persons">
@@ -32,7 +32,7 @@
                 </label>
                 <div class="col-lg-8 fv-row">
                   <select id="habitationId" formControlName="habitationId"
-                    class="form-select form-select-solid" appFormPathFallback required
+                    class="form-select form-select-solid" required
                   >
                     <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
                     <ng-container *ngrxLet="housings$ as housings">
@@ -65,8 +65,8 @@
                   {{ 'CONTRACT.FIELD.numeroExterneBail'|translate }}
                 </label>
                 <div class="col-lg-8 fv-row">
-                  <input type="text" name="numeroExterneBail" id="numeroExterneBail" formControlName="numeroExterneBail"
-                    class="form-control form-control-solid" appFormPathFallback
+                  <input type="text" id="numeroExterneBail" formControlName="numeroExterneBail"
+                    class="form-control form-control-solid"
                   />
                   <app-display-form-path-error [pathControl]="form.get('numeroExterneBail')"></app-display-form-path-error>
                 </div>
@@ -174,7 +174,7 @@
           ></span>
           {{ 'LABEL.CANCEL'|translate }}
         </a>
-        <button class="btn btn-primary d-flex align-items-center" type="submit" [disabled]="!form.valid">
+        <button class="btn btn-primary d-flex align-items-center flex-nowrap" type="submit" [disabled]="!form.valid">
           <span
             *ngIf="!(creating$|ngrxPush)"
             [inlineSVG]="'./assets/media/icons/duotune/arrows/save-fill.svg'"
