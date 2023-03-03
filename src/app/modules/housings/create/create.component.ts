@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import Joi from 'joi';
+import { MapOptions, Marker, marker, tileLayer } from 'leaflet';
 import { pick } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { CreateHousingDto, CreateHousingFormType } from 'src/app/shared/dto/housing.dto';
+import { defaultTitleLayer, getUserCoordinates, leafletHousingIcon } from 'src/app/shared/helpers/leaflet';
 import { HousingType } from 'src/app/shared/models/housing.model';
 import { joiValidatorFromSchema } from 'src/app/shared/validator/joi.validator';
 import { HousingTypePageActions } from 'src/app/store/housing-type/housing-type.actions';
@@ -22,6 +24,9 @@ export class HousingCreateComponent implements OnInit, OnDestroy {
   creating$: Observable<boolean>;
   housingTypes$: Observable<HousingType[]>;
 
+  mapOptions: MapOptions;
+  mapCoordinatesLoaded: boolean = false
+  mapMarker: Marker;
   form: FormGroup;
   subscriptions: Record<string, Subscription> = {};
 
@@ -38,6 +43,7 @@ export class HousingCreateComponent implements OnInit, OnDestroy {
 
     this.loadData();
     this.buildForm();
+    this.buildMapOptions();
     this.createSuccessResultAction();
   }
 
@@ -69,6 +75,32 @@ export class HousingCreateComponent implements OnInit, OnDestroy {
         longitude: Joi.number(),
         latitude: Joi.number(),
       })),
+    });
+  }
+
+  private buildMapOptions() {
+    getUserCoordinates().then((coordinates) => {
+      // this.form.get('latitude')?.setValue(event.latlng.lat);
+      // this.form.get('longitude')?.setValue(event.latlng.lng);
+      this.mapMarker = marker(coordinates, {
+        icon: leafletHousingIcon(),
+        draggable: true,
+      });
+
+      this.mapOptions = {
+        layers: [
+          defaultTitleLayer,
+          this.mapMarker
+        ],
+        zoom: 6,
+        center: coordinates
+      };
+      this.mapMarker.on('drag', (event: any) => {
+        this.form.get('latitude')?.setValue(event.latlng.lat);
+        this.form.get('longitude')?.setValue(event.latlng.lng);
+      });
+    }).finally(() => {
+      this.mapCoordinatesLoaded = true;
     });
   }
 

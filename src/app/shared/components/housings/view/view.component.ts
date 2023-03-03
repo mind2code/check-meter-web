@@ -5,7 +5,7 @@ import * as HousingSelectors from 'src/app/store/housing/housing.selectors';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { Housing } from 'src/app/shared/models/housing.model';
 import { MapOptions, latLng, marker, tileLayer } from 'leaflet';
-import { leafletHousingIcon } from 'src/app/shared/helpers/leaflet';
+import { defaultTitleLayer, leafletHousingIcon } from 'src/app/shared/helpers/leaflet';
 
 type Tabs = 'overview' | 'map';
 
@@ -58,21 +58,19 @@ export class HousingViewComponent implements OnInit, OnDestroy {
     let lng = Number(housing.longitude);
     this.mapOptions = {
       layers: [
-        tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }),
+        defaultTitleLayer,
       ],
-      zoom: 11,
     };
 
     if (!(isNaN(lat) || isNaN(lng))) {
       const coordinates = latLng(lat, lng);
       const mapMarker = marker(coordinates, {
         title: housing.localisation,
-        icon: leafletHousingIcon()
+        icon: leafletHousingIcon(),
       });
       this.mapOptions.layers?.push(mapMarker);
       this.mapOptions.center = coordinates;
+      this.mapOptions.zoom = 11;
     }
   }
 

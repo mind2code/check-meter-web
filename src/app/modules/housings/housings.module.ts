@@ -14,6 +14,7 @@ import { HousingCreateComponent } from './create/create.component';
 import { HousingEditComponent } from './edit/edit.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatTableModule } from '@angular/material/table';
     LetModule,
     PushModule,
     TranslateModule,
+    LeafletModule,
     storeFeatureModules,
     effectsFeatureModules,
   ],

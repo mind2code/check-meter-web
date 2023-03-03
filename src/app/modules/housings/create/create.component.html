@@ -90,6 +90,48 @@
               </div>
             </div>
           </div>
+
+          <div class="col-lg-6">
+            <div class="h-100 w-100 px-2 py-1 border rounded border-blue-200 position-relative">
+              <div
+                class="position-absolute position-absolute top-0 start-50 translate-middle-50 opacity-75"
+                style="z-index: 1000;"
+              >
+                <div class="input-group">
+                  <div class="form-floating">
+                    <input type="text" id="latitude" class="form-control form-control-sm"
+                      formControlName="latitude"
+                      [placeholder]="'HOUSING.FIELD.latitude'|translate"
+                    />
+                    <label for="latitude">{{ 'HOUSING.FIELD.latitude'|translate }}</label>
+                  </div>
+                  <span class="input-group-text"><i class="bi bi-geo"></i></span>
+                  <div class="form-floating">
+                    <input type="text" id="longitude" class="form-control form-control-sm"
+                      formControlName="longitude"
+                      [placeholder]="'HOUSING.FIELD.longitude'|translate"
+                    />
+                    <label for="longitude">{{ 'HOUSING.FIELD.longitude'|translate }}</label>
+                  </div>
+                </div>
+              </div>
+              <ng-container *ngIf="mapCoordinatesLoaded; else elseBlockMapCoordinates">
+                <div class="h-100"
+                    leaflet
+                    [leafletOptions]="mapOptions"
+                  >
+                </div>
+              </ng-container>
+              <ng-template #elseBlockMapCoordinates>
+                <div class="d-flex justify-content-center align-items-center h-100 fw-bold fs-6 text-gray-600">
+                  <app-progress-spinner
+                    role="status" aria-hidden="true"
+                    [message]="'MESSAGE.WAITING_FOR_USER_LOCATION'|translate"
+                  ></app-progress-spinner>
+                </div>
+              </ng-template>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card-footer d-flex justify-content-end py-2 px-4">
