@@ -6,6 +6,7 @@ import { Directive, HostListener } from '@angular/core';
 export class AppFormPathFallbackDirective {
   @HostListener('blur', ['$event.target'])
   onBlur(element: any) {
+    //console.log('*** blur event', element.className); // TODO: Remove
     let classNames = String(element.className).split(' ');
     if (~classNames.indexOf('ng-invalid')) {
       classNames.push('is-invalid');

@@ -2,7 +2,7 @@
  * fr => Type d'habitation
  */
 export interface HousingType {
-  id: string;
+  id: number;
   libelle: string;
   description: string;
 }
@@ -11,7 +11,7 @@ export interface HousingType {
  * fr => Habitation
  */
 export interface Housing {
-  id: string;
+  id: number;
   identifiant: string;
   description: string;
   localisation: string;

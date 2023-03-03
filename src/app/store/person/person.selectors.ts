@@ -24,6 +24,11 @@ export const selectCurrentId = createSelector(
   (selectedId) => selectedId,
 );
 
+export const selectLoading = createSelector(
+  personsFeature.selectLoading,
+  (loading) => loading,
+);
+
 export const selectCurrent = createSelector(
   selectEntities,
   selectCurrentId,

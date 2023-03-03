@@ -6,9 +6,10 @@ import { MaritalSituationApiActions, MaritalSituationPageActions } from './marit
 export const featureName = 'maritalSituations';
 
 export interface State extends EntityState<MaritalSituation> {
-  selectedId: string | null,
-  currentPage: number,
-  totalRecords: number,
+  selectedId: string | null;
+  currentPage: number;
+  totalRecords: number;
+  loading: boolean;
 }
 
 export const adapter: EntityAdapter<MaritalSituation> = createEntityAdapter<MaritalSituation>();
@@ -17,6 +18,7 @@ export const initialState: State = adapter.getInitialState({
   selectedId: null,
   currentPage: 0,
   totalRecords: 0,
+  loading: false,
 });
 
 export const maritalSituationsFeature = createFeature({
@@ -24,6 +26,11 @@ export const maritalSituationsFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(MaritalSituationPageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
+
+    on(
+      MaritalSituationPageActions.loadAll,
+      (state) => ({ ...state, loading: true })
+    ),
     on(MaritalSituationApiActions.loadAllSuccess, (state, { items, page, total }) => {
       return adapter.setAll(
         items ?? [],
@@ -35,14 +42,13 @@ export const maritalSituationsFeature = createFeature({
         }
       );
     }),
-    on(MaritalSituationPageActions.clear, (state) => ({
-      ...state,
-      currentPage: 0,
-      totalRecords: 0,
-      selectedId: null,
-      entities: {},
-      ids: [],
-    })),
+    on(
+      MaritalSituationApiActions.loadAllSuccess,
+      MaritalSituationApiActions.loadFailed,
+      (state) => ({ ...state, loading: false })
+    ),
+
+    on(MaritalSituationPageActions.clear, () => initialState),
   ),
 });
 

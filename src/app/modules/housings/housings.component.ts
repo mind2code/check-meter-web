@@ -6,18 +6,22 @@ import { PaginationQuery } from 'src/app/shared/requests/pagination.query';
 import { Housing } from 'src/app/shared/models/housing.model';
 import { HousingPageActions } from 'src/app/store/housing/housing.actions';
 import * as HousingSelectors from 'src/app/store/housing/housing.selectors';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-housings',
   templateUrl: './housings.component.html',
-  styleUrls: ['./housings.component.scss'],
 })
 export class HousingsComponent implements OnInit, OnDestroy {
-
   housings$: Observable<Housing[]>;
-
-  page = 1;
+  loading$: Observable<boolean>;
   totalRecords$: Observable<number>;
+
+  displayedColumns: string[] = [
+    'identifiant', 'typeHabitation', 'description', 'localisation',
+    'superficie', 'longitude', 'latitude', 'actions'
+  ];
+  pageSizes: number[] = pagination.pageSizes || [];
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
@@ -29,9 +33,10 @@ export class HousingsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.housings$ = this.store.select(HousingSelectors.selectAll);
+    this.loading$ = this.store.select(HousingSelectors.selectLoading);
     this.totalRecords$ = this.store.select(HousingSelectors.selectTotalRecords);
-    this.refreshList();
 
+    this.loadData();
   }
 
   ngOnDestroy(): void {
@@ -40,16 +45,22 @@ export class HousingsComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackById(index: number, item: Housing): string {
+  trackById(index: number, item: Housing): number {
     return item.id;
   }
 
+  private loadData() {
+    this.refreshList();
+  }
+
+  onPaginatorChange(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.paginationQuery = { ...this.paginationQuery, page: event.pageIndex, size: event.pageSize };
+    this.refreshList();
+  }
+
   refreshList() {
-    let currentPage = this.page - 1;
-    if (currentPage < 0) {
-      currentPage = 0;
-    }
-    this.paginationQuery = { ...this.paginationQuery, page: currentPage, size: this.pageSize };
+    this.paginationQuery = { ...this.paginationQuery, size: this.pageSize };
     this.store.dispatch(HousingPageActions.loadAll({ params: this.paginationQuery }));
   }
 }

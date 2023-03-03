@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { ApiOneResponse, ApiPaginatedResponse } from '../models/api-response.interface';
 import { Contract } from '../models/contract.model';
 import { PaginationQuery } from '../requests/pagination.query';
-import { pagination } from 'src/environments/environment';
+import {environment, pagination} from 'src/environments/environment';
 import { ExpiryNotice } from '../models/expiry-notice.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-  basePath: string = 'api/v1/contrats';
+  basePath: string = environment.apiUrl + 'api/v1/contrats';
 
   constructor(private http: HttpClient) { }
 
@@ -37,5 +37,9 @@ export class ContractService {
         ...(params?.query || {})
       }
     });
+  }
+
+  create(data: any): Observable<Contract> {
+    return this.http.post<any>(this.basePath, data);
   }
 }

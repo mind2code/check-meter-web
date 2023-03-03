@@ -17,5 +17,6 @@ export const GenderApiActions = createActionGroup({
   source: 'Genders API',
   events: {
     'Load All Success': props<{ items: Gender[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });

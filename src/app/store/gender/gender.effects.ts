@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { GenderService } from '../../shared/services/gender.service';
 import { GenderApiActions, GenderPageActions } from './gender.actions';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class GenderEffects {
   constructor(
     private actions$: Actions,
-    private service: GenderService
+    private service: GenderService,
+    private toastr: ToastrService,
   ) {}
 
   loadAll$ = createEffect(() => this.actions$.pipe(
@@ -20,11 +22,14 @@ export class GenderEffects {
     mergeMap(({ params }) => this.service.getAll(params)
       .pipe(
         map(({ data, currentPage, recordsTotal }) => {
-          return GenderApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal })
+          return GenderApiActions.loadAllSuccess({ items: data, page: currentPage, total: recordsTotal });
         }),
         catchError((error) =>
-          of(error).pipe(
-            tap((err) => console.error('**** loadAllFailed', err)),
+          of(GenderApiActions.loadFailed({ error })).pipe(
+            tap((err) => {
+              console.error('**** [Gender loadAllFailed]', err);
+              this.toastr.error(`Une erreur est suvernue lors du chargement des genres.`);
+            }),
           ),
         ),
       )

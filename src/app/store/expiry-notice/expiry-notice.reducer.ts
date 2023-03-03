@@ -6,9 +6,10 @@ import { ExpiryNoticeApiActions, ExpiryNoticePageActions } from './expiry-notice
 export const featureName = 'expiryNotices';
 
 export interface State extends EntityState<ExpiryNotice> {
-  selectedId: string | null,
-  currentPage: number,
-  totalRecords: number,
+  selectedId: string | null;
+  currentPage: number;
+  totalRecords: number;
+  loading: boolean;
 }
 
 export const adapter: EntityAdapter<ExpiryNotice> = createEntityAdapter<ExpiryNotice>();
@@ -17,6 +18,7 @@ export const initialState: State = adapter.getInitialState({
   selectedId: null,
   currentPage: 0,
   totalRecords: 0,
+  loading: false,
 });
 
 export const expiryNoticesFeature = createFeature({
@@ -24,6 +26,11 @@ export const expiryNoticesFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(ExpiryNoticePageActions.selectOne, (state, { id }) => ({ ...state, selectedId: id })),
+
+    on(
+      ExpiryNoticePageActions.loadAll,
+      (state) => ({ ...state, loading: true })
+    ),
     on(ExpiryNoticeApiActions.loadAllSuccess, (state, { items, page, total }) => {
       return adapter.setAll(
         items ?? [],
@@ -35,14 +42,13 @@ export const expiryNoticesFeature = createFeature({
         }
       );
     }),
-    on(ExpiryNoticePageActions.clear, (state) => ({
-      ...state,
-      currentPage: 0,
-      totalRecords: 0,
-      selectedId: null,
-      entities: {},
-      ids: [],
-    })),
+    on(
+      ExpiryNoticeApiActions.loadAllSuccess,
+      ExpiryNoticeApiActions.loadFailed,
+      (state) => ({ ...state, loading: false })
+    ),
+
+    on(ExpiryNoticePageActions.clear, (state) => initialState),
   ),
 });
 

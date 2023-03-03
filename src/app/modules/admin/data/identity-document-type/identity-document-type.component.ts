@@ -36,7 +36,7 @@ export class DataIdentityDocumentTypeComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackById(index: number, item: IdentityDocumentType): string {
+  trackById(index: number, item: IdentityDocumentType): number {
     return item.id;
   }
 

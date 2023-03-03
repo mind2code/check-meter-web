@@ -1,0 +1,81 @@
+<!--begin::Menu wrapper-->
+<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true"
+  data-kt-scroll-activate="true" data-kt-scroll-height="auto"
+  data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
+  data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+  <!--begin::Menu-->
+  <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true"
+    data-kt-menu-expand="false">
+    <!-- Dashboard -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/dashboard" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+        </span>
+        <span class="menu-title" translate="MENU.DASHBOARD"></span></a>
+    </div>
+
+    <!-- Separator -->
+    <div class="menu-item">
+      <div class="menu-content pt-8 pb-2">
+        <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ 'MENU.FEATURES'|translate }}</span>
+      </div>
+    </div>
+    <!-- Tenants -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/tenants" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/communication/com013.svg'" class="svg-icon svg-icon-2"></span>
+        </span>
+        <span class="menu-title">{{ 'MENU.TENANTS'|translate }}</span></a>
+    </div>
+
+    <!-- Housings -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/housings" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/maps/map008.svg'" class="svg-icon svg-icon-2"></span>
+        </span>
+        <span class="menu-title">{{ 'MENU.HOUSINGS'|translate }}</span></a>
+    </div>
+
+    <!-- Contracts -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/contracts" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm008.svg'" class="svg-icon svg-icon-2"></span>
+        </span>
+        <span class="menu-title">{{ 'MENU.CONTRACTS'|translate }}</span></a>
+    </div>
+
+    <!-- ExpiryNotices -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/expiry-notices" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/finance/fin007.svg'" class="svg-icon svg-icon-2"></span>
+        </span>
+        <span class="menu-title">{{ 'MENU.EXPIRY_NOTICES'|translate }}</span></a>
+    </div>
+
+    <!-- Separator -->
+    <div class="menu-item">
+      <div class="menu-content pt-8 pb-2">
+        <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ 'MENU.ADMIN'|translate }}</span>
+      </div>
+    </div>
+
+    <!-- Admin data -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/admin/data" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/abstract/abs027.svg'" class="svg-icon svg-icon-2"></span>
+        </span>
+        <span class="menu-title">{{ 'MENU.ADMIN_DATA'|translate }}</span></a>
+    </div>
+
+    <!-- Admin Settings -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/admin/settings" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/coding/cod009.svg'" class="svg-icon svg-icon-2"></span>
+        </span>
+        <span class="menu-title">{{ 'MENU.SETTINGS'|translate }}</span></a>
+    </div>
+
+  </div>
+  <!--end::Menu-->
+</div>
+<!--end::Menu wrapper-->

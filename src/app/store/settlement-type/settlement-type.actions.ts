@@ -17,5 +17,6 @@ export const SettlementTypeApiActions = createActionGroup({
   source: 'SettlementTypes API',
   events: {
     'Load All Success': props<{ items: SettlementType[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });

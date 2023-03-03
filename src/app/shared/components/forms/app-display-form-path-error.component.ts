@@ -4,7 +4,9 @@ import { AbstractControl, ɵGetProperty } from '@angular/forms';
 @Component({
   selector: 'app-display-form-path-error',
   template: `
-    <div class="fv-plugins-message-container invalid-feedback" *ngIf="pathControl?.invalid && pathControl?.dirty"
+    <div
+      class="fv-plugins-message-container invalid-feedback"
+      *ngIf="(pathControl?.touched || pathControl?.dirty) && pathControl?.invalid"
     >
     {{ getError(pathControl?.errors) }}
     </div>

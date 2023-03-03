@@ -17,5 +17,6 @@ export const StatusApiActions = createActionGroup({
   source: 'Statutes API',
   events: {
     'Load All Success': props<{ items: Status[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });

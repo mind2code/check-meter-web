@@ -1,0 +1,88 @@
+.vw {
+  &-75 {
+    width: 75vw !important;
+  }
+  &-50 {
+    width: 50vw !important;
+  }
+  &-25 {
+    width: 25vw !important;
+  }
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .vw#{$infix} {
+      &-100 {
+        width: 100vw !important;
+      }
+      &-75 {
+        width: 75vw !important;
+      }
+      &-50 {
+        width: 50vw !important;
+      }
+      &-35 {
+        width: 35vw !important;
+      }
+      &-25 {
+        width: 25vw !important;
+      }
+    }
+
+    .vh#{$infix} {
+      &-100 {
+        height: 100vh !important;
+      }
+      &-75 {
+        height: 75vh !important;
+      }
+      &-60 {
+        height: 60vh !important;
+      }
+      &-50 {
+        height: 50vh !important;
+      }
+      &-40 {
+        height: 40vh !important;
+      }
+      &-35 {
+        height: 35vh !important;
+      }
+      &-30 {
+        height: 30vh !important;
+      }
+      &-25 {
+        height: 25vh !important;
+      }
+      &-20 {
+        height: 20vh !important;
+      }
+    }
+  }
+}
+
+
+@include media-breakpoint-down(sm) {
+  .vw {
+    &-100 {
+      width: 100vw !important;
+    }
+    &-75 {
+      width: 75vw !important;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .vw {
+    &-100 {
+      width: 100vw !important;
+    }
+    &-75 {
+      width: 75vw !important;
+    }
+  }
+}

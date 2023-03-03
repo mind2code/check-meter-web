@@ -1,14 +1,12 @@
-import { Person } from './person.model';
-
 /**
  * fr => Type de pièce d'identité
  */
 export interface IdentityDocumentType {
-  id: string;
+  id: number;
   identifiant: string;
   libelle: string;
   description: string;
-  enabled: boolean;
+  estActif: boolean;
 }
 
 /**
@@ -22,6 +20,5 @@ export interface IdentityDocument {
   dateDelivrance: Date;
   dateExpiration: Date;
   estActif: boolean;
-  person?: Person;
   typePieceIdentite?: IdentityDocumentType;
 }

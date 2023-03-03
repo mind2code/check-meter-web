@@ -1,6 +1,5 @@
 
 <div class="card card-custom">
-  <!-- begin::Header -->
   <div class="card-header card-header-stretch overflow-auto">
     <ul class="
         nav nav-stretch nav-line-tabs
@@ -23,63 +22,47 @@
       </li>
     </ul>
   </div>
-  <!-- end::Header -->
-  <!-- begin::Body -->
+
   <div class="card-body p-0 pt-1">
     <div class="tab-content bg-light pt-4">
 
-      <!-- begin::overview -->
       <div class="tab-pane" [ngClass]="{ active: activeTab === 'overview' }">
-        <!-- begin::Row -->
         <div class="row g-2 g-xl-4">
-          <!-- begin::Col -->
           <div class="col-xl-4 col-md-6">
             <app-data-status class="card card-xl-stretch mb-xl-4"></app-data-status>
           </div>
-          <!-- end::Col -->
-
-          <!-- begin::Col -->
           <div class="col-xl-4 col-md-6">
             <app-data-settlement-type class="card card-xl-stretch mb-xl-4"></app-data-settlement-type>
           </div>
-          <!-- end::Col -->
-
-          <!-- begin::Col -->
           <div class="col-xl-4 col-md-6">
             <app-data-housing-type class="card card-xl-stretch mb-xl-4"></app-data-housing-type>
           </div>
-          <!-- end::Col -->
         </div>
-        <!-- end::Row -->
       </div>
-      <!-- end::overview -->
 
-      <!-- begin::person -->
       <div class="tab-pane" [ngClass]="{ active: activeTab === 'person' }">
-        <!-- begin::Row -->
         <div class="row g-2 g-xl-4">
-          <!-- begin::Col -->
+          <div class="col-xl-4 col-md-6">
+            <app-data-person-type class="card card-xl-stretch mb-xl-4"></app-data-person-type>
+          </div>
           <div class="col-xl-4 col-md-6">
             <app-data-identity-document-type class="card card-xl-stretch mb-xl-4"></app-data-identity-document-type>
           </div>
-          <!-- end::Col -->
-
-          <!-- begin::Col -->
           <div class="col-xl-4 col-md-6">
             <app-data-marital-situation class="card card-xl-stretch mb-xl-4"></app-data-marital-situation>
           </div>
-          <!-- end::Col -->
-
-          <!-- begin::Col -->
           <div class="col-xl-4 col-md-6">
             <app-data-civility class="card card-xl-stretch mb-xl-4"></app-data-civility>
           </div>
-          <!-- end::Col -->
+          <div class="col-xl-4 col-md-6">
+            <app-data-gender class="card card-xl-stretch mb-xl-4"></app-data-gender>
+          </div>
+          <div class="col-xl-4 col-md-6">
+            <app-data-country class="card card-xl-stretch mb-xl-4"></app-data-country>
+          </div>
         </div>
-        <!-- end::Row -->
       </div>
-      <!-- end::person -->
+
     </div>
   </div>
-    <!-- end::Body -->
 </div>

@@ -17,5 +17,6 @@ export const CivilityApiActions = createActionGroup({
   source: 'Civilities API',
   events: {
     'Load All Success': props<{ items: Civility[], total: number, page: number }>(),
+    'Load Failed': props<{ error: any }>(),
   }
 });

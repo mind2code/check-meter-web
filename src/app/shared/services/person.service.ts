@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Person } from '../models/person.model';
 import { PaginationQuery } from '../requests/pagination.query';
-import { pagination } from 'src/environments/environment';
-import { ApiPaginatedResponse } from '../models/api-response.interface';
+import {environment, pagination} from 'src/environments/environment';
+import { ApiOneResponse, ApiPaginatedResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
-  basePath: string = 'api/v1/personnes';
+  basePath: string = environment.apiUrl + 'api/v1/personnes';
 
   constructor(private http: HttpClient) { }
 
@@ -22,5 +22,13 @@ export class PersonService {
         ...(params?.query || {})
       }
     });
+  }
+
+  getOneById(id: string): Observable<Person> {
+    return this.http.get<any>(this.basePath + '/' + String(id));
+  }
+
+  create(data: any): Observable<Person> {
+    return this.http.post<any>(this.basePath, data);
   }
 }

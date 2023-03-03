@@ -23,13 +23,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": true,
+            "localize": false,
             "outputPath": "dist/monloyer",
             "allowedCommonJsDependencies": [
               "object-path",
               "apexcharts",
               "clipboard.js",
-              "prismjs"
+              "prismjs",
+              "joi"
             ],
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -86,7 +87,7 @@
           "configurations": {
             "production": {
               "browserTarget": "monloyer:build:production",
-              "proxyConfig": "src/proxy-prod.conf.json"
+              "proxyConfig": ""
             },
             "development": {
               "browserTarget": "monloyer:build:development",

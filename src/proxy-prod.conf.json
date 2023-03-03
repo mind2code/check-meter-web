@@ -1,11 +1,11 @@
 {
   "/api/*": {
-    "target" : "http://5.182.33.229:8002/api",
+    "target" : "http://api.monloyer.cloud/api",
     "secure": false,
     "pathRewrite": {
       "^/api": ""
     },
-    "changeOrigin": false,
+    "changeOrigin": true,
     "logLevel": "info"
   }
 }

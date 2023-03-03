@@ -1,0 +1,189 @@
+<div class="card">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="on">
+    <fieldset [disabled]="creating$|ngrxPush">
+      <div class="card-body p-4">
+        <div class="row g-2">
+          <div class="col-lg-6">
+            <div class="h-100 w-100 px-2 py-1 border rounded border-gray-300">
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="personneId">
+                  {{ 'CONTRACT.RELATIONSHIP.personne'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <select id="personneId" formControlName="personneId"
+                    class="form-select form-select-solid" appFormPathFallback required
+                  >
+                    <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
+                    <ng-container *ngrxLet="persons$ as persons">
+                      <option *ngFor="let person of persons" [value]="person.id">
+                        <ng-container *ngIf="person.identifiant">
+                          [{{ person.identifiant }}]
+                        </ng-container>
+                        {{ person.nomComplet || (person.nom + ' ' + person.prenoms) }}
+                      </option>
+                    </ng-container>
+                  </select>
+                  <app-display-form-path-error [pathControl]="form.get('personneId')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6" for="habitationId">
+                  {{ 'CONTRACT.RELATIONSHIP.habitation'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <select id="habitationId" formControlName="habitationId"
+                    class="form-select form-select-solid" appFormPathFallback required
+                  >
+                    <option [value]="''">{{ 'LABEL.SELECT_OPTION'|translate }}</option>
+                    <ng-container *ngrxLet="housings$ as housings">
+                      <option *ngFor="let housing of housings" [value]="housing.id">
+                        <ng-container *ngIf="housing.localisation || housing.description">
+                          [{{ housing.localisation }} - {{ housing.description }} ]
+                        </ng-container>
+                        {{ housing.identifiant }}
+                      </option>
+                    </ng-container>
+                  </select>
+                  <app-display-form-path-error [pathControl]="form.get('habitationId')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="haveLeaseNumber">
+                  {{ 'CONTRACT.LABEL.HAVE_LEASE_NUMBER'|translate }}
+                </label>
+                <div class="col-lg-8 d-flex align-items-center">
+                  <div class="form-check form-switch fv-row">
+                    <input type="checkbox" id="haveLeaseNumber" formControlName="haveLeaseNumber"
+                      class="form-check-input cursor-pointer w-45px h-30px" role="switch"
+                    />
+                    <label class="form-check-label" for="haveLeaseNumber"></label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4" *ngIf="form.get('haveLeaseNumber')?.value === true">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="numeroExterneBail">
+                  {{ 'CONTRACT.FIELD.numeroExterneBail'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="text" name="numeroExterneBail" id="numeroExterneBail" formControlName="numeroExterneBail"
+                    class="form-control form-control-solid" appFormPathFallback
+                  />
+                  <app-display-form-path-error [pathControl]="form.get('numeroExterneBail')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="dateSignatureContrat">
+                  {{ 'CONTRACT.FIELD.dateSignatureContrat'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="date" id="dateSignatureContrat" formControlName="dateSignatureContrat"
+                    class="form-control form-control-solid"
+                  />
+                  <app-display-form-path-error [pathControl]="form.get('dateSignatureContrat')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="dateDebutContrat">
+                  {{ 'CONTRACT.FIELD.dateDebutContrat'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="date" id="dateDebutContrat" formControlName="dateDebutContrat"
+                    class="form-control form-control-solid"
+                  />
+                  <app-display-form-path-error [pathControl]="form.get('dateDebutContrat')"></app-display-form-path-error>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="h-100 w-100 px-2 py-1 border rounded border-yellow-200">
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="montantCaution">
+                  {{ 'CONTRACT.FIELD.montantCaution'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="number" id="montantCaution" formControlName="montantCaution"
+                    class="form-control form-control-solid"
+                  />
+                  <app-display-form-path-error [pathControl]="form.get('montantCaution')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="montantAvance">
+                  {{ 'CONTRACT.FIELD.montantAvance'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="number" id="montantAvance" formControlName="montantAvance"
+                    class="form-control form-control-solid"
+                  />
+                  <app-display-form-path-error [pathControl]="form.get('montantAvance')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="montantPasDePorte">
+                  {{ 'CONTRACT.FIELD.montantPasDePorte'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <input type="number" id="montantPasDePorte" formControlName="montantPasDePorte"
+                    class="form-control form-control-solid"
+                  />
+                  <app-display-form-path-error [pathControl]="form.get('montantPasDePorte')"></app-display-form-path-error>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6">
+                  {{ 'LABEL.NOTIFICATION'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <div class="d-flex align-items-center mt-3">
+                    <label class="form-check form-check-inline form-check-solid me-5">
+                      <input type="checkbox" class="form-check-input" formControlName="envoiEmail" />
+                      <span class="fw-bold ps-2 fs-6">{{ 'LABEL.EMAIL'|translate }}</span>
+                    </label>
+                    <label class="form-check form-check-inline form-check-solid">
+                      <input type="checkbox" class="form-check-input" formControlName="envoiSms" />
+                      <span class="fw-bold ps-2 fs-6">{{ 'LABEL.SMS'|translate }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-lg-4 col-form-label fw-bold fs-6" for="observation">
+                  {{ 'CONTRACT.FIELD.observation'|translate }}
+                </label>
+                <div class="col-lg-8 fv-row">
+                  <textarea id="observation" formControlName="observation"
+                    class="form-control form-control-solid no-resize" rows="3"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-end py-2 px-4">
+        <a
+          class="btn btn-light btn-active-light-primary border border-gray-500 me-2"
+          routerLink="/contracts"
+        >
+          <span
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr014.svg'"
+            class="svg-icon svg-icon-2"
+          ></span>
+          {{ 'LABEL.CANCEL'|translate }}
+        </a>
+        <button class="btn btn-primary d-flex align-items-center" type="submit" [disabled]="!form.valid">
+          <span
+            *ngIf="!(creating$|ngrxPush)"
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/save-fill.svg'"
+            class="svg-icon svg-icon-2"
+          ></span>
+          <app-progress-spinner *ngIf="creating$|ngrxPush"  role="status" aria-hidden="true" [displayMessage]="false"></app-progress-spinner>
+          {{ 'LABEL.SAVE'|translate }}
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>

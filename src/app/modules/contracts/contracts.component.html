@@ -1,85 +1,91 @@
-<!--begin::Card-->
 <div class="card">
-  <!--begin::Card header-->
-  <div class="card-header border-0 pt-6">
-    <!--begin::Card title-->
+  <div class="card-header border-0 pt-4">
     <div class="card-title">
-      <!--begin::Search-->
       <div class="d-flex align-items-center position-relative my-1">
-        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
         <span
           [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
           class="svg-icon svg-icon-1 position-absolute ms-6"
         ></span>
-        <!--end::Svg Icon-->
         <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-15" [placeholder]="'LABEL.SEARCH'|translate" />
       </div>
-      <!--end::Search-->
     </div>
-    <!--begin::Card title-->
-    <!--begin::Card toolbar-->
     <div class="card-toolbar">
-      <!--begin::Toolbar-->
       <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-
-        <!--begin::Add customer-->
         <a class="btn btn-sm btn-primary" routerLink="/contracts/create">
           <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr013.svg'" class="svg-icon svg-icon-2"></span>
           {{ 'LABEL.NEW'|translate }}
         </a>
-        <!--end::Add customer-->
       </div>
-      <!--end::Toolbar-->
     </div>
-    <!--end::Card toolbar-->
   </div>
-  <!--end::Card header-->
-  <!--begin::Card body-->
   <div class="card-body pt-0">
-    <ng-container *ngrxLet="contracts$ as contracts">
-      <div class="table-responsive">
-        <!--begin::Table-->
-        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-          <!--begin::Table head-->
-          <thead>
-          <!--begin::Table row-->
-          <tr class="text-start bg-light text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-            <th class="min-w-125px">{{ 'CONTRACT.FIELD.identifiant'|translate }}</th>
-            <th class="min-w-125px">{{ 'CONTRACT.FIELD.numeroExterneBail'|translate }}</th>
-            <th class="min-w-125px">{{ 'CONTRACT.FIELD.solde'|translate }}</th>
-            <th class="min-w-125px">{{ 'CONTRACT.FIELD.dateDebutContrat'|translate }}</th>
-            <th class="min-w-125px">{{ 'CONTRACT.FIELD.dateFinContrat'|translate }}</th>
-            <th class="min-w-125px">{{ 'CONTRACT.RELATIONSHIP.personne'|translate }}</th>
-            <th class="min-w-125px">{{ 'CONTRACT.RELATIONSHIP.habitation'|translate }}</th>
-            <th class="text-end min-w-70px">{{ 'LABEL.ACTIONS'|translate }}</th>
-          </tr>
-          <!--end::Table row-->
-          </thead>
-          <!--end::Table head-->
-          <!--begin::Table body-->
-          <tbody class="fw-semibold text-gray-600" >
-            <tr *ngFor="let contract of contracts; let i=index; trackBy: trackById">
-            <td>{{ contract.identifiant}}</td>
-            <td>
-              <span class="badge badge-light-primary">{{ contract.numeroExterneBail }}</span>
-            </td>
-            <td>{{ contract.solde|currency }}</td>
-            <td>{{ contract.dateDebutContrat|date }}</td>
-            <td>{{ contract.dateFinContrat|date }}</td>
-            <td>{{ contract.personne?.nomComplet }}</td>
-            <td>
-              <ng-container *ngIf="contract.habitation">
-                <span [ngbTooltip]="contract.habitation.description + ' [' + contract.habitation.localisation + ']'">
-                  <span class="badge badge-info">{{ contract.habitation.typeHabitation?.libelle }}</span>
-                  {{ contract.habitation.identifiant }}
-                </span>
-              </ng-container>
-            </td>
-            <!--begin::Action=-->
-            <td class="text-end">
+    <div class="table-responsive table-loading">
+      <div class="table-loading-message" *ngIf="loading$|ngrxPush">
+        <app-progress-spinner></app-progress-spinner>
+      </div>
+      <table mat-table [dataSource]="contracts$" [trackBy]="trackById"
+        class="table align-middle table-row-bordered table-hover fs-6 gy-2 gx-1"
+      >
+        <ng-container matColumnDef="identifiant">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'CONTRACT.FIELD.identifiant'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.identifiant }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="numeroExterneBail">
+          <th mat-header-cell *matHeaderCellDef>{{ 'CONTRACT.FIELD.numeroExterneBail'|translate }}</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="badge badge-light-primary">{{ row.numeroExterneBail }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="solde">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'CONTRACT.FIELD.solde'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.solde|currency }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateDebutContrat">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'CONTRACT.FIELD.dateDebutContrat'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.dateDebutContrat|date }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateFinContrat">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'CONTRACT.FIELD.dateFinContrat'|translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.dateFinContrat|date }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="personne">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'CONTRACT.RELATIONSHIP.personne'|translate }}</th>
+          <td mat-cell *matCellDef="let row">
+            <ng-container *ngIf="row.personne as person">
+              <span *ngIf="person.identifiant" class="badge badge-secondary me-1" [ngbTooltip]="'PERSON.FIELD.identifiant'|translate">
+                {{ person.identifiant }}
+              </span>
+              <span [ngbTooltip]="'PERSON.FIELD.nomComplet'|translate">
+                {{ person.nomComplet || (person.nom + ' ' + person.prenoms) }}
+              </span>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="habitation">
+          <th mat-header-cell *matHeaderCellDef class="min-w-100px">{{ 'CONTRACT.RELATIONSHIP.habitation'|translate }}</th>
+          <td mat-cell *matCellDef="let row">
+            <ng-container *ngIf="row.habitation as housing">
+              <span [ngbTooltip]="housing.description + ' [' + housing.localisation + ']'">
+                <span class="badge badge-info">{{ housing.typeHabitation?.libelle }}</span>
+                {{ housing.identifiant }}
+              </span>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="min-w-80px text-end">{{ 'LABEL.ACTIONS'|translate }}</th>
+          <td mat-cell *matCellDef="let row" class="text-end">
+            <div class="d-flex flex-nowrap justify-content-end">
               <a
                 class="btn btn-icon btn-light-primary btn-sm me-1"
-                routerLink="/contracts/{{ contract.id }}/view"
+                routerLink="/contracts/{{ row.id }}/view"
                 ngbTooltip="{{ 'LABEL.DETAILS'|translate }}"
               >
                 <span
@@ -89,7 +95,7 @@
               </a>
               <a
                 class="btn btn-icon btn-light-success btn-sm me-1"
-                routerLink="/contracts/{{ contract.id }}/edit"
+                routerLink="/contracts/{{ row.id }}/edit"
                 ngbTooltip="{{ 'LABEL.EDIT'|translate }}"
               >
                 <span
@@ -97,27 +103,23 @@
                   class="svg-icon svg-icon-2"
                 ></span>
               </a>
-            </td>
-            <!--end::Action=-->
-          </tr>
-          </tbody>
-          <!--end::Table body-->
-        </table>
-        <!--end::Table-->
-      </div>
-      <div class="d-flex justify-content-between">
-        <ngb-pagination
-          [collectionSize]="(totalRecords$|ngrxPush)||0"
-          [(page)]="page"
-          [pageSize]="pageSize"
-          [rotate]="true"
-          [ellipses]="false"
-          [boundaryLinks]="true"
-          (pageChange)="refreshList()"
-        >
-        </ngb-pagination>
-      </div>
-    </ng-container>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row *matHeaderRowDef="displayedColumns"
+          class="text-start bg-light text-gray-600 fw-bold fs-7 text-uppercase"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator
+      (page)="onPaginatorChange($event)"
+      [pageSize]="pageSize" [pageSizeOptions]="pageSizes"
+      [length]="(totalRecords$|ngrxPush)||0"
+      [showFirstLastButtons]="true" [attr.aria-label]="'PAGINATOR.LABEL.ARIA'|translate"
+    ></mat-paginator>
   </div>
-  <!--end::Card body-->
 </div>
