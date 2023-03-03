@@ -5,6 +5,7 @@ import * as HousingSelectors from 'src/app/store/housing/housing.selectors';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { Housing } from 'src/app/shared/models/housing.model';
 import { MapOptions, latLng, marker, tileLayer } from 'leaflet';
+import { leafletHousingIcon } from 'src/app/shared/helpers/leaflet';
 
 type Tabs = 'overview' | 'map';
 
@@ -66,7 +67,10 @@ export class HousingViewComponent implements OnInit, OnDestroy {
 
     if (!(isNaN(lat) || isNaN(lng))) {
       const coordinates = latLng(lat, lng);
-      const mapMarker = marker(coordinates,);
+      const mapMarker = marker(coordinates, {
+        title: housing.localisation,
+        icon: leafletHousingIcon()
+      });
       this.mapOptions.layers?.push(mapMarker);
       this.mapOptions.center = coordinates;
     }
