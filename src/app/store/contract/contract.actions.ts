@@ -10,7 +10,7 @@ export const ContractPageActions = createActionGroup({
     'Load All': props<{ params?: PaginationQuery }>(),
     'Pagination Change': props<{ params?: PaginationQuery }>(),
     'Query Change': props<{ params?: PaginationQuery }>(),
-    'Select One': props<{ id: string }>(),
+    'Select One': props<{ id: string|null }>(),
     'Load One': props<{ id: string }>(),
     'Load One From Router': props<{ paramName: string }>(),
     'Clear': emptyProps(),
