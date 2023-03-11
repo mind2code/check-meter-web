@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContractsComponent } from './contracts.component';
 import { ContractCreateComponent } from './create/create.component';
 import { ContractEditComponent } from './edit/edit.component';
-import { ContractViewComponent } from './view/view.component';
 
 const routes: Routes = [
   {
@@ -17,10 +16,6 @@ const routes: Routes = [
   {
     path: ':contractId/edit',
     component: ContractEditComponent,
-  },
-  {
-    path: ':contractId/view',
-    component: ContractViewComponent,
   },
 ];
 

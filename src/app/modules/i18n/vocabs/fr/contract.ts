@@ -4,6 +4,7 @@ export default {
       SINGLE: 'Contrat',
       PLURAL: 'Contrats',
       HAVE_LEASE_NUMBER: `J'ai déjà un numéro de bail`,
+      ITEM_DETAILS: `Détails du contract {{reference}}`,
     },
     FIELD: {
       identifiant: 'Identifiant',

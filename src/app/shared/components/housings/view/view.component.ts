@@ -73,11 +73,4 @@ export class HousingViewComponent implements OnInit, OnDestroy {
       this.mapOptions.zoom = 11;
     }
   }
-
-  openCollision(map : L.Map){
-    setTimeout(function() {
-      console.log('**** HousingViewComponent loading'); // TODO: Remove
-      map.invalidateSize();
-    }, 10);
-  }
 }

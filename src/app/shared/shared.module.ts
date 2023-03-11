@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ExpiryNoticeMakePaymentComponent } from './components/expiry-notices/make-payment/make-payment.component';
 import { ExpiryNoticeViewComponent } from './components/expiry-notices/view/view.component';
 import { HousingViewComponent } from './components/housings/view/view.component';
+import { ContractViewComponent } from './components/contracts/view/view.component';
 import { LetModule, PushModule } from '@ngrx/component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg-2';
@@ -25,6 +26,7 @@ const declarations = [
   ExpiryNoticeMakePaymentComponent,
   ExpiryNoticeViewComponent,
   HousingViewComponent,
+  ContractViewComponent,
 ];
 
 @NgModule({

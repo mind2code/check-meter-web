@@ -7,6 +7,8 @@ import { Contract } from 'src/app/shared/models/contract.model';
 import { ContractPageActions } from 'src/app/store/contract/contract.actions';
 import * as ContractSelectors from 'src/app/store/contract/contract.selectors';
 import { PageEvent } from '@angular/material/paginator';
+import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
+import { ContractViewComponent } from 'src/app/shared/components/contracts/view/view.component';
 
 @Component({
   selector: 'app-contracts',
@@ -25,10 +27,12 @@ export class ContractsComponent implements OnInit, OnDestroy {
   pageSize: number = pagination.perPage ?? 25;
   paginationQuery: PaginationQuery = {};
 
+  bsOffcanvasRef: NgbOffcanvasRef;
   subscriptions: Record<string, Subscription> = {};
 
   constructor(
     private store: Store,
+    private bsOffcanvasService: NgbOffcanvas,
   ) {}
 
   ngOnInit(): void {
@@ -62,5 +66,24 @@ export class ContractsComponent implements OnInit, OnDestroy {
   refreshList() {
     this.paginationQuery = { ...this.paginationQuery, size: this.pageSize };
     this.store.dispatch(ContractPageActions.loadAll({ params: this.paginationQuery }));
+  }
+
+  showDetails(id: string) {
+    this.selectOneById(id);
+    this.bsOffcanvasRef = this.bsOffcanvasService.open(ContractViewComponent, {
+      position: 'end',
+      panelClass: 'vw-lg-50 vw-md-100 vw-sm-100',
+    });
+    this.bsOffcanvasRef.result.then((reason) => {
+      //
+    }).catch(() => {
+      //
+    }).finally(() => {
+      this.selectOneById(null);
+    });
+  }
+
+  private selectOneById(id: string|null) {
+    this.store.dispatch(ContractPageActions.selectOne({ id: id }));
   }
 }
