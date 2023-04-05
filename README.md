@@ -1,10 +1,13 @@
-# Mon Loyer 1.0
+# Check Meters 1.0
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.x.x.
+Portail de vérification des enregistrements et de suivie des compteurs
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Le projet contient un fichier proxy dans lequel il faut préciser l'alias des services backend (API). 
+Le fichier envionnement.ts contient une section de configuration de l'adresse de keycloak.
+
 
 ## Code scaffolding
 
@@ -12,7 +15,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
