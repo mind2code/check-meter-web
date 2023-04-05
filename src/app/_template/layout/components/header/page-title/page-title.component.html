@@ -6,7 +6,6 @@
     <ng-container *ngIf="appPageTitleDescription">
       <ng-container *ngIf="description$ | async as description">
 
-
         <!--begin::Description-->
         <span class="page-desc text-muted fs-7 fw-semibold" [ngClass]="{'pt-2': appPageTitleDirection === 'column'}">
           <ng-container *ngIf="appPageTitleDirection === 'row'">

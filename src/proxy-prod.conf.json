@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target" : "http://api.monloyer.cloud/api",
+    "target" : "http://10.10.158.55:8062/api",
     "secure": false,
     "pathRewrite": {
       "^/api": ""

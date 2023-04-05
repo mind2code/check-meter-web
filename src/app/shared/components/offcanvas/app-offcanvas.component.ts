@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-offfcanvas',
+  selector: 'app-offcanvas',
   template: `
     <div class="bg-body">
       <div class="card w-100 rounded-0">

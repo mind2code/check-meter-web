@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "monloyer": {
+    "smartcollector": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "localize": false,
-            "outputPath": "dist/monloyer",
+            "outputPath": "dist/smartcollector",
             "allowedCommonJsDependencies": [
               "object-path",
               "apexcharts",
@@ -89,11 +89,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "monloyer:build:production",
+              "browserTarget": "smartcollector:build:production",
               "proxyConfig": ""
             },
             "development": {
-              "browserTarget": "monloyer:build:development",
+              "browserTarget": "smartcollector:build:development",
               "proxyConfig": "src/proxy.conf.json"
             }
           },
@@ -102,7 +102,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "monloyer:build"
+            "browserTarget": "smartcollector:build"
           }
         },
         "test": {
@@ -135,7 +135,7 @@
       }
     }
   },
-  "defaultProject": "monloyer",
+  "defaultProject": "smartcollector",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics",
     "analytics": "619ff123-1de7-4247-8c42-2c42c8169d8f"

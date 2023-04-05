@@ -1,4 +1,3 @@
-import { Person } from './person.model';
 
 export interface ApiPaginatedResponse<T> {
   currentPage: number;
@@ -6,13 +5,6 @@ export interface ApiPaginatedResponse<T> {
   data: T[];
 }
 
-export interface TenantApiOneResponse {
-  error_message: string;
-  statut: boolean;
-  data: {
-    personne: Person;
-  };
-}
 
 export interface ApiOneResponse<T> {
   error_message: string;

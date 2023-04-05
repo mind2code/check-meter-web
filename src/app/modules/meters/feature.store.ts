@@ -4,7 +4,7 @@ import { metersFeature } from 'src/app/store/meters/meters.reducer';
 import { MetersEffects } from 'src/app/store/meters/meters.effects';
 
 export const storeFeatureModules = [
-  StoreModule.forFeature(metersFeature),
+  StoreModule.forFeature(metersFeature)
 ];
 
 export const effectsFeatureModules = [
@@ -12,5 +12,3 @@ export const effectsFeatureModules = [
     MetersEffects
   ]),
 ];
-
-export const featureModules = [...storeFeatureModules, effectsFeatureModules];
